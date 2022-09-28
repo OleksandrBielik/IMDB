@@ -1,109 +1,66 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a
-        href="https://cli.vuejs.org"
-        target="_blank"
-        rel="noopener"
-      >vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel"
-          target="_blank"
-          rel="noopener"
-        >babel</a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint"
-          target="_blank"
-          rel="noopener"
-        >eslint</a>
-      </li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li>
-        <a
-          href="https://vuejs.org"
-          target="_blank"
-          rel="noopener"
-        >Core Docs</a>
-      </li>
-      <li>
-        <a
-          href="https://forum.vuejs.org"
-          target="_blank"
-          rel="noopener"
-        >Forum</a>
-      </li>
-      <li>
-        <a
-          href="https://chat.vuejs.org"
-          target="_blank"
-          rel="noopener"
-        >Community Chat</a>
-      </li>
-      <li>
-        <a
-          href="https://twitter.com/vuejs"
-          target="_blank"
-          rel="noopener"
-        >Twitter</a>
-      </li>
-      <li>
-        <a
-          href="https://news.vuejs.org"
-          target="_blank"
-          rel="noopener"
-        >News</a>
-      </li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li>
-        <a
-          href="https://router.vuejs.org"
-          target="_blank"
-          rel="noopener"
-        >vue-router</a>
-      </li>
-      <li>
-        <a
-          href="https://vuex.vuejs.org"
-          target="_blank"
-          rel="noopener"
-        >vuex</a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-devtools#vue-devtools"
-          target="_blank"
-          rel="noopener"
-        >vue-devtools</a>
-      </li>
-      <li>
-        <a
-          href="https://vue-loader.vuejs.org"
-          target="_blank"
-          rel="noopener"
-        >vue-loader</a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-          rel="noopener"
-        >awesome-vue</a>
-      </li>
-    </ul>
-  </div>
+  <header>
+    <div class="container">
+      <div class="wrapper">
+        <div class="burger-menu">
+          <svg
+            id="iconContext-menu"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            class="ipc-icon ipc-icon--menu"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            role="presentation"
+          ><path
+            fill="none"
+            d="M0 0h24v24H0V0z"
+          /><path d="M4 18h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zm0-5h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zM3 7c0 .55.45 1 1 1h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1z" /></svg>
+        </div>
+        <div class="logo">
+          IMDb
+        </div>
+        <form>
+          <input type="search">
+          <button type="submit">
+            <svg
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              width="17"
+              height="17"
+              viewBox="0 0 512 512"
+            >
+              <title />
+              <g id="icomoon-ignore" />
+              <path
+                fill="currentColor"
+                d="M496.131 435.698l-121.276-103.147c-12.537-11.283-25.945-16.463-36.776-15.963 28.628-33.534 45.921-77.039 45.921-124.588 0-106.039-85.961-192-192-192s-192 85.961-192 192 85.961 192 192 192c47.549 0 91.054-17.293 124.588-45.922-0.5 10.831 4.68 24.239 15.963 36.776l103.147 121.276c17.661 19.623 46.511 21.277 64.11 3.678s15.946-46.449-3.677-64.11zM192 320c-70.692 0-128-57.308-128-128s57.308-128 128-128 128 57.308 128 128-57.307 128-128 128z"
+              />
+            </svg>
+          </button>
+        </form>
+      </div>
+      <div class="wrapper">
+        <div class="search">
+          <svg
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            width="17"
+            height="17"
+            viewBox="0 0 512 512"
+          >
+            <title />
+            <g id="icomoon-ignore" />
+            <path
+              fill="currentColor"
+              d="M496.131 435.698l-121.276-103.147c-12.537-11.283-25.945-16.463-36.776-15.963 28.628-33.534 45.921-77.039 45.921-124.588 0-106.039-85.961-192-192-192s-192 85.961-192 192 85.961 192 192 192c47.549 0 91.054-17.293 124.588-45.922-0.5 10.831 4.68 24.239 15.963 36.776l103.147 121.276c17.661 19.623 46.511 21.277 64.11 3.678s15.946-46.449-3.677-64.11zM192 320c-70.692 0-128-57.308-128-128s57.308-128 128-128 128 57.308 128 128-57.307 128-128 128z"
+            />
+          </svg>
+        </div>
+        <div>Sign in</div>
+      </div>
+    </div>
+  </header>
 </template>
 
 <script>
@@ -114,25 +71,58 @@ export default {
   },
   mounted() {
     console.log(process.env.VUE_APP_BASE_URL)
-    this.$store.dispatch('search/onSearch', { page:1 })
+    this.$store.dispatch('search/onSearch', { page:2 })
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
+<style lang="scss" scoped>
+header {
+  padding: 10px 0;
+  background-color: black;
+  color: #fff;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+.search {
+  color: #fff;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+img {
+  fill: currentColor;
 }
-a {
-  color: #42b983;
+.logo {
+  background-color: #F5C518;
+  color: black;
+  font-size: 18px;
+  font-weight: 800;
+  padding: 5px;
+  border-radius: 5px;
+}
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.burger-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+}
+.search {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 20px;
+  @media (min-width:600px) {
+    display:none;
+  }
+}
+.container {
+  max-width: 1280px;
+  padding: 0 15px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>

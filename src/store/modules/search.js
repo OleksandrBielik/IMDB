@@ -12,11 +12,9 @@ export const search = {
     },
   },
   actions: {
-    onSearch({ commit }, { page }) {
-      return TMDBAPI.search(page)
-        .then(res => {
-          commit('setItems', res.data.results);
-        })
+    async onSearch({ commit }, { page }) {
+      const res = await TMDBAPI.search({ page })
+      commit('setItems', res.data.results)
     },
   },
   getters: {
