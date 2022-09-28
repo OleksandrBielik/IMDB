@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="container">
-      <div class="wrapper">
+      <div class="wrapper w-100">
         <div class="burger-menu">
           <svg
             id="iconContext-menu"
@@ -17,11 +17,21 @@
             d="M0 0h24v24H0V0z"
           /><path d="M4 18h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zm0-5h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zM3 7c0 .55.45 1 1 1h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1z" /></svg>
         </div>
-        <div class="logo">
+        <a
+          href="/"
+          class="logo"
+        >
           IMDb
-        </div>
-        <form>
-          <input type="search">
+        </a>
+        <form
+          class="form-main"
+          @submit.prevent="onSubmit"
+        >
+          <input
+            v-model="query"
+            type="search"
+            placeholder="Search IMDb"
+          >
           <button type="submit">
             <svg
               version="1.1"
@@ -41,7 +51,10 @@
         </form>
       </div>
       <div class="wrapper">
-        <div class="search">
+        <div
+          class="search"
+          @click.prevent="mobileSearch = true"
+        >
           <svg
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
@@ -57,31 +70,58 @@
             />
           </svg>
         </div>
-        <div>Sign in</div>
+        <div class="registration">
+          Sign in
+        </div>
       </div>
+      <form
+        v-if="mobileSearch"
+        class="form-mobile"
+        @submit.prevent="onSubmit"
+      >
+        <input
+          v-model="query"
+          type="search"
+          placeholder="Search IMDb"
+        >
+        <button
+          type="button"
+          @click.prevent="closeMobileSearch"
+        >
+          X
+        </button>
+      </form>
     </div>
   </header>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String,
+  name: 'AppHeader',
+  data() {
+    return {
+      query: '',
+      mobileSearch: false
+    }
   },
-  mounted() {
-    console.log(process.env.VUE_APP_BASE_URL)
-    this.$store.dispatch('search/onSearch', { page:2 })
+  methods: {
+    onSubmit() {
+      this.$store.dispatch('search/onSearch', { query: this.query })
+    },
+    closeMobileSearch() {
+      this.query = ''
+      this.mobileSearch = false
+    }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 header {
   padding: 10px 0;
   background-color: black;
   color: #fff;
+  position: relative;
 }
 .search {
   color: #fff;
@@ -90,16 +130,19 @@ img {
   fill: currentColor;
 }
 .logo {
+  display: block;
   background-color: #F5C518;
   color: black;
   font-size: 18px;
   font-weight: 800;
   padding: 5px;
   border-radius: 5px;
+  margin-right: 12px;
+  text-decoration: none;
 }
 .wrapper {
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   align-items: center;
 }
 .burger-menu {
@@ -113,9 +156,12 @@ img {
   justify-content: space-between;
   align-items: center;
   margin-right: 20px;
-  @media (min-width:600px) {
+  @media (min-width:400px) {
     display:none;
   }
+}
+.w-100 {
+  width: 100%;
 }
 .container {
   max-width: 1280px;
@@ -124,5 +170,57 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+input {
+  padding: 0 10px;
+  border: none;
+  height: 30.69px;
+  width: 100%;
+}
+.form-main {
+  width: 100%;
+  height: 100%;
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-right: 12px;
+  @media (min-width:400px) {
+    display:flex;
+  }
+}
+button {
+  background-color: #fff;
+  border: none;
+  padding: 0 15px 0 0;
+  height: 30.69px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.registration {
+  white-space: nowrap;
+}
+.form-mobile {
+  padding: 0 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  input {
+    color: #fff;
+    height: 100%;
+    background-color: black;
+  }
+  button {
+    padding: 0 10px;
+    background-color: black;
+    color: inherit;
+  }
 }
 </style>

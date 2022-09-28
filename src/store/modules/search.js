@@ -12,8 +12,8 @@ export const search = {
     },
   },
   actions: {
-    async onSearch({ commit }, { page }) {
-      const res = await TMDBAPI.search({ page })
+    async onSearch({ commit }, { page = 1, query }) {
+      const res = await TMDBAPI.search({ page, query })
       commit('setItems', res.data.results)
     },
   },

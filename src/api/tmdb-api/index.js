@@ -10,8 +10,8 @@ export const TMDBAPI = {
   //   const url = '/logout';
   //   return DefaultAPIInstance.post(url);
   // },
-  search({ page }) {
+  search({ page, query }) {
     const url = '/search/multi'
-    return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY, page, query: 'rambo' } })
+    return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY, page, query } })
   },
 };
