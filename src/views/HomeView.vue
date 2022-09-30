@@ -1,17 +1,16 @@
 <template>
   <div class="home">
-    <AppHeader />
+    <trending-list />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import AppHeader from '@/components/AppHeader.vue'
+import TrendingList from '@/components/TrendingList.vue'
 
 export default {
   name: 'HomeView',
   components: {
-    AppHeader
+    TrendingList
   }
 }
 </script>

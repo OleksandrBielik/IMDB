@@ -8,7 +8,6 @@ export const search = {
   mutations: {
     setItems(state, items) {
       state.itemList = [...items]
-      console.log(state.itemList)
     },
   },
   actions: {

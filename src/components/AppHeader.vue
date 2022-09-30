@@ -119,7 +119,7 @@ export default {
 <style lang="scss" scoped>
 header {
   padding: 10px 0;
-  background-color: black;
+  background-color: #121212;
   color: #fff;
   position: relative;
 }
@@ -166,6 +166,7 @@ img {
 .container {
   max-width: 1280px;
   padding: 0 15px;
+  margin: 0 auto;
 
   display: flex;
   justify-content: space-between;
@@ -176,8 +177,10 @@ input {
   border: none;
   height: 30.69px;
   width: 100%;
+  background-color: #fff;
 }
 .form-main {
+  color: black;
   width: 100%;
   height: 100%;
   display: none;
@@ -193,11 +196,12 @@ input {
 button {
   background-color: #fff;
   border: none;
-  padding: 0 15px 0 0;
+  padding: 0 10px;
   height: 30.69px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: inherit;
 }
 .registration {
   white-space: nowrap;
@@ -218,9 +222,7 @@ button {
     background-color: black;
   }
   button {
-    padding: 0 10px;
     background-color: black;
-    color: inherit;
   }
 }
 </style>

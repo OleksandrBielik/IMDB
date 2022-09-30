@@ -14,4 +14,8 @@ export const TMDBAPI = {
     const url = '/search/multi'
     return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY, page, query } })
   },
+  getTrending() {
+    const url = '/trending/all/week'
+    return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY } })
+  }
 };
