@@ -1,25 +1,21 @@
 <template>
-  <div class="trending">
+  <div class="upcoming">
     <div class="container">
-      <h2>Fan favorites</h2>
-      <p class="description">
-        This week's top TV and movies
-      </p>
       <Flicking
         ref="flicking"
-        :options="{ moveType: 'freeScroll', bound: true, bounce: '4%' }"
+        :options="{ moveType: ['strict', { count: 1 }], circular: true, bound: true, bounce: '4%' }"
+        :plugins="plugins"
       >
-        <trending-card
+        <upcoming-card
           v-for="item in items"
           :key="item.id"
           :item="item"
         />
       </Flicking>
       <button
-        v-if="!last"
         class="arrow-next"
         :style="styleObject"
-        @click.prevent="moveEnd"
+        @click.prevent="next"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -30,10 +26,9 @@
         /></svg>
       </button>
       <button
-        v-if="last"
         class="arrow-prev"
         :style="styleObject"
-        @click.prevent="moveStart"
+        @click.prevent="prev"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -47,65 +42,64 @@
   </div>
 </template>
 
-
 <script>
-import TrendingCard from './TrendingCard.vue';
 import { Flicking } from '@egjs/vue-flicking';
+import { AutoPlay } from '@egjs/flicking-plugins';
+import UpcomingCard from '@/components/UpcomingCard.vue';
 
 export default {
-  name: 'TrendingList',
-  components: { 
-    TrendingCard,
-    Flicking
+  name: 'UpcomingList',
+  components: {
+    Flicking,
+    UpcomingCard
   },
   data() {
     return {
-      last: false
+      plugins: [new AutoPlay({ duration: 3000, direction: 'NEXT', stopOnHover: false })],
+      opacity: '0'
     }
   },
   computed: {
     items() {
-      return this.$store.getters['home/getTrending']
+      return this.$store.getters['home/getUpcoming']
+    },
+    styleObject() {
+      return {
+        'opacity': this.opacity
+      }
     }
   },
   mounted() {
-    this.$store.dispatch('home/fetchTrending')
+    this.$store.dispatch('home/fetchUpcoming')
+    this.initArrows()
   },
   methods: {
-    moveEnd() {
-      this.$refs.flicking.moveTo(this.items.length-1);
-      this.last = true
+    next() {
+      this.$refs.flicking.next();
     },
-    moveStart() {
-      this.$refs.flicking.moveTo(0);
-      this.last = false
+    prev() {
+      this.$refs.flicking.prev();
+    },
+    initArrows() {
+      setTimeout(()=> this.opacity = 1, 1000)
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-
-  .trending {
-    color: #fff;
-    margin: 20px 0;
-  }
   .container {
     max-width: 1280px;
     padding: 0 15px;
     margin: 0 auto;
     position: relative;
   }
-  h2 {
-    font-size: 30px;
-    margin-bottom: 5px;
-  }
-  .description {
-    margin-bottom: 25px;
+  .upcoming {
+    margin: 10px 0 20px 0;
   }
   .arrow-next, .arrow-prev {
     position: absolute;
-    top: 60%;
+    top: 40%;
     transform: translateY(-50%);
     width: 30px;
     height: 40px;

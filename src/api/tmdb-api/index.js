@@ -17,5 +17,9 @@ export const TMDBAPI = {
   getTrending() {
     const url = '/trending/all/week'
     return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY } })
+  },
+  getUpcoming() {
+    const url = '/movie/upcoming'
+    return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY } })
   }
 };
