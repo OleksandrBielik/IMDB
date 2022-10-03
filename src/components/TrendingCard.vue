@@ -58,7 +58,7 @@ export default {
   article {
     width: 124px;
     height: 300px;
-    background-color: #121212;
+    background-color: #1f1f1f;
     @media (min-width:768px) {
       width: 159px;
       height: 350px;

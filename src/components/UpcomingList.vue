@@ -3,7 +3,7 @@
     <div class="container">
       <Flicking
         ref="flicking"
-        :options="{ moveType: ['strict', { count: 1 }], circular: true, bound: true, bounce: '4%' }"
+        :options="{ moveType: ['strict', { count: 1 }], circular: true, bounce: '4%' }"
         :plugins="plugins"
       >
         <upcoming-card

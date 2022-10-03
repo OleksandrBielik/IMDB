@@ -21,5 +21,13 @@ export const TMDBAPI = {
   getUpcoming() {
     const url = '/movie/upcoming'
     return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY } })
+  },
+  getPopular() {
+    const url = '/person/popular'
+    return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY } })
+  },
+  getOnAir() {
+    const url = '/tv/on_the_air'
+    return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY } })
   }
 };

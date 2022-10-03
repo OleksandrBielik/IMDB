@@ -5,6 +5,9 @@ export const home = {
   state: () => ({
     trendingList: [],
     upcomingList: [],
+    popularList: [],
+    onAirList: [],
+    recentlyList: [],
   }),
   mutations: {
     setTrending(state, items) {
@@ -14,6 +17,18 @@ export const home = {
     setUpcoming(state, items) {
       state.upcomingList = [...items]
       console.log(state.upcomingList)
+    },
+    setPopular(state, items) {
+      state.popularList = [...items]
+      console.log(state.popularList)
+    },
+    setOnAir(state, items) {
+      state.onAirList = [...items]
+      console.log(state.onAirList)
+    },
+    addRecently(state, items) {
+      state.recentlyList.push(items)
+      console.log(state.recentlyList)
     },
   },
   actions: {
@@ -26,9 +41,22 @@ export const home = {
       const res = await TMDBAPI.getUpcoming()
       commit('setUpcoming', res.data.results)
     },
+    async fetchPopular({ commit }) {
+      const res = await TMDBAPI.getPopular()
+      commit('setPopular', res.data.results)
+    },
+    async fetchOnAir({ commit }) {
+      const res = await TMDBAPI.getOnAir()
+      commit('setOnAir', res.data.results)
+    },
+    // addRecently({ commit }, {}) {
+    //   commit('addRecently', res.data.results)
+    // },
   },
   getters: {
     getTrending: (state) => state.trendingList,
-    getUpcoming: (state) => state.upcomingList
+    getUpcoming: (state) => state.upcomingList,
+    getPopular: (state) => state.popularList,
+    getOnAir: (state) => state.onAirList,
   },
 }

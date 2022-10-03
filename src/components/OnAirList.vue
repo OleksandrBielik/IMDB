@@ -1,15 +1,15 @@
 <template>
-  <div class="trending">
+  <div class="on-air">
     <div class="container">
-      <h2>Fan favorites</h2>
+      <h2>On the air</h2>
       <p class="description">
-        This week's top TV and movies
+        List of shows that are currently on the air
       </p>
       <Flicking
         ref="flicking"
         :options="{ moveType: 'freeScroll', bound: true, bounce: '4%' }"
       >
-        <trending-card
+        <on-air-card
           v-for="item in items"
           :key="item.id"
           :item="item"
@@ -45,16 +45,15 @@
   </div>
 </template>
 
-
 <script>
-import TrendingCard from './TrendingCard.vue';
 import { Flicking } from '@egjs/vue-flicking';
+import OnAirCard from './OnAirCard.vue';
 
 export default {
-  name: 'TrendingList',
+  name: 'OnAirList',
   components: { 
-    TrendingCard,
-    Flicking
+    Flicking,
+    OnAirCard
   },
   data() {
     return {
@@ -63,11 +62,11 @@ export default {
   },
   computed: {
     items() {
-      return this.$store.getters['home/getTrending']
+      return this.$store.getters['home/getOnAir']
     }
   },
   mounted() {
-    this.$store.dispatch('home/fetchTrending')
+    this.$store.dispatch('home/fetchOnAir')
   },
   methods: {
     moveEnd() {
@@ -83,57 +82,56 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-  .trending {
-    color: #fff;
-    margin: 20px 0;
-    background-color: #121212;
-    @media(min-width:1024px) {
-      background-color: black;
-    }
+.on-air {
+  color: #fff;
+  margin: 20px 0;
+  background-color: #121212;
+  @media(min-width:1024px) {
+    background-color: black;
   }
-  .container {
-    max-width: 1280px;
-    padding: 0 15px;
-    margin: 0 auto;
-    position: relative;
+}
+.container {
+  max-width: 1280px;
+  padding: 0 15px;
+  margin: 0 auto;
+  position: relative;
+}
+h2 {
+  font-size: 30px;
+  margin-bottom: 5px;
+}
+.description {
+  margin-bottom: 25px;
+}
+.arrow-next, .arrow-prev {
+  position: absolute;
+  top: 60%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 40px;
+  color: #fff;
+  background-color: rgba(90, 90, 90, 0.5);
+  z-index: 2;
+  border: 1px solid #fff;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 250ms ease-in-out;
+  &:hover, &:focus {
+    color: #F5C518;
   }
-  h2 {
-    font-size: 30px;
-    margin-bottom: 5px;
+  @media(min-width:768px) {
+    width: 50px;
+    height: 70px;
   }
-  .description {
-    margin-bottom: 25px;
+  @media(min-width:1440px) {
+    width: 70px;
+    height: 100px;
   }
-  .arrow-next, .arrow-prev {
-    position: absolute;
-    top: 60%;
-    transform: translateY(-50%);
-    width: 30px;
-    height: 40px;
-    color: #fff;
-    background-color: rgba(90, 90, 90, 0.5);
-    z-index: 2;
-    border: 1px solid #fff;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: all 250ms ease-in-out;
-    &:hover, &:focus {
-      color: #F5C518;
-    }
-    @media(min-width:768px) {
-      width: 50px;
-      height: 70px;
-    }
-    @media(min-width:1440px) {
-      width: 70px;
-      height: 100px;
-    }
-  }
-  .arrow-next {
-    right: 20px;
-  }
-  .arrow-prev {
-    left: 20px;
-  }
+}
+.arrow-next {
+  right: 20px;
+}
+.arrow-prev {
+  left: 20px;
+}
 </style>
