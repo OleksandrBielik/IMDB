@@ -104,9 +104,23 @@ export default {
       mobileSearch: false
     }
   },
+  computed: {
+    page() {
+      return this.$store.getters['search/getPage']
+    }
+  },
   methods: {
     onSubmit() {
       this.$store.dispatch('search/onSearch', { query: this.query })
+        .then(
+          this.$router.push({
+            path: '/search',
+            query: {
+              query: this.query,
+              page: this.$route.query.page || this.page
+            }
+          })
+        )
     },
     closeMobileSearch() {
       this.query = ''

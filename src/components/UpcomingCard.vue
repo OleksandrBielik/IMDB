@@ -224,6 +224,8 @@ export default {
     height: 50px;
     margin-top: auto;
     margin-right: 20px;
+    transition: all 250ms ease-in-out;
+    cursor: pointer;
     &:hover, &:focus {
       color: #F5C518;
     }

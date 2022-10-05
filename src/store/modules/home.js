@@ -26,8 +26,8 @@ export const home = {
       state.onAirList = [...items]
       console.log(state.onAirList)
     },
-    addRecently(state, items) {
-      state.recentlyList.push(items)
+    addRecently(state, item) {
+      state.recentlyList.push(item)
       console.log(state.recentlyList)
     },
   },
@@ -49,14 +49,15 @@ export const home = {
       const res = await TMDBAPI.getOnAir()
       commit('setOnAir', res.data.results)
     },
-    // addRecently({ commit }, {}) {
-    //   commit('addRecently', res.data.results)
-    // },
+    addRecently({ commit }, { item }) {
+      commit('addRecently', item)
+    },
   },
   getters: {
     getTrending: (state) => state.trendingList,
     getUpcoming: (state) => state.upcomingList,
     getPopular: (state) => state.popularList,
     getOnAir: (state) => state.onAirList,
+    getRecently: (state) => state.recentlyList,
   },
 }

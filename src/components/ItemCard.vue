@@ -29,7 +29,7 @@
 
 <script>
 export default {
-  name: 'TrendingCard',
+  name: 'ItemCard',
   props: {
     item: {
       type: Object,
@@ -63,24 +63,16 @@ export default {
 
 <style lang="scss" scoped>
   article {
-    width: 124px;
+    width: 137px;
     height: 300px;
     background-color: #1f1f1f;
     @media (min-width:768px) {
-      width: 159px;
+      width: 172.5px;
       height: 350px;
     }
     @media (min-width:1024px) {
       width: 185px;
       height: 380px;
-    }
-  }
-  .card {
-    margin: 8px;
-    border-radius: 5px;
-    overflow: hidden;
-    @media (min-width:1024px) {
-      margin: 12px;
     }
   }
   .wrapper {
@@ -105,11 +97,11 @@ export default {
     img {
       object-fit: cover;
       display: block;
-      width: 124px;
-      height: 184px;
+      width: 137px;
+      height: 210px;
       @media (min-width:768px) {
-        width: 159px;
-        height: 236px;
+        width: 172.5px;
+        height: 255px;
       }
       @media (min-width:1024px) {
         width: 185px;

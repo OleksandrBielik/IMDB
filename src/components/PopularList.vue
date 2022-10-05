@@ -12,6 +12,7 @@
         <popular-card
           v-for="item in items"
           :key="item.id"
+          class="card"
           :item="item"
         />
       </Flicking>
@@ -88,6 +89,14 @@ export default {
   background-color: #121212;
   @media(min-width:1024px) {
     background-color: black;
+  }
+}
+.card {
+  margin: 8px;
+  border-radius: 5px;
+  overflow: hidden;
+  @media (min-width:1024px) {
+    margin: 12px;
   }
 }
 .container {
