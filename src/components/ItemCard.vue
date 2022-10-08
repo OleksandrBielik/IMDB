@@ -45,8 +45,8 @@ export default {
     },
     title() {
       let name = this.item.title || this.item.name
-      if (name.length > 30) {
-        return name.slice(0,30) + '...'
+      if (name.length > 25) {
+        return name.slice(0,25) + '...'
       } else {
         return name
       }
@@ -64,14 +64,19 @@ export default {
 <style lang="scss" scoped>
   article {
     width: 137px;
-    height: 300px;
+    height: 310px;
     background-color: #1f1f1f;
+    color: #fff;
     @media (min-width:768px) {
       width: 172.5px;
       height: 350px;
     }
     @media (min-width:1024px) {
       width: 185px;
+      height: 380px;
+    }
+    @media (min-width:1200px) {
+      width: 200px;
       height: 380px;
     }
   }
@@ -106,6 +111,10 @@ export default {
       @media (min-width:1024px) {
         width: 185px;
         height: 274px;
+      }
+      @media (min-width:1200px) {
+        width: 200px;
+        height: 285px;
       }
     }
   }

@@ -17,17 +17,27 @@ import ItemCard from '@/components/ItemCard.vue';
 export default {
   name: 'ItemList',
   components: {
-    ItemCard
+    ItemCard,
+  },
+  data() {
+    return {
+      query: ''
+    }
   },
   computed: {
     items() {
       return this.$store.getters['search/getItems']
-    }
+    },
+    totalPages() {
+      return this.$store.getters['search/getTotalpages']
+    },
   },
-  // mounted() {
-  //   this.$store.dispatch('search/onSearch', { query: this.$route.query.query, page: this.$route.query.page })
-  // }
+  mounted() {
+    this.$store.dispatch('search/onSearch', { query: this.$route.query.query, page: this.$route.query.page })
+  },
 }
+
+
 </script>
 
 <style scoped>
