@@ -1,6 +1,6 @@
 import { TMDBAPI } from '@/api/tmdb-api';
 
-export const search = {
+export const trending = {
   namespaced: true,
   state: () => ({
     itemList: [],
@@ -19,8 +19,9 @@ export const search = {
     },
   },
   actions: {
-    async onSearch({ commit }, { page, query }) {
-      const res = await TMDBAPI.search({ page, query })
+    async getTrending({ commit }, { page }) {
+      const res = await TMDBAPI.getTrending({ page })
+      console.log(res)
       commit('setItems', res.data.results)
       commit('setPage', res.data.page)
       commit('setTotalPages', res.data.total_pages)

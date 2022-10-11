@@ -5,6 +5,14 @@
       <p class="description">
         Most popular celebrity on TMDb
       </p>
+      <div class="wrapper">
+        <router-link
+          to="/popular?page=1"
+          class="link"
+        >
+          Get more popular celebrity>
+        </router-link>
+      </div>
       <Flicking
         ref="flicking"
         :options="{ moveType: 'freeScroll', bound: true, bounce: '4%' }"
@@ -67,7 +75,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch('home/fetchPopular')
+    this.$store.dispatch('home/fetchPopular', { page: 1 })
   },
   methods: {
     moveEnd() {
@@ -143,4 +151,10 @@ h2 {
 .arrow-prev {
   left: 20px;
 }
+  .link {
+    color: blue;
+  }
+  .wrapper {
+    text-align: right;
+  }
 </style>

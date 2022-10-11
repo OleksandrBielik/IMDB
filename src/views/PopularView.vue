@@ -1,5 +1,5 @@
 <template>
-  <div class="search">
+  <div class="popular">
     <item-list :path="$route.path" />
     <pagination-comp
       :path="$route.path"
@@ -13,14 +13,14 @@ import ItemList from '@/components/ItemList.vue'
 import PaginationComp from '@/components/PaginationComp.vue';
 
 export default {
-  name: 'SearchView',
+  name: 'PopularView',
   components: { 
     ItemList, 
     PaginationComp 
   },
   watch: {
     $route(to, from) {
-      this.$store.dispatch('search/onSearch', { query: this.$route.query.query, page: this.$route.query.page })
+      this.$store.dispatch('popular/getPopular', { page: this.$route.query.page })
     }
   },
   methods: {
@@ -32,7 +32,7 @@ export default {
 </script>
 
 <style scoped>
-  .search {
+  .popular {
     margin-bottom: 20px;
   }
 </style>

@@ -1,48 +1,120 @@
 <template>
-  <div class="card">
-    <popular-card
-      v-if="item.card_type === 'PopularCard'"
-      :item="item"
-    />
-    <trending-card
-      v-if="item.card_type === 'TrendingCard'"
-      :item="item"
-    />
-    <on-air-card
-      v-if="item.card_type === 'OnAirCard'"
-      :item="item"
-    />
-  </div>
+  <a
+    href="#"
+    class="card"
+  >
+    <article>
+      <div class="thumb">
+        <img
+          :src="imgURL"
+          :alt="item.title + 'poster image'"
+        >
+      </div>
+      <div class="wrapper">
+        <div class="wrapper">
+          <img
+            class="star-icon"
+            src="../assets/star-icon.svg"
+            alt="rating icon"
+            width="15"
+          >
+          <div class="rating">{{ rating }}</div>
+          <div class="media-type">{{ item.media_type || 'actor' }}</div>
+        </div>
+        <div class="title">{{ title }}</div>
+      </div>
+    </article>
+  </a>
 </template>
 
 <script>
-import PopularCard from './PopularCard.vue';
-import TrendingCard from './TrendingCard.vue';
-import OnAirCard from './OnAirCard.vue';
-
 export default {
   name: 'RecentlyCard',
-  components: {
-    PopularCard,
-    TrendingCard,
-    OnAirCard
-  },
   props: {
     item: {
       type: Object,
       required: true
     }
   },
+  computed: {
+    imgURL() {
+      return `${process.env.VUE_APP_IMG_URL}${this.item.poster_path || this.item.profile_path}`
+    },
+    rating() {
+      if (this.item.vote_average) {
+        return String(this.item.vote_average).slice(0,3)
+      } else if (this.item.popularity) {
+        return Math.round(this.item.popularity)
+      } else {
+        return undefined
+      }
+    },
+    title() {
+      let name = this.item.title || this.item.name
+      if (name.length > 25) {
+        return name.slice(0,25) + '...'
+      } else {
+        return name
+      }
+    }
+  },
 }
 </script>
 
-<style scoped>
-  .card {
-    margin: 8px;
-    border-radius: 5px;
-    overflow: hidden;
+<style lang="scss" scoped>
+article {
+  width: 124px;
+  height: 300px;
+  background-color: #1f1f1f;
+  @media (min-width:768px) {
+    width: 159px;
+    height: 350px;
+  }
+  @media (min-width:1024px) {
+    width: 185px;
+    height: 380px;
+  }
+}
+.card {
+  margin: 8px;
+  border-radius: 5px;
+  overflow: hidden;
+  @media (min-width:1024px) {
+    margin: 12px;
+  }
+}
+.wrapper {
+  padding: 8px 5px;
+  margin-bottom: 10px;
+  .wrapper {
+    padding: 0;
+    display: flex;
+    align-items: center;
+  }
+}
+.media-type {
+  border: 1px solid #fff;
+  border-radius: 10px;
+  padding: 1px 5px;
+  margin-left: auto;
+}
+.star-icon {
+  margin-right: 5px;
+}
+.thumb {
+  img {
+    object-fit: cover;
+    display: block;
+    width: 124px;
+    height: 184px;
+    @media (min-width:768px) {
+      width: 159px;
+      height: 236px;
+    }
     @media (min-width:1024px) {
-      margin: 12px;
+      width: 185px;
+      height: 274px;
     }
   }
+}
 </style>

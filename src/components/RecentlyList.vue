@@ -14,8 +14,8 @@
         :options="{ moveType: 'freeScroll', bound: true, align: 'prev', bounce: '4%' }"
       >
         <recently-card
-          v-for="item in items"
-          :key="item.id"
+          v-for="(item, index) in items"
+          :key="index + ' ' + item.id"
           :item="item"
         />
       </Flicking>

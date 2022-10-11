@@ -5,6 +5,14 @@
       <p class="description">
         List of shows that are currently on the air
       </p>
+      <div class="wrapper">
+        <router-link
+          to="/onAir?page=1"
+          class="link"
+        >
+          Get more currently on-air>
+        </router-link>
+      </div>
       <Flicking
         ref="flicking"
         :options="{ moveType: 'freeScroll', bound: true, bounce: '4%' }"
@@ -67,7 +75,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch('home/fetchOnAir')
+    this.$store.dispatch('home/fetchOnAir', { page: 1 })
   },
   methods: {
     moveEnd() {
@@ -142,5 +150,11 @@ h2 {
 }
 .arrow-prev {
   left: 20px;
+}
+.link {
+  color: blue;
+}
+.wrapper {
+  text-align: right;
 }
 </style>

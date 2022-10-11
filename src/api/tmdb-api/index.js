@@ -14,20 +14,24 @@ export const TMDBAPI = {
     const url = '/search/multi'
     return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY, page, query } })
   },
-  getTrending() {
+  getTrending({ page }) {
     const url = '/trending/all/week'
-    return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY } })
+    return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY, page } })
   },
   getUpcoming() {
     const url = '/movie/upcoming'
     return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY } })
   },
-  getPopular() {
+  getPopular({ page }) {
     const url = '/person/popular'
-    return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY } })
+    return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY, page } })
   },
-  getOnAir() {
+  getOnAir({ page }) {
     const url = '/tv/on_the_air'
-    return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY } })
+    return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY, page } })
+  },
+  getMovie({ id }) {
+    const url = `/movie/${id}`
+    return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY, append_to_response: 'videos,images', id } })
   }
 };

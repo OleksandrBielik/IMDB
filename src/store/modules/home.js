@@ -32,8 +32,8 @@ export const home = {
     },
   },
   actions: {
-    async fetchTrending({ commit }) {
-      const res = await TMDBAPI.getTrending()
+    async fetchTrending({ commit }, { page }) {
+      const res = await TMDBAPI.getTrending({ page })
       const filteredRes = res.data.results.filter(item => item.media_type !== 'person')
       commit('setTrending', filteredRes)
     },
@@ -41,12 +41,12 @@ export const home = {
       const res = await TMDBAPI.getUpcoming()
       commit('setUpcoming', res.data.results)
     },
-    async fetchPopular({ commit }) {
-      const res = await TMDBAPI.getPopular()
+    async fetchPopular({ commit }, { page }) {
+      const res = await TMDBAPI.getPopular({ page })
       commit('setPopular', res.data.results)
     },
-    async fetchOnAir({ commit }) {
-      const res = await TMDBAPI.getOnAir()
+    async fetchOnAir({ commit }, { page }) {
+      const res = await TMDBAPI.getOnAir({ page })
       commit('setOnAir', res.data.results)
     },
     addRecently({ commit }, { item }) {

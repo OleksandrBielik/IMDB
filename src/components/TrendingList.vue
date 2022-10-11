@@ -5,6 +5,14 @@
       <p class="description">
         This week's top TV and movies
       </p>
+      <div class="wrapper">
+        <router-link
+          to="/trending?page=1"
+          class="link"
+        >
+          Get more weekly top>
+        </router-link>
+      </div>
       <Flicking
         ref="flicking"
         :options="{ moveType: 'freeScroll', bound: true, bounce: '4%' }"
@@ -68,7 +76,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch('home/fetchTrending')
+    this.$store.dispatch('home/fetchTrending', { page: 1 })
   },
   methods: {
     moveEnd() {
@@ -144,5 +152,11 @@ export default {
   }
   .arrow-prev {
     left: 20px;
+  }
+  .link {
+    color: blue;
+  }
+  .wrapper {
+    text-align: right;
   }
 </style>

@@ -5,7 +5,6 @@
     <popular-list />
     <on-air-list />
     <recently-list />
-    <app-footer />
   </div>
 </template>
 
@@ -15,7 +14,6 @@ import UpcomingList from '@/components/UpcomingList.vue';
 import PopularList from '@/components/PopularList.vue';
 import OnAirList from '@/components/OnAirList.vue';
 import RecentlyList from '@/components/RecentlyList.vue';
-import AppFooter from '@/components/AppFooter.vue';
 
 export default {
   name: 'HomeView',
@@ -25,7 +23,6 @@ export default {
     PopularList,
     OnAirList,
     RecentlyList,
-    AppFooter,
   }
 }
 </script>

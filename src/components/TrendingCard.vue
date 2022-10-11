@@ -1,6 +1,6 @@
 <template>
-  <a
-    href="#"
+  <router-link
+    :to="link"
     @click.prevent="addRecently(item)"
   >
     <article>
@@ -18,13 +18,19 @@
             alt="rating icon"
             width="15"
           >
-          <div class="rating">{{ rating }}</div>
-          <div class="media-type">{{ item.media_type }}</div>
+          <div class="rating">
+            {{ rating }}
+          </div>
+          <div class="media-type">
+            {{ item.media_type }}
+          </div>
         </div>
-        <div class="title">{{ title }}</div>
+        <div class="title">
+          {{ title }}
+        </div>
       </div>
     </article>
-  </a>
+  </router-link>
 </template>
 
 <script>
@@ -49,6 +55,14 @@ export default {
         return name.slice(0,30) + '...'
       } else {
         return name
+      }
+    },
+    link() {
+      switch(this.item.media_type) {
+        case 'movie': return `/movie/${this.item.id}`
+        case 'tv': return `/tv/${this.item.id}`
+        case 'actor': return `/actor/${this.item.id}`
+        default: return undefined
       }
     }
   },
