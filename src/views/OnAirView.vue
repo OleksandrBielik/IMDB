@@ -1,6 +1,8 @@
 <template>
   <div class="on-air">
-    <item-list :path="$route.path" />
+    <div class="container container-flex">
+      <card-list :path="$route.path" />
+    </div>
     <pagination-comp
       :path="$route.path"
       @change-page="changePage"
@@ -9,13 +11,13 @@
 </template>
 
 <script>
-import ItemList from '@/components/ItemList.vue'
+import CardList from '@/components/CardList.vue'
 import PaginationComp from '@/components/PaginationComp.vue';
 
 export default {
   name: 'OnAirView',
   components: { 
-    ItemList, 
+    CardList, 
     PaginationComp 
   },
   watch: {

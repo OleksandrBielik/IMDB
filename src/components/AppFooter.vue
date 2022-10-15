@@ -350,13 +350,8 @@ export default {
 
 <style lang="scss" scoped>
   footer {
-    color: #fff;
+    color: $white;
     padding: 20px 0;
-  }
-  .container {
-    max-width: 1280px;
-    padding: 0 15px;
-    margin: 0 auto;
   }
   .socials, .links {
     display: flex;

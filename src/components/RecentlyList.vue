@@ -1,7 +1,17 @@
 <template>
-  <div class="recently">
+  <div class="recently flick">
     <div class="container">
       <h2>Recently viewed</h2>
+      <div class="wrapper">
+        <button
+          v-if="items.length"
+          type="button"
+          class="link"
+          @click="removeRecently"
+        >
+          Clear recently viewed
+        </button>
+      </div>
       <p
         v-if="!items.length"
         class="description"
@@ -13,7 +23,7 @@
         ref="flicking"
         :options="{ moveType: 'freeScroll', bound: true, align: 'prev', bounce: '4%' }"
       >
-        <recently-card
+        <flick-card
           v-for="(item, index) in items"
           :key="index + ' ' + item.id"
           :item="item"
@@ -25,51 +35,35 @@
 
 <script>
 import { Flicking } from '@egjs/vue-flicking';
-import RecentlyCard from '@/components/RecentlyCard.vue';
+import FlickCard from './FlickCard.vue';
 
 export default {
   name: 'RecentlyList',
   components: { 
     Flicking,
-    RecentlyCard,
+    FlickCard,
   },
   computed: {
     items() {
       return this.$store.getters['home/getRecently']
     }
   },
+  methods: {
+    removeRecently() {
+      this.$store.dispatch('home/removeRecently')
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-
-  .recently {
-    color: #fff;
-    margin-top: 20px;
-    background-color: #121212;
-    @media(min-width:1024px) {
-      background-color: black;
-    }
-  }
-  .card {
-    margin: 8px;
-    border-radius: 5px;
-    overflow: hidden;
-    @media (min-width:1024px) {
-      margin: 12px;
-    }
-  }
-  .container {
-    max-width: 1280px;
-    padding: 0 15px;
-    margin: 0 auto;
-    position: relative;
-  }
-  h2 {
-    font-size: 30px;
-    margin-bottom: 5px;
-  }
-  .description {
-    padding: 20px 0;
-  }
+button {
+  background-color: inherit;
+}
+.link {
+  color: $blue;
+}
+.wrapper {
+  text-align: right;
+}
 </style>

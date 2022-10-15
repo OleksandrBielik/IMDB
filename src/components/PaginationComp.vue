@@ -124,24 +124,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  ul {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
-
-  li:not(:last-child) {
-    margin-right: 5px;
-    @media(min-width: 768px) {
-      margin-right: 7px;
-    }
-    @media(min-width: 1024px) {
-      margin-right: 10px;
-    }
-  }
-  .active {
-    background-color: gray;
-  }
-</style>

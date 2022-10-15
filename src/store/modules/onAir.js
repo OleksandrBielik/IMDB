@@ -21,6 +21,9 @@ export const onAir = {
   actions: {
     async getOnAir({ commit }, { page }) {
       const res = await TMDBAPI.getOnAir({ page })
+      res.data.results.map(item => {
+        item.media_type = 'tv'
+      })
       console.log(res)
       commit('setItems', res.data.results)
       commit('setPage', res.data.page)

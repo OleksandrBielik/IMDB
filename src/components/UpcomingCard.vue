@@ -108,7 +108,7 @@ export default {
     position: relative;
     display: block;
     width: 100%;
-    color: #fff;
+    color: $white;
   }
   .backdrop {
     position: absolute;

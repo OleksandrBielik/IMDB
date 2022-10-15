@@ -45,9 +45,6 @@ export default {
       }).bind(this)()
     }
   },
-  mounted() {
-    console.log(this.item)
-  },
   methods: {
     changePage() {
       switch(this.item) {
@@ -61,25 +58,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  button {
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px 10px;
-    cursor: pointer;
-    @media(min-width: 768px) {
-      padding: 7px 12px;
-    }
-    @media(min-width: 1024px) {
-      padding: 10px 15px;
-    }
-  }
-  li {
-    border: 1px solid #fff;
-    border-radius: 3px;
-    overflow: hidden;
-  }
-</style>

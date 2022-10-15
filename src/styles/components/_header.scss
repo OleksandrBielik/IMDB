@@ -1,0 +1,41 @@
+header {
+  padding: 10px 0;
+  background-color: $main-bg-color;
+  position: relative;
+  img {
+    fill: currentColor;
+  }
+  .logo {
+    display: block;
+    background-color: $gold-color;
+    color: $black;
+    font-size: 18px;
+    font-weight: 800;
+    padding: 5px;
+    border-radius: 5px;
+    margin-right: 12px;
+    text-decoration: none;
+  }
+  .wrapper {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+  }
+  .burger-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+  }
+  .w-100 {
+    width: 100%;
+  }
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .registration {
+    white-space: nowrap;
+  }
+}

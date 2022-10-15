@@ -1,0 +1,31 @@
+.arrow-next, .arrow-prev {
+  position: absolute;
+  top: 60%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 40px;
+  color: $white;
+  background-color: $arrow-bg-color;
+  z-index: 2;
+  border: 1px solid $white;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 250ms ease-in-out;
+  &:hover, &:focus {
+    color: $gold-color;
+  }
+  @media(min-width:768px) {
+    width: 50px;
+    height: 70px;
+  }
+  @media(min-width:1440px) {
+    width: 70px;
+    height: 100px;
+  }
+}
+.arrow-next {
+  right: 20px;
+}
+.arrow-prev {
+  left: 20px;
+}

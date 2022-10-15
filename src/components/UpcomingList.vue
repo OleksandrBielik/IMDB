@@ -1,44 +1,42 @@
 <template>
   <div class="upcoming">
-    <div class="container">
-      <Flicking
-        ref="flicking"
-        :options="{ moveType: ['strict', { count: 1 }], circular: true, bounce: '4%' }"
-        :plugins="plugins"
-      >
-        <upcoming-card
-          v-for="item in items"
-          :key="item.id"
-          :item="item"
-        />
-      </Flicking>
-      <button
-        class="arrow-next"
-        :style="styleObject"
-        @click.prevent="next"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-        ><path
-          d="m14.707 12.707-4 4a1 1 0 0 1-1.414-1.414L12.586 12 9.293 8.707a1 1 0 1 1 1.414-1.414l4 4a1 1 0 0 1 0 1.414z"
-          style="fill:currentColor"
-        /></svg>
-      </button>
-      <button
-        class="arrow-prev"
-        :style="styleObject"
-        @click.prevent="prev"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-        ><path
-          d="M14 17a1 1 0 0 1-.707-.293l-4-4a1 1 0 0 1 0-1.414l4-4a1 1 0 1 1 1.414 1.414L11.414 12l3.293 3.293A1 1 0 0 1 14 17z"
-          style="fill:currentColor"
-        /></svg>
-      </button>
-    </div>
+    <Flicking
+      ref="flicking"
+      :options="{ moveType: ['strict', { count: 1 }], circular: true, bounce: '4%' }"
+      :plugins="plugins"
+    >
+      <upcoming-card
+        v-for="item in items"
+        :key="item.id"
+        :item="item"
+      />
+    </Flicking>
+    <button
+      class="arrow-next"
+      :style="styleObject"
+      @click.prevent="next"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+      ><path
+        d="m14.707 12.707-4 4a1 1 0 0 1-1.414-1.414L12.586 12 9.293 8.707a1 1 0 1 1 1.414-1.414l4 4a1 1 0 0 1 0 1.414z"
+        style="fill:currentColor"
+      /></svg>
+    </button>
+    <button
+      class="arrow-prev"
+      :style="styleObject"
+      @click.prevent="prev"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+      ><path
+        d="M14 17a1 1 0 0 1-.707-.293l-4-4a1 1 0 0 1 0-1.414l4-4a1 1 0 1 1 1.414 1.414L11.414 12l3.293 3.293A1 1 0 0 1 14 17z"
+        style="fill:currentColor"
+      /></svg>
+    </button>
   </div>
 </template>
 
@@ -88,44 +86,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .container {
-    max-width: 1280px;
-    padding: 0 15px;
-    margin: 0 auto;
+  .upcoming {
     position: relative;
   }
   .upcoming {
-    margin: 10px 0 20px 0;
+    margin-bottom: 20px;
   }
   .arrow-next, .arrow-prev {
-    position: absolute;
     top: 40%;
-    transform: translateY(-50%);
-    width: 30px;
-    height: 40px;
-    color: #fff;
-    background-color: rgba(90, 90, 90, 0.5);
-    z-index: 2;
-    border: 1px solid #fff;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: all 250ms ease-in-out;
-    &:hover, &:focus {
-      color: #F5C518;
-    }
-    @media(min-width:768px) {
-      width: 50px;
-      height: 70px;
-    }
-    @media(min-width:1440px) {
-      width: 70px;
-      height: 100px;
-    }
-  }
-  .arrow-next {
-    right: 20px;
-  }
-  .arrow-prev {
-    left: 20px;
   }
 </style>

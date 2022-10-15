@@ -1,6 +1,7 @@
 <template>
   <a
     href="#"
+    class="person-card"
     @click.prevent="addRecently(item)"
   >
     <article>
@@ -37,28 +38,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.thumb {
-  border-radius: 50%;
-  overflow: hidden;
-  margin-bottom: 10px;
-  img {
-    object-fit: cover;
-    display: block;
-    width: 124px;
-    height: 124px;
-    @media (min-width:768px) {
-      width: 159px;
-      height: 159px;
-    }
-    @media (min-width:1440px) {
-      width: 185px;
-      height: 185px;
-    }
-  }
-}
-.name {
-  text-align: center;
-}
-</style>

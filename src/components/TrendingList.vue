@@ -1,5 +1,5 @@
 <template>
-  <div class="trending">
+  <div class="trending flick">
     <div class="container">
       <h2>Fan favorites</h2>
       <p class="description">
@@ -17,10 +17,9 @@
         ref="flicking"
         :options="{ moveType: 'freeScroll', bound: true, bounce: '4%' }"
       >
-        <trending-card
+        <flick-card
           v-for="item in items"
           :key="item.id"
-          class="card"
           :item="item"
         />
       </Flicking>
@@ -56,13 +55,13 @@
 
 
 <script>
-import TrendingCard from './TrendingCard.vue';
+import FlickCard from './FlickCard.vue';
 import { Flicking } from '@egjs/vue-flicking';
 
 export default {
   name: 'TrendingList',
   components: { 
-    TrendingCard,
+    FlickCard,
     Flicking
   },
   data() {
@@ -93,66 +92,6 @@ export default {
 
 <style lang="scss" scoped>
 
-  .trending {
-    color: #fff;
-    margin: 20px 0;
-    background-color: #121212;
-    @media(min-width:1024px) {
-      background-color: black;
-    }
-  }
-  .card {
-    margin: 8px;
-    border-radius: 5px;
-    overflow: hidden;
-    @media (min-width:1024px) {
-      margin: 12px;
-    }
-  }
-  .container {
-    max-width: 1280px;
-    padding: 0 15px;
-    margin: 0 auto;
-    position: relative;
-  }
-  h2 {
-    font-size: 30px;
-    margin-bottom: 5px;
-  }
-  .description {
-    margin-bottom: 25px;
-  }
-  .arrow-next, .arrow-prev {
-    position: absolute;
-    top: 60%;
-    transform: translateY(-50%);
-    width: 30px;
-    height: 40px;
-    color: #fff;
-    background-color: rgba(90, 90, 90, 0.5);
-    z-index: 2;
-    border: 1px solid #fff;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: all 250ms ease-in-out;
-    &:hover, &:focus {
-      color: #F5C518;
-    }
-    @media(min-width:768px) {
-      width: 50px;
-      height: 70px;
-    }
-    @media(min-width:1440px) {
-      width: 70px;
-      height: 100px;
-    }
-  }
-  .arrow-next {
-    right: 20px;
-  }
-  .arrow-prev {
-    left: 20px;
-  }
   .link {
     color: blue;
   }

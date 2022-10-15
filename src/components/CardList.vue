@@ -1,20 +1,18 @@
 <template>
-  <div class="container">
-    <ul>
-      <item-card
-        v-for="item in items"
-        :key="item.id"
-        :item="item"
-      />
-    </ul>
-  </div>
+  <ul class="card-list">
+    <item-card
+      v-for="item in items"
+      :key="item.id"
+      :item="item"
+    />
+  </ul>
 </template>
 
 <script>
 import ItemCard from '@/components/ItemCard.vue';
 
 export default {
-  name: 'ItemList',
+  name: 'CardList',
   components: {
     ItemCard,
   },
@@ -46,36 +44,4 @@ export default {
     }
   },
 }
-
-
 </script>
-
-<style lang="scss" scoped>
-  ul {
-    display: flex;
-    flex-wrap: wrap;
-    margin: -15px;
-    padding: 20px 0;
-    max-width: 320px;
-    @media(min-width: 480px) {
-      max-width: 480px;
-    }
-    @media(min-width: 768px) {
-      max-width: 768px;
-    }
-    @media(min-width: 1024px) {
-      max-width: 1024px;
-    }
-    @media(min-width: 1280px) {
-      max-width: 1280px;
-    }
-  }
-  .container {
-    max-width: 1280px;
-    padding: 0 15px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-</style>
