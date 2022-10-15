@@ -1,5 +1,5 @@
 export const card = {
-  name: 'FlickCard',
+  name: 'CardItem',
   props: {
     item: {
       type: Object,
@@ -39,7 +39,7 @@ export const card = {
   methods: {
     addRecently(item) {
       const res = { ...item }
-      res.card_type = true
+      res.card_type = 'flick'
       if (!localStorage.getItem('items')) {
         localStorage.setItem('items', JSON.stringify([res]))
       } else {

@@ -39,7 +39,7 @@ export const home = {
     async fetchTrending({ commit }, { page }) {
       const res = await TMDBAPI.getTrending({ page })
       res.data.results.map(item => {
-        item.card_type = true
+        item.card_type = 'flick'
       })
       commit('setTrending', res.data.results)
     },

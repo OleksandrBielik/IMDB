@@ -21,6 +21,9 @@ export const trending = {
   actions: {
     async getTrending({ commit }, { page }) {
       const res = await TMDBAPI.getTrending({ page })
+      res.data.results.map(item => {
+        item.card_type = 'flex-item'
+      })
       console.log(res)
       commit('setItems', res.data.results)
       commit('setPage', res.data.page)

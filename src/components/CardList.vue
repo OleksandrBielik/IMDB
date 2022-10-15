@@ -1,6 +1,6 @@
 <template>
   <ul class="card-list">
-    <item-card
+    <card-item
       v-for="item in items"
       :key="item.id"
       :item="item"
@@ -9,12 +9,12 @@
 </template>
 
 <script>
-import ItemCard from '@/components/ItemCard.vue';
+import CardItem from '@/components/CardItem.vue';
 
 export default {
   name: 'CardList',
   components: {
-    ItemCard,
+    CardItem,
   },
   props: {
     path: {

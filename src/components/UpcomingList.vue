@@ -1,5 +1,5 @@
 <template>
-  <div class="upcoming">
+  <div class="upcoming container">
     <Flicking
       ref="flicking"
       :options="{ moveType: ['strict', { count: 1 }], circular: true, bounce: '4%' }"
@@ -88,9 +88,11 @@ export default {
 <style lang="scss" scoped>
   .upcoming {
     position: relative;
-  }
-  .upcoming {
     margin-bottom: 20px;
+  }
+  .container {
+    max-width: 1440px;
+    padding: 0;
   }
   .arrow-next, .arrow-prev {
     top: 40%;

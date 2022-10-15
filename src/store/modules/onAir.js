@@ -23,6 +23,7 @@ export const onAir = {
       const res = await TMDBAPI.getOnAir({ page })
       res.data.results.map(item => {
         item.media_type = 'tv'
+        item.card_type = 'flex-item'
       })
       console.log(res)
       commit('setItems', res.data.results)

@@ -1,28 +1,37 @@
 <template>
   <div class="home">
-    <upcoming-list />
-    <trending-list />
-    <popular-list />
-    <on-air-list />
-    <recently-list />
+    <upcoming-list
+      :path="$route.path"
+      :component-name="'Upcoming'"
+    />
+    <slider-list
+      :path="$route.path"
+      :component-name="'Trending'"
+    />
+    <slider-list
+      :path="$route.path"
+      :component-name="'Popular'"
+    />
+    <slider-list
+      :path="$route.path"
+      :component-name="'OnAir'"
+    />
+    <slider-list
+      :path="$route.path"
+      :component-name="'Recently'"
+    />
   </div>
 </template>
 
 <script>
-import TrendingList from '@/components/TrendingList.vue';
+import SliderList from '@/components/SliderList.vue';
 import UpcomingList from '@/components/UpcomingList.vue';
-import PopularList from '@/components/PopularList.vue';
-import OnAirList from '@/components/OnAirList.vue';
-import RecentlyList from '@/components/RecentlyList.vue';
 
 export default {
   name: 'HomeView',
   components: {
-    TrendingList,
+    SliderList,
     UpcomingList,
-    PopularList,
-    OnAirList,
-    RecentlyList,
   }
 }
 </script>

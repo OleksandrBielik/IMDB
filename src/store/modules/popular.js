@@ -23,6 +23,7 @@ export const popular = {
       const res = await TMDBAPI.getPopular({ page })
       res.data.results.map(item => {
         item.media_type = 'person'
+        item.card_type = 'flex-item'
       })
       console.log(res)
       commit('setItems', res.data.results)
