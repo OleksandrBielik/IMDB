@@ -41,8 +41,8 @@
         :options="{ moveType: 'freeScroll', bound: true, align: 'prev', bounce: '4%' }"
       >
         <card-item
-          v-for="item in items"
-          :key="item.id"
+          v-for="(item, index) in items"
+          :key="item.id + index"
           :item="item"
         />
       </Flicking>

@@ -1,23 +1,23 @@
 <template>
   <div class="home">
     <upcoming-list
-      :path="$route.path"
+      :path="$route.name"
       :component-name="'Upcoming'"
     />
     <slider-list
-      :path="$route.path"
+      :path="$route.name"
       :component-name="'Trending'"
     />
     <slider-list
-      :path="$route.path"
+      :path="$route.name"
       :component-name="'Popular'"
     />
     <slider-list
-      :path="$route.path"
+      :path="$route.name"
       :component-name="'OnAir'"
     />
     <slider-list
-      :path="$route.path"
+      :path="$route.name"
       :component-name="'Recently'"
     />
   </div>

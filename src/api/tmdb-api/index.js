@@ -33,5 +33,9 @@ export const TMDBAPI = {
   getMovie({ id }) {
     const url = `/movie/${id}`
     return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY, append_to_response: 'videos,images', id } })
+  },
+  getSimilar({ id, page }) {
+    const url = `/movie/${id}/similar`
+    return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY, id, page } })
   }
 };

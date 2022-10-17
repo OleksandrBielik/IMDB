@@ -24,9 +24,10 @@ export const sliderList = {
   },
   computed: {
     items() {
-      switch(this.path) {
-        case '/': return this.$store.getters[`home/get${this.componentName}`]
-        default: return this.$store.getters[`${this.path.slice(1)}/get${this.componentName}`]
+      if (this.componentName === 'Recently') {
+        return this.$store.getters[`home/get${this.componentName}`]
+      } else {
+        return this.$store.getters[`${this.path}/get${this.componentName}`]
       }
     },
     description() {
@@ -35,6 +36,7 @@ export const sliderList = {
         case 'Recently': return 'You have no recently viewed pages'
         case 'OnAir': return 'List of shows that are currently on the air'
         case 'Popular': return 'Most popular celebrity on TMDb'
+        case 'Similar': return 'List of similar movies'
         default: return undefined
       }
     },
@@ -44,6 +46,7 @@ export const sliderList = {
         case 'Recently': return 'Recently viewed'
         case 'OnAir': return 'On the air'
         case 'Popular': return 'Popular celebrity'
+        case 'Similar': return 'Similar movies'
         default: return undefined
       }
     },
@@ -53,6 +56,7 @@ export const sliderList = {
         case 'Recently': return 'Remove recently viewed >'
         case 'OnAir': return 'Clear recently viewed >'
         case 'Popular': return 'Get more popular celebrity >'
+        case 'Similar': return 'Get more similar movies >'
         default: return undefined
       }
     },
@@ -61,6 +65,7 @@ export const sliderList = {
         case 'Trending': return '/trending?page=1'
         case 'OnAir': return '/onAir?page=1'
         case 'Popular': return '/popular?page=1'
+        case 'Similar': return '/similar?page=1'
         default: return undefined
       }
     }
@@ -68,11 +73,8 @@ export const sliderList = {
   mounted() {
     if (this.componentName === 'Recently') {
       return
-    }
-    switch(this.path) {
-      case '/': this.$store.dispatch(`home/fetch${this.componentName}`, { page: 1 })
-      break
-      default: return
+    } else {
+      this.$store.dispatch(`${this.path}/fetch${this.componentName}`, { page: 1, id: this.$route.params.id })
     }
   },
   methods: {
