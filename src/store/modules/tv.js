@@ -1,14 +1,14 @@
 import { TMDBAPI } from '@/api/tmdb-api';
 
-export const movie = {
+export const tv = {
   namespaced: true,
   state: () => ({
-    movieData: {},
+    tvData: {},
     similarList: [],
     creditsList: []
   }),
   mutations: {
-    setMovie(state, data) {
+    setTv(state, data) {
       state.movieData = { ...data }
     },
     setSimilar(state, items) {
@@ -19,22 +19,22 @@ export const movie = {
     },
   },
   actions: {
-    async fetchMovie({ commit }, { id }) {
-      const res = await TMDBAPI.getMovie({ id })
+    async fetchTv({ commit }, { id }) {
+      const res = await TMDBAPI.getTv({ id })
       console.log(res)
-      commit('setMovie', res.data)
+      commit('setTv', res.data)
     },
     async fetchSimilar({ commit }, { id, page }) {
-      const res = await TMDBAPI.getSimilar({ id, page, type: 'movie' })
+      const res = await TMDBAPI.getSimilar({ id, page, type: 'tv' })
       res.data.results.map(item => {
-        item.media_type = 'movie'
+        item.media_type = 'tv'
         item.card_type = 'flick'
       })
       console.log(res)
       commit('setSimilar', res.data.results)
     },
     async fetchCredits({ commit }, { id, page }) {
-      const res = await TMDBAPI.getCredits({ id, page, type: 'movie' })
+      const res = await TMDBAPI.getCredits({ id, page, type: 'tv' })
       res.data.cast.map(item => {
         item.media_type = 'person'
         item.card_type = false
@@ -44,7 +44,7 @@ export const movie = {
     },
   },
   getters: {
-    getData: (state) => state.movieData,
+    getData: (state) => state.tvData,
     getSimilar: (state) => state.similarList,
     getCredits: (state) => state.creditsList,
   },

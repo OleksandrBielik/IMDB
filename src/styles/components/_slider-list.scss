@@ -1,10 +1,7 @@
 .slider-list {
+  position: relative;
   color: inherit;
   margin-top: 20px;
-  background-color: $main-bg-color;
-  @media(min-width:1024px) {
-    background-color: inherit;
-  }
   h2 {
     font-size: 30px;
     margin-bottom: 5px;
@@ -12,10 +9,10 @@
   .description {
     padding: 20px 0;
   }
-  .container {
-  position: relative;
-  }
   .wrapper {
     text-align: right;
+  }
+  .slider-wrapper {
+    position: relative;
   }
 }

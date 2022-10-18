@@ -107,10 +107,10 @@ export default {
   },
   computed: {
     pages() {
-      return this.$store.getters[`${this.path.slice(1)}/getTotalPages`]
+      return this.$store.getters[`${this.path}/getTotalPages`]
     },
     page() {
-      return this.$store.getters[`${this.path.slice(1)}/getPage`]
+      return this.$store.getters[`${this.path}/getPage`]
     }
   },
   methods: {

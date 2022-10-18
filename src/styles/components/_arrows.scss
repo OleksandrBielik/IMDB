@@ -1,6 +1,6 @@
 .arrow-next, .arrow-prev {
   position: absolute;
-  top: 60%;
+  top: 50%;
   transform: translateY(-50%);
   width: 30px;
   height: 40px;
@@ -24,8 +24,8 @@
   }
 }
 .arrow-next {
-  right: 20px;
+  right: 5px;
 }
 .arrow-prev {
-  left: 20px;
+  left: 5px;
 }

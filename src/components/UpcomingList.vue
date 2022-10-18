@@ -97,4 +97,10 @@ export default {
   .arrow-next, .arrow-prev {
     top: 40%;
   }
+  .arrow-next {
+    right: 20px;
+  }
+  .arrow-prev {
+    left: 20px;
+  }
 </style>

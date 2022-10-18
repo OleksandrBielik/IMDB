@@ -34,8 +34,16 @@ export const TMDBAPI = {
     const url = `/movie/${id}`
     return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY, append_to_response: 'videos,images', id } })
   },
-  getSimilar({ id, page }) {
-    const url = `/movie/${id}/similar`
+  getTv({ id }) {
+    const url = `/tv/${id}`
+    return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY, append_to_response: 'videos,images', id } })
+  },
+  getSimilar({ id, page, type }) {
+    const url = `/${type}/${id}/similar`
+    return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY, id, page } })
+  },
+  getCredits({ id, page, type }) {
+    const url = `/${type}/${id}/credits`
     return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY, id, page } })
   }
 };

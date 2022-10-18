@@ -47,6 +47,7 @@ export const sliderList = {
         case 'OnAir': return 'On the air'
         case 'Popular': return 'Popular celebrity'
         case 'Similar': return 'Similar movies'
+        case 'Credits': return 'Credits'
         default: return undefined
       }
     },
@@ -65,7 +66,7 @@ export const sliderList = {
         case 'Trending': return '/trending?page=1'
         case 'OnAir': return '/onAir?page=1'
         case 'Popular': return '/popular?page=1'
-        case 'Similar': return '/similar?page=1'
+        case 'Similar': return `/movie/${this.$route.params.id}/similar?page=1`
         default: return undefined
       }
     }

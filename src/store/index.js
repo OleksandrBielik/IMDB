@@ -6,6 +6,8 @@ import { trending } from '@/store/modules/trending';
 import { popular } from '@/store/modules/popular';
 import { onAir } from '@/store/modules/onAir';
 import { movie } from '@/store/modules/movie';
+import { similar } from '@/store/modules/similar';
+import { tv } from '@/store/modules/tv';
 
 Vue.use(Vuex);
 
@@ -16,6 +18,8 @@ export default new Vuex.Store({
     trending,
     popular,
     onAir,
-    movie
+    movie,
+    similar,
+    tv
   }
 })

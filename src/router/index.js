@@ -30,10 +30,20 @@ const routes = [
     component: () => import('../views/OnAirView.vue')
   },
   {
+    path: '/movie/:id/similar',
+    name: 'similar',
+    component: () => import('../views/SimilarMoviesView.vue')
+  },
+  {
     path: '/movie/:id',
     name: 'movie',
     component: () => import('../views/MovieView.vue')
-  }
+  },
+  {
+    path: '/tv/:id',
+    name: 'tv',
+    component: () => import('../views/TvView.vue')
+  },
 ]
 
 const router = new VueRouter({

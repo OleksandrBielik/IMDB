@@ -1,41 +1,44 @@
 <template>
   <div class="slider-list">
-    <div class="container">
-      <h2>{{ title }}</h2>
-      <template v-if="componentName === 'Recently'">
-        <p
-          v-if="!items.length"
-          class="description"
+    <h2>{{ title }}</h2>
+    <template v-if="componentName === 'Recently'">
+      <p
+        v-if="!items.length"
+        class="description"
+      >
+        {{ description }}
+      </p>
+      <div
+        v-if="items.length"
+        class="wrapper"
+      >
+        <button
+          type="button"
+          class="link"
+          @click="removeRecently"
         >
-          {{ description }}
-        </p>
-        <div
-          v-if="items.length"
-          class="wrapper"
+          {{ link }}
+        </button>
+      </div>
+    </template>
+    <template v-else>
+      <p
+        v-if="componentName !== 'Credits'"
+        class="description"
+      >
+        {{ description }}
+      </p>
+      <div class="wrapper">
+        <router-link
+          v-if="componentName !== 'Credits'"
+          :to="routerLink"
+          class="link"
         >
-          <button
-            type="button"
-            class="link"
-            @click="removeRecently"
-          >
-            {{ link }}
-          </button>
-        </div>
-      </template>
-      <template v-else>
-        <p class="description">
-          {{ description }}
-        </p>
-        <div class="wrapper">
-          <router-link
-            :to="routerLink"
-            class="link"
-          >
-            {{ link }}
-          </router-link>
-        </div>
-      </template>
-      <div class="wrapper" />
+          {{ link }}
+        </router-link>
+      </div>
+    </template>
+    <div class="slider-wrapper">
       <Flicking
         ref="flicking"
         :options="{ moveType: 'freeScroll', bound: true, align: 'prev', bounce: '4%' }"

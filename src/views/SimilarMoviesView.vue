@@ -1,7 +1,10 @@
 <template>
-  <div class="on-air">
+  <div class="similar">
     <div class="container container-flex">
-      <card-list :path="$route.name" />
+      <card-list
+        :path="$route.name"
+        :type="'Movies'"
+      />
     </div>
     <pagination-comp
       :path="$route.name"
@@ -15,14 +18,14 @@ import CardList from '@/components/CardList.vue'
 import PaginationComp from '@/components/PaginationComp.vue';
 
 export default {
-  name: 'OnAirView',
+  name: 'SimilarMoviesView',
   components: { 
     CardList, 
     PaginationComp 
   },
   watch: {
     $route(to, from) {
-      this.$store.dispatch('onAir/getOnAir', { page: this.$route.query.page })
+      this.$store.dispatch('similar/getSimilarMovies', { query: this.$route.query.query, page: this.$route.query.page, id: this.$route.params.id })
     }
   },
   methods: {
@@ -34,7 +37,7 @@ export default {
 </script>
 
 <style scoped>
-  .on-air {
+  .similar {
     margin-bottom: 20px;
   }
 </style>

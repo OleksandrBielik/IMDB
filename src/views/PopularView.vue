@@ -1,10 +1,10 @@
 <template>
   <div class="popular">
     <div class="container container-flex">
-      <card-list :path="$route.path" />
+      <card-list :path="$route.name" />
     </div>
     <pagination-comp
-      :path="$route.path"
+      :path="$route.name"
       @change-page="changePage"
     />
   </div>
@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     changePage(page) {
-      this.$router.push({ query: { query: this.$route.query.query, page } })
+      this.$router.push({ query: { page } })
     }
   }
 }

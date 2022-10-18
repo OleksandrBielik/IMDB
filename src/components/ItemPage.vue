@@ -3,7 +3,7 @@
     <!-- <router-link to="###">
       Episode Guide
     </router-link> -->
-    <div class="container flex">
+    <div class="flex">
       <div class="wrapper-title">
         <h1>{{ items.title }}</h1>
         <p class="additional">
@@ -14,18 +14,35 @@
           {{ runtime }}
         </p>
       </div>
-      <div class="wrapper-rating">
+      <div class="wrapper-rating desc">
         <div class="imdb-rating">
           <span>IMDb RATING</span>
-          <span>{{ String(items.vote_average).slice(0,3) }}/10</span>
+          <span class="imdb-rate"><img
+            class="star-icon"
+            src="../assets/star-icon.svg"
+            alt="rating icon"
+            width="25"
+          >{{ String(items.vote_average).slice(0,3) }}/10</span>
         </div>
         <div class="your-rating">
           <span>YOUR RATING</span>
-          <span>RATE</span>
+          <span class="rate"><svg
+            id="iconContext-star-border"
+            xmlns="http://www.w3.org/2000/svg"
+            width="35"
+            height="35"
+            class="ipc-icon ipc-icon--star-border sc-ab12c7bd-4 cNHRQT"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            role="presentation"
+          ><path
+            fill="none"
+            d="M0 0h24v24H0V0z"
+          /><path d="M19.65 9.04l-4.84-.42-1.89-4.45c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5 4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.73 3.67-3.18c.67-.58.32-1.68-.56-1.75zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z" /></svg> Rate</span>
         </div>
       </div>
     </div>
-    <div class="container p-0">
+    <div class="p-0">
       <div class="wrapper-video">
         <div class="poster">
           <img
@@ -43,14 +60,33 @@
       </div>
       <div class="wrapper">
         <div class="videos">
-          {{ videos.length + ' videos' }}
+          <svg
+            id="iconContext-video-library"
+            xmlns="http://www.w3.org/2000/svg"
+            class="ipc-icon ipc-icon--video-library ipc-icon--inline sc-a93004d6-0 gVqJqU"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            role="presentation"
+          ><path d="M3 6c-.55 0-1 .45-1 1v13c0 1.1.9 2 2 2h13c.55 0 1-.45 1-1s-.45-1-1-1H5c-.55 0-1-.45-1-1V7c0-.55-.45-1-1-1zm17-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 12.5v-9l5.47 4.1c.27.2.27.6 0 .8L12 14.5z" /></svg>
+          <span>{{ videos.length + ' videos' }}</span>
         </div>
         <div class="images">
-          {{ images.length + ' images' }}
+          <svg
+            id="iconContext-collections"
+            xmlns="http://www.w3.org/2000/svg"
+            class="ipc-icon ipc-icon--collections ipc-icon--inline sc-a93004d6-0 gVqJqU"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            role="presentation"
+          ><path
+            fill="none"
+            d="M0 0h24v24H0V0z"
+          /><path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-10.6-3.47l1.63 2.18 2.58-3.22a.5.5 0 0 1 .78 0l2.96 3.7c.26.33.03.81-.39.81H9a.5.5 0 0 1-.4-.8l2-2.67c.2-.26.6-.26.8 0zM2 7v13c0 1.1.9 2 2 2h13c.55 0 1-.45 1-1s-.45-1-1-1H5c-.55 0-1-.45-1-1V7c0-.55-.45-1-1-1s-1 .45-1 1z" /></svg>
+          <span>{{ images.length + ' images' }}</span>
         </div>
       </div>
     </div>
-    <div class="container">
+    <div class="flex-wrapper">
       <ul class="genres">
         <li
           v-for="genre in items.genres"
@@ -63,13 +99,37 @@
         <p class="overview">
           {{ items.overview }}
         </p>
-        <ul>
-          <li>Status: {{ items.status }}</li>
-          <li>Production companies: {{ companies }}</li>
-          <li>Production countries: {{ countries }}</li>
+        <ul class="details">
+          <li><span>Status:</span> {{ items.status }}</li>
+          <li><span>Production companies:</span> {{ companies }}</li>
+          <li><span>Production countries:</span> {{ countries }}</li>
         </ul>
-        <div class="rating">
-          {{ String(items.vote_average).slice(0,3) }}
+        <div class="wrapper-rating mob">
+          <div class="imdb-rating">
+            <span>IMDb RATING</span>
+            <span class="imdb-rate"><img
+              class="star-icon"
+              src="../assets/star-icon.svg"
+              alt="rating icon"
+              width="25"
+            >{{ String(items.vote_average).slice(0,3) }}/10</span>
+          </div>
+          <div class="your-rating">
+            <span>YOUR RATING</span>
+            <span class="rate"><svg
+              id="iconContext-star-border"
+              xmlns="http://www.w3.org/2000/svg"
+              width="35"
+              height="35"
+              class="ipc-icon ipc-icon--star-border sc-ab12c7bd-4 cNHRQT"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              role="presentation"
+            ><path
+              fill="none"
+              d="M0 0h24v24H0V0z"
+            /><path d="M19.65 9.04l-4.84-.42-1.89-4.45c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5 4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.73 3.67-3.18c.67-.58.32-1.68-.56-1.75zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z" /></svg> Rate</span>
+          </div>
         </div>
       </div>
     </div>
@@ -141,12 +201,18 @@ export default {
   },
   mounted() {
     switch(this.path) {
-      case 'movie': this.$store.dispatch('movie/getMovie', { id: this.$route.params.id })
+      case 'movie': this.$store.dispatch('movie/fetchMovie', { id: this.$route.params.id })
       break
-      default: return
+      case 'tv': this.$store.dispatch('tv/fetchTv', { id: this.$route.params.id })
+      break
+      default: this.scrollUp()
     }
   },
-
+  methods: {
+    scrollUp() {
+      document.querySelector('header').scrollIntoView({ block: 'center', behavior: 'smooth' })
+    },
+  }
 }
 </script>
 
@@ -162,16 +228,14 @@ export default {
   .additional {
     font-size: 14px;
     line-height: 21px;
-    margin-bottom: 15px;
-  }
-  .overview {
-    font-size: 16px;
-    line-height: 24px;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
+    color: $secondary-gray;
   }
   .genres {
     font-size: 12px;
     margin-bottom: 15px;
+    display: flex;
+    flex-wrap: wrap;
     li {
       display: inline-block;
       border: 1px solid #fff;
@@ -244,6 +308,9 @@ export default {
       }
     }
     .videos, .images {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       width: 100%;
       padding: 15px 20px;
       border-bottom-left-radius: 3px;
@@ -251,12 +318,21 @@ export default {
       text-align: center;
       background-color: $element-color;
       font-size: 12px;
+      font-weight: 800;
       text-transform: uppercase;
       @media(min-width:975px) {
         height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        flex-direction: column;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 3px;
+      }
+      svg {
+        margin-right: 5px;
+        width: 24px;
+        @media(min-width:975px) {
+          margin: 0 0 10px 0;
+          width: 35px;
+        }
       }
     }
   }
@@ -288,9 +364,6 @@ export default {
   }
   .p-0 {
     padding: 0;
-    @media(min-width:600px) {
-      padding: 0 15px;
-    }
     @media(min-width:975px) {
       display: flex;
       height: 338px;
@@ -311,8 +384,73 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-size: 12px;
+    color: $secondary-gray;
+  }
+  .imdb-rating {
+    margin-right: 20px;
+  }
+  .imdb-rate, .rate {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    font-size: 24px;
+    height: 35px;
+  }
+  .rate {
+    color: $light-blue-color;
+  }
+  .imdb-rate {
+    color: $white;
   }
   .wrapper-rating {
     display: flex;
+  }
+  .overview {
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 20px;
+    @media(min-width:1280px) {
+      width: 50%;
+      margin-right: 50px;
+      margin-bottom: 0;
+    }
+  }
+  .wrapper-overview {
+    margin-bottom: 40px;
+    @media(min-width:1280px) {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  .details {
+    margin-bottom: 20px;
+    li {
+      padding-bottom: 10px;
+      border-bottom: 1px solid $white;
+      line-height: 24px;
+    }
+    li:not(:first-child) {
+      padding-top: 10px;
+    }
+    span {
+      font-weight: 800;
+      font-size: 18px;
+    }
+  }
+  .star-icon {
+    margin-right: 5px;
+  }
+  .mob {
+    @media(min-width:768px) {
+      display: none;
+    }
+  }
+  .desc {
+    display: none;
+    @media(min-width:768px) {
+      display: flex;
+    }
   }
 </style>

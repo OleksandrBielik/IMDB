@@ -21,7 +21,7 @@ import ItemPage from '@/components/ItemPage';
 import SliderList from '@/components/SliderList';
 
 export default {
-  name: 'MovieView',
+  name: 'TvView',
   components: { ItemPage, SliderList }
 }
 </script>
