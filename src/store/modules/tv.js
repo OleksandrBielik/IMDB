@@ -5,11 +5,12 @@ export const tv = {
   state: () => ({
     tvData: {},
     similarList: [],
-    creditsList: []
+    creditsList: [],
+    imagesList: [],
   }),
   mutations: {
     setTv(state, data) {
-      state.movieData = { ...data }
+      state.tvData = { ...data }
     },
     setSimilar(state, items) {
       state.similarList = [...items]
@@ -17,12 +18,20 @@ export const tv = {
     setCredits(state, items) {
       state.creditsList = [...items]
     },
+    setImages(state, items) {
+      state.imagesList = [...items]
+    },
   },
   actions: {
     async fetchTv({ commit }, { id }) {
       const res = await TMDBAPI.getTv({ id })
-      console.log(res)
+      res.data.images.backdrops.map(item => {
+        item.media_type = 'image'
+        item.card_type = 'flick'
+      })
+      console.log(res.data.images)
       commit('setTv', res.data)
+      commit('setImages', res.data.images.backdrops)
     },
     async fetchSimilar({ commit }, { id, page }) {
       const res = await TMDBAPI.getSimilar({ id, page, type: 'tv' })
@@ -30,7 +39,6 @@ export const tv = {
         item.media_type = 'tv'
         item.card_type = 'flick'
       })
-      console.log(res)
       commit('setSimilar', res.data.results)
     },
     async fetchCredits({ commit }, { id, page }) {
@@ -39,7 +47,6 @@ export const tv = {
         item.media_type = 'person'
         item.card_type = false
       })
-      console.log(res)
       commit('setCredits', res.data.cast)
     },
   },
@@ -47,5 +54,6 @@ export const tv = {
     getData: (state) => state.tvData,
     getSimilar: (state) => state.similarList,
     getCredits: (state) => state.creditsList,
+    getImages: (state) => state.imagesList,
   },
 }

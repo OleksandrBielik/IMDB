@@ -45,7 +45,7 @@
 <script>
 import { Flicking } from '@egjs/vue-flicking';
 import { AutoPlay } from '@egjs/flicking-plugins';
-import UpcomingCard from '@/components/UpcomingCard.vue';
+import UpcomingCard from '@/components/cards/UpcomingCard.vue';
 
 export default {
   name: 'UpcomingList',

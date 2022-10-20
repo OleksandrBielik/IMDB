@@ -11,18 +11,27 @@
     />
     <slider-list
       :path="$route.name"
+      :component-name="'Images'"
+    />
+    <slider-list
+      :path="$route.name"
       :component-name="'Recently'"
     />
   </div>
 </template>
 
 <script>
-import ItemPage from '@/components/ItemPage';
-import SliderList from '@/components/SliderList';
+import SliderList from '@/components/SliderList.vue'
+import ItemPage from '@/components/ItemPage.vue'
 
 export default {
   name: 'TvView',
-  components: { ItemPage, SliderList }
+  components: { ItemPage, SliderList },
+  watch: {
+    $route(to, from) {
+      this.$store.dispatch('tv/fetchTv', { id: this.$route.params.id })
+    }
+  },
 }
 </script>
 

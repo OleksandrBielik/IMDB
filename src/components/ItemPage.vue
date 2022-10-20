@@ -5,13 +5,12 @@
     </router-link> -->
     <div class="flex">
       <div class="wrapper-title">
-        <h1>{{ items.title }}</h1>
+        <h1>{{ title }}</h1>
         <p class="additional">
-          Original title: {{ items.original_title }}
+          Original title: {{ originalTitle }}
         </p>
         <p class="additional">
-          {{ year }} |
-          {{ runtime }}
+          <span>{{ year }}</span> | <span>{{ runtime }}</span> <span v-if="path === 'tv'">(episode)</span>
         </p>
       </div>
       <div class="wrapper-rating desc">
@@ -103,6 +102,10 @@
           <li><span>Status:</span> {{ items.status }}</li>
           <li><span>Production companies:</span> {{ companies }}</li>
           <li><span>Production countries:</span> {{ countries }}</li>
+          <template v-if="path === 'tv'">
+            <li><span>Seasons:</span> {{ items.number_of_seasons }}</li>
+            <li><span>Episodes:</span> {{ items.number_of_episodes }}</li>
+          </template>
         </ul>
         <div class="wrapper-rating mob">
           <div class="imdb-rating">
@@ -163,13 +166,19 @@ export default {
         return ''
       }
     },
+    title() {
+      return this.items.title || this.items.name
+    },
+    originalTitle() {
+      return this.items.original_title || this.items.original_name
+    },
     runtime() {
-      const hours = Math.round(this.items.runtime / 60) + 'h'
-      const minutes = this.items.runtime % 60 + 'm'
+      const hours = Math.round((this.items.runtime || this.items.episode_run_time) / 60) + 'h'
+      const minutes = (this.items.runtime || this.items.episode_run_time) % 60 + 'm'
       return `${hours} ${minutes}`
     },
     year() {
-      const time = new Date(this.items.release_date)
+      const time = new Date(this.items.release_date || this.items.first_air_date)
       return time.getUTCFullYear()
     },
     companies() {
@@ -192,7 +201,6 @@ export default {
     trailerURL() {
       try {
         const key = this.videos.find(item => item.type === 'Trailer').key
-        console.log(key)
         return `https://www.youtube.com/embed/${key}`
       } catch (error) {
         return ''

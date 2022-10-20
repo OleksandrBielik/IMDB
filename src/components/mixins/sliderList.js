@@ -27,6 +27,7 @@ export const sliderList = {
       if (this.componentName === 'Recently') {
         return this.$store.getters[`home/get${this.componentName}`]
       } else {
+        console.log(this.$store.getters[`${this.path}/get${this.componentName}`], this.componentName)
         return this.$store.getters[`${this.path}/get${this.componentName}`]
       }
     },
@@ -37,7 +38,8 @@ export const sliderList = {
         case 'OnAir': return 'List of shows that are currently on the air'
         case 'Popular': return 'Most popular celebrity on TMDb'
         case 'Similar': return 'List of similar movies'
-        default: return undefined
+        case 'Images': return `List of ${this.path} images`
+        default: return
       }
     },
     title() {
@@ -48,7 +50,8 @@ export const sliderList = {
         case 'Popular': return 'Popular celebrity'
         case 'Similar': return 'Similar movies'
         case 'Credits': return 'Credits'
-        default: return undefined
+        case 'Images': return 'Images'
+        default: return
       }
     },
     link() {
@@ -58,7 +61,7 @@ export const sliderList = {
         case 'OnAir': return 'Clear recently viewed >'
         case 'Popular': return 'Get more popular celebrity >'
         case 'Similar': return 'Get more similar movies >'
-        default: return undefined
+        default: return
       }
     },
     routerLink() {
@@ -67,12 +70,13 @@ export const sliderList = {
         case 'OnAir': return '/onAir?page=1'
         case 'Popular': return '/popular?page=1'
         case 'Similar': return `/movie/${this.$route.params.id}/similar?page=1`
-        default: return undefined
+        default: return
       }
     }
   },
   mounted() {
-    if (this.componentName === 'Recently') {
+    const pathName = this.componentName === 'Recently' || this.componentName === 'Images'
+    if (pathName) {
       return
     } else {
       this.$store.dispatch(`${this.path}/fetch${this.componentName}`, { page: 1, id: this.$route.params.id })

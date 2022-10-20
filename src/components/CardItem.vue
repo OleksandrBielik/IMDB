@@ -1,111 +1,66 @@
 <template>
-  <router-link
+  <tv-card
     v-if="item.media_type === 'tv' && !item.card_type"
-    
-    :to="link"
-    class="poster-card"
-  >
-    <article @click="addRecently(item)">
-      <div class="thumb">
-        <img
-          :src="imgURL"
-          :alt="item.name + 'image'"
-        >
-      </div>
-    </article>
-  </router-link>
-  <router-link
+    :item="item"
+    :index="index"
+    :path="path"
+  />
+  <person-card
     v-else-if="item.media_type === 'person' && !item.card_type"
-    :to="link"
-    class="person-card"
-  >
-    <article @click="addRecently(item)">
-      <div class="thumb">
-        <img
-          :src="imgURL"
-          :alt="item.name + 'image'"
-        >
-      </div>
-      <p class="name">
-        {{ item.name }}
-      </p>
-    </article>
-  </router-link>
-  <router-link
+    :item="item"
+    :index="index"
+    :path="path"
+  />
+  <image-card 
+    v-else-if="item.media_type === 'image'" 
+    :item="item"
+    :index="index"
+    :path="path"
+  />
+  <base-card
     v-else-if="item.card_type === 'flick'"
-    :to="link"
-    class="card"
-  >
-    <article @click="addRecently(item)">
-      <div class="thumb">
-        <img
-          :src="imgURL"
-          :alt="item.title + 'poster image'"
-        >
-      </div>
-      <div class="wrapper">
-        <div class="wrapper">
-          <img
-            class="star-icon"
-            src="../assets/star-icon.svg"
-            alt="rating icon"
-            width="15"
-          >
-          <div class="rating">
-            {{ rating }}
-          </div>
-          <div class="media-type">
-            {{ item.media_type }}
-          </div>
-        </div>
-        <div class="title">
-          {{ title }}
-        </div>
-      </div>
-    </article>
-  </router-link>
-  <li
+    :item="item"
+    :index="index"
+    :path="path"
+  />
+  <flex-card
     v-else-if="item.card_type === 'flex-item'"
-    class="item-card"
-  >
-    <router-link
-      :to="link"
-    >
-      <article @click="addRecently(item)">
-        <div class="thumb">
-          <img
-            :src="imgURL"
-            :alt="item.title + 'poster image'"
-          >
-        </div>
-        <div class="wrapper">
-          <div class="wrapper">
-            <img
-              class="star-icon"
-              src="../assets/star-icon.svg"
-              alt="rating icon"
-              width="15"
-            >
-            <div class="rating">
-              {{ rating }}
-            </div>
-            <div class="media-type">
-              {{ item.media_type }}
-            </div>
-          </div>
-          <div class="title">
-            {{ title }}
-          </div>
-        </div>
-      </article>
-    </router-link>
-  </li>
+    :item="item"
+    :index="index"
+    :path="path"
+  />
 </template>
 
 <script>
-import { card } from '@/components/mixins/card';
+import BaseCard from './cards/BaseCard.vue';
+import FlexCard from './cards/FlexCard.vue';
+import ImageCard from './cards/ImageCard.vue';
+import PersonCard from './cards/PersonCard.vue';
+import TvCard from './cards/TvCard.vue';
+
 
 export default {
-  mixins: [card]
+  name: 'CardItem',
+  components: { 
+    BaseCard, 
+    FlexCard, 
+    PersonCard, 
+    TvCard,
+    ImageCard
+  },
+  props: {
+    item: {
+      type: Object,
+      required: true
+    },
+    index: {
+      type: Number,
+      required: true
+    },
+    path: {
+      type: String,
+      required: true
+    },
+  },
 }
 </script>

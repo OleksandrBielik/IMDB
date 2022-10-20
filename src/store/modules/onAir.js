@@ -25,7 +25,6 @@ export const onAir = {
         item.media_type = 'tv'
         item.card_type = 'flex-item'
       })
-      console.log(res)
       commit('setItems', res.data.results)
       commit('setPage', res.data.page)
       commit('setTotalPages', res.data.total_pages)

@@ -12,23 +12,18 @@ export const home = {
   mutations: {
     setTrending(state, items) {
       state.trendingList = [...items]
-      console.log(state.trendingList)
     },
     setUpcoming(state, items) {
       state.upcomingList = [...items]
-      console.log(state.upcomingList)
     },
     setPopular(state, items) {
       state.popularList = [...items]
-      console.log(state.popularList)
     },
     setOnAir(state, items) {
       state.onAirList = [...items]
-      console.log(state.onAirList)
     },
     addRecently(state, item) {
       state.recentlyList.push(item)
-      console.log(state.recentlyList)
     },
     removeRecently(state) {
       state.recentlyList = []

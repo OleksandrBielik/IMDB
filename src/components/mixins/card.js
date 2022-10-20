@@ -1,14 +1,21 @@
 export const card = {
-  name: 'CardItem',
   props: {
     item: {
       type: Object,
       required: true
-    }
+    },
+    index: {
+      type: Number,
+      required: true
+    },
+    path: {
+      type: String,
+      required: true
+    },
   },
   computed: {
     imgURL() {
-      return `${process.env.VUE_APP_IMG_URL}${this.item.poster_path || this.item.profile_path}`
+      return `${process.env.VUE_APP_IMG_URL}${this.item.poster_path || this.item.profile_path || this.item.file_path}`
     },
     rating() {
       if (this.item.vote_average) {
@@ -21,6 +28,9 @@ export const card = {
     },
     title() {
       let name = this.item.title || this.item.name
+      if (!name) {
+        return
+      }
       if (name.length > 25) {
         return name.slice(0,25) + '...'
       } else {
@@ -32,6 +42,7 @@ export const card = {
         case 'movie': return `/movie/${this.item.id}`
         case 'tv': return `/tv/${this.item.id}`
         case 'person': return `/person/${this.item.id}`
+        case 'image': return `/${this.path}/images/${this.$route.params.id + '-' + (this.index + 1)}`
         default: return 
       }
     }

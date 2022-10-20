@@ -11,6 +11,10 @@
     />
     <slider-list
       :path="$route.name"
+      :component-name="'Images'"
+    />
+    <slider-list
+      :path="$route.name"
       :component-name="'Recently'"
     />
   </div>
@@ -22,7 +26,12 @@ import SliderList from '@/components/SliderList';
 
 export default {
   name: 'MovieView',
-  components: { ItemPage, SliderList }
+  components: { ItemPage, SliderList },
+  watch: {
+    $route(to, from) {
+      this.$store.dispatch('movie/fetchMovie', { id: this.$route.params.id })
+    }
+  },
 }
 </script>
 

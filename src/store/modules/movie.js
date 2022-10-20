@@ -5,7 +5,8 @@ export const movie = {
   state: () => ({
     movieData: {},
     similarList: [],
-    creditsList: []
+    creditsList: [],
+    imagesList: [],
   }),
   mutations: {
     setMovie(state, data) {
@@ -17,12 +18,19 @@ export const movie = {
     setCredits(state, items) {
       state.creditsList = [...items]
     },
+    setImages(state, items) {
+      state.imagesList = [...items]
+    },
   },
   actions: {
     async fetchMovie({ commit }, { id }) {
       const res = await TMDBAPI.getMovie({ id })
-      console.log(res)
+      res.data.images.backdrops.map(item => {
+        item.media_type = 'image'
+        item.card_type = 'flick'
+      })
       commit('setMovie', res.data)
+      commit('setImages', res.data.images.backdrops)
     },
     async fetchSimilar({ commit }, { id, page }) {
       const res = await TMDBAPI.getSimilar({ id, page, type: 'movie' })
@@ -30,7 +38,6 @@ export const movie = {
         item.media_type = 'movie'
         item.card_type = 'flick'
       })
-      console.log(res)
       commit('setSimilar', res.data.results)
     },
     async fetchCredits({ commit }, { id, page }) {
@@ -39,7 +46,6 @@ export const movie = {
         item.media_type = 'person'
         item.card_type = false
       })
-      console.log(res)
       commit('setCredits', res.data.cast)
     },
   },
@@ -47,5 +53,6 @@ export const movie = {
     getData: (state) => state.movieData,
     getSimilar: (state) => state.similarList,
     getCredits: (state) => state.creditsList,
+    getImages: (state) => state.imagesList,
   },
 }

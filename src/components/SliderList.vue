@@ -23,14 +23,16 @@
     </template>
     <template v-else>
       <p
-        v-if="componentName !== 'Credits'"
+        v-if="componentName !== 'Credits' && componentName !== 'Images'"
         class="description"
       >
         {{ description }}
       </p>
-      <div class="wrapper">
+      <div
+        v-if="componentName !== 'Credits' && componentName !== 'Images'"
+        class="wrapper"
+      >
         <router-link
-          v-if="componentName !== 'Credits'"
           :to="routerLink"
           class="link"
         >
@@ -45,8 +47,10 @@
       >
         <card-item
           v-for="(item, index) in items"
-          :key="item.id + index"
+          :key="index + '' + Math.random()"
           :item="item"
+          :index="index"
+          :path="path"
         />
       </Flicking>
       <button
@@ -84,6 +88,6 @@
 import { sliderList } from '@/components/mixins/sliderList';
 
 export default {
-  mixins: [sliderList]
+  mixins: [sliderList],
 }
 </script>
