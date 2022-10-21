@@ -6,7 +6,7 @@
 import MediaPage from '@/components/MediaPage.vue'
 
 export default {
-  name: 'ImageView',
+  name: 'VideoView',
   components: {
     MediaPage
   }

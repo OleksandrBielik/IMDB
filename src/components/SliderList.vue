@@ -23,13 +23,13 @@
     </template>
     <template v-else>
       <p
-        v-if="componentName !== 'Credits' && componentName !== 'Images'"
+        v-if="componentName !== 'Credits' && componentName !== 'Images' && componentName !== 'Videos'"
         class="description"
       >
         {{ description }}
       </p>
       <div
-        v-if="componentName !== 'Credits' && componentName !== 'Images'"
+        v-if="componentName !== 'Credits' && componentName !== 'Images'&& componentName !== 'Videos'"
         class="wrapper"
       >
         <router-link

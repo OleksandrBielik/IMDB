@@ -54,6 +54,16 @@ const routes = [
     name: 'movie-images',
     component: () => import('../views/ImageView.vue')
   },
+  {
+    path: '/movie/videos/:id',
+    name: 'movie-videos',
+    component: () => import('../views/VideoView.vue')
+  },
+  {
+    path: '/tv/videos/:id',
+    name: 'tv-videos',
+    component: () => import('../views/VideoView.vue')
+  },
 ]
 
 const router = new VueRouter({

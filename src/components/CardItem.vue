@@ -17,6 +17,12 @@
     :index="index"
     :path="path"
   />
+  <video-card
+    v-else-if="item.media_type === 'video'" 
+    :item="item"
+    :index="index"
+    :path="path"
+  />
   <base-card
     v-else-if="item.card_type === 'flick'"
     :item="item"
@@ -37,6 +43,7 @@ import FlexCard from './cards/FlexCard.vue';
 import ImageCard from './cards/ImageCard.vue';
 import PersonCard from './cards/PersonCard.vue';
 import TvCard from './cards/TvCard.vue';
+import VideoCard from './cards/VideoCard.vue';
 
 
 export default {
@@ -46,7 +53,8 @@ export default {
     FlexCard, 
     PersonCard, 
     TvCard,
-    ImageCard
+    ImageCard,
+    VideoCard
   },
   props: {
     item: {

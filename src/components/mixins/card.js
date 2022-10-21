@@ -43,6 +43,7 @@ export const card = {
         case 'tv': return `/tv/${this.item.id}`
         case 'person': return `/person/${this.item.id}`
         case 'image': return `/${this.path}/images/${this.$route.params.id + '-' + (this.index + 1)}`
+        case 'video': return `/${this.path}/videos/${this.$route.params.id + '-' + (this.index + 1)}`
         default: return 
       }
     }

@@ -7,6 +7,7 @@ export const movie = {
     similarList: [],
     creditsList: [],
     imagesList: [],
+    videosList: [],
   }),
   mutations: {
     setMovie(state, data) {
@@ -21,6 +22,10 @@ export const movie = {
     setImages(state, items) {
       state.imagesList = [...items]
     },
+    setVideos(state, items) {
+      state.videosList = [...items]
+      console.log(state.videosList)
+    },
   },
   actions: {
     async fetchMovie({ commit }, { id }) {
@@ -29,7 +34,12 @@ export const movie = {
         item.media_type = 'image'
         item.card_type = 'flick'
       })
+      res.data.videos.results.map(item => {
+        item.media_type = 'video'
+        item.card_type = 'flick'
+      })
       commit('setMovie', res.data)
+      commit('setVideos', res.data.videos.results)
       commit('setImages', res.data.images.backdrops)
     },
     async fetchSimilar({ commit }, { id, page }) {
@@ -54,5 +64,6 @@ export const movie = {
     getSimilar: (state) => state.similarList,
     getCredits: (state) => state.creditsList,
     getImages: (state) => state.imagesList,
+    getVideos: (state) => state.videosList,
   },
 }

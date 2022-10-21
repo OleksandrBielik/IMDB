@@ -39,6 +39,7 @@ export const sliderList = {
         case 'Popular': return 'Most popular celebrity on TMDb'
         case 'Similar': return 'List of similar movies'
         case 'Images': return `List of ${this.path} images`
+        case 'Videos': return `List of ${this.path} videos`
         default: return
       }
     },
@@ -51,6 +52,7 @@ export const sliderList = {
         case 'Similar': return 'Similar movies'
         case 'Credits': return 'Credits'
         case 'Images': return 'Images'
+        case 'Videos': return 'Videos'
         default: return
       }
     },
@@ -75,7 +77,7 @@ export const sliderList = {
     }
   },
   mounted() {
-    const pathName = this.componentName === 'Recently' || this.componentName === 'Images'
+    const pathName = this.componentName === 'Recently' || this.componentName === 'Images' || this.componentName === 'Videos'
     if (pathName) {
       return
     } else {

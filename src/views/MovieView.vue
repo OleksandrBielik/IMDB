@@ -15,6 +15,10 @@
     />
     <slider-list
       :path="$route.name"
+      :component-name="'Videos'"
+    />
+    <slider-list
+      :path="$route.name"
       :component-name="'Recently'"
     />
   </div>
