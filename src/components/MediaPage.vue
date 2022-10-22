@@ -18,20 +18,26 @@
 <script>
 export default {
   name: 'MediaPage',
+  props: {
+    path: {
+      type: String,
+      required: true
+    }
+  },
   computed: {
-    path() {
-      return this.$route.name.split('-')[0]
-    },
     media() {
       return this.$route.name.split('-')[1]
     },
-    id() {
-      return this.$route.params.id.split('-')
+    parrentId() {
+      return this.$route.params.id.split('-')[0]
+    },
+    childId() {
+      return this.$route.params.id.split('-')[1]
     },
     items() {
       switch(this.media) {
-        case 'images': return this.$store.getters[`${this.path}/getImages`][this.id[1]-1]
-        case 'videos': return this.$store.getters[`${this.path}/getVideos`][this.id[1]-1]
+        case 'images': return this.$store.getters[`${this.path}/getImages`][this.childId-1]
+        case 'videos': return this.$store.getters[`${this.path}/getVideos`][this.childId-1]
         default: return undefined
       }
     },
@@ -52,9 +58,11 @@ export default {
   },
   mounted() {
     switch(this.path) {
-      case 'tv': this.$store.dispatch('tv/fetchTv', { id: this.id[0] })
+      case 'tv': this.$store.dispatch('tv/fetchTv', { id: this.parrentId })
       break
-      case 'movie': this.$store.dispatch('movie/fetchMovie', { id: this.id[0] })
+      case 'movie': this.$store.dispatch('movie/fetchMovie', { id: this.parrentId })
+      break
+      case 'person': this.$store.dispatch('person/fetchPerson', { id: this.parrentId })
       break
     }
   }
@@ -67,6 +75,7 @@ export default {
     overflow: hidden;
     width: 100%;
     padding-top: 56.25%;
+    margin: 20px auto 50px auto;
   }
   iframe {
     position: absolute;
@@ -76,5 +85,9 @@ export default {
     right: 0;
     width: 100%;
     height: 100%;
+  }
+  img {
+    max-height: 800px;
+    margin: 20px auto 50px auto;
   }
 </style>

@@ -161,7 +161,7 @@ export default {
     },
     images() {
       try {
-        return this.items.images.posters
+        return this.items.images.posters || this.items.images.profiles
       } catch (error) {
         return ''
       }
@@ -212,6 +212,8 @@ export default {
       case 'movie': this.$store.dispatch('movie/fetchMovie', { id: this.$route.params.id })
       break
       case 'tv': this.$store.dispatch('tv/fetchTv', { id: this.$route.params.id })
+      break
+      case 'person': this.$store.dispatch('person/fetchPerson', { id: this.$route.params.id })
       break
       default: this.scrollUp()
     }

@@ -45,6 +45,11 @@ const routes = [
     component: () => import('../views/TvView.vue')
   },
   {
+    path: '/person/:id',
+    name: 'person',
+    component: () => import('../views/PersonView.vue')
+  },
+  {
     path: '/tv/images/:id',
     name: 'tv-images',
     component: () => import('../views/ImageView.vue')
@@ -52,6 +57,11 @@ const routes = [
   {
     path: '/movie/images/:id',
     name: 'movie-images',
+    component: () => import('../views/ImageView.vue')
+  },
+  {
+    path: '/person/images/:id',
+    name: 'person-images',
     component: () => import('../views/ImageView.vue')
   },
   {

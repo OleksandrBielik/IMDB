@@ -8,6 +8,7 @@ import { onAir } from '@/store/modules/onAir';
 import { movie } from '@/store/modules/movie';
 import { similar } from '@/store/modules/similar';
 import { tv } from '@/store/modules/tv';
+import { person } from '@/store/modules/person';
 
 Vue.use(Vuex);
 
@@ -20,6 +21,7 @@ export default new Vuex.Store({
     onAir,
     movie,
     similar,
-    tv
+    tv,
+    person
   }
 })

@@ -1,10 +1,14 @@
 .slider-list {
   position: relative;
   color: inherit;
-  margin-top: 20px;
+  margin-bottom: 20px;
+  @media (min-width: 1440px) {
+    margin-bottom: 50px;
+  }
   h2 {
     font-size: 30px;
     margin-bottom: 5px;
+    color: $gold-color;
   }
   .description {
     padding: 20px 0;

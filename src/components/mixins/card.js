@@ -5,7 +5,7 @@ export const card = {
       required: true
     },
     index: {
-      type: Number,
+      type: [Number, undefined],
       required: true
     },
     path: {
@@ -37,13 +37,19 @@ export const card = {
         return name
       }
     },
+    parrentId() {
+      return this.$route.params.id.split('-')[0]
+    },
+    childId() {
+      return this.$route.params.id.split('-')[1]
+    },
     link() {
       switch(this.item.media_type) {
         case 'movie': return `/movie/${this.item.id}`
         case 'tv': return `/tv/${this.item.id}`
         case 'person': return `/person/${this.item.id}`
-        case 'image': return `/${this.path}/images/${this.$route.params.id + '-' + (this.index + 1)}`
-        case 'video': return `/${this.path}/videos/${this.$route.params.id + '-' + (this.index + 1)}`
+        case 'image': return `/${this.path}/images/${this.parrentId + '-' + (this.index + 1)}`
+        case 'video': return `/${this.path}/videos/${this.parrentId + '-' + (this.index + 1)}`
         default: return 
       }
     }

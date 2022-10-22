@@ -1,8 +1,10 @@
 <template>
   <ul class="card-list">
     <card-item
-      v-for="item in items"
+      v-for="(item, index) in items"
       :key="item.id"
+      :index="index"
+      :path="path"
       :item="item"
     />
   </ul>

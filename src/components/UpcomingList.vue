@@ -90,12 +90,13 @@ export default {
 <style lang="scss" scoped>
   .upcoming {
     margin-bottom: 20px;
+    @media (min-width:1440px) {
+      margin-bottom: 80px;
+    }
   }
   .container {
     position: relative;
-  }
-  .arrow-next, .arrow-prev {
-    top: 40%;
+    padding: 0;
   }
   .arrow-next {
     right: 20px;

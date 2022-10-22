@@ -1,14 +1,49 @@
 <template>
-  <media-page />
+  <main>
+    <media-page :path="path" />
+    <div class="container">
+      <slider-list
+        :path="path"
+        :component-name="'Images'"
+      />
+    </div>
+  </main>
 </template>
 
 <script>
 import MediaPage from '@/components/MediaPage.vue'
+import SliderList from '@/components/SliderList.vue'
 
 export default {
   name: 'ImageView',
   components: {
-    MediaPage
-  }
+    MediaPage,
+    SliderList
+  },
+  computed: {
+    path() {
+      return this.$route.name.split('-')[0]
+    },
+    id() {
+      return this.$route.params.id.split('-')
+    },
+    media() {
+      return this.$route.name.split('-')[1]
+    },
+  },
+  watch: {
+    $route(to, from) {
+      switch(this.media) {
+        case 'movie': this.$store.dispatch('movie/fetchMovie', { id: this.id })
+        break
+        case 'tv': this.$store.dispatch('tv/fetchTv', { id: this.id })
+        break
+        case 'person': this.$store.dispatch('person/fetchPerson', { id: this.id })
+        break
+        default: return
+      }
+      
+    }
+  },
 }
 </script>
