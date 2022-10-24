@@ -29,7 +29,7 @@ export const tv = {
   },
   actions: {
     async fetchTv({ commit }, { id }) {
-      const res = await TMDBAPI.getTv({ id })
+      const res = await TMDBAPI.tv.getTv({ id })
       res.data.images.backdrops.map(item => {
         item.media_type = 'image'
         item.card_type = 'flick'

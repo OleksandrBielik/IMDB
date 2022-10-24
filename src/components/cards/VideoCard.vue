@@ -14,11 +14,11 @@
 </template>
 
 <script>
-import { card } from '@/components/mixins/card'
+import { card, link, id } from '@/components/mixins/card'
 
 export default {
   name: 'VideoCard',
-  mixins: [card],
+  mixins: [card, link, id],
   computed: {
     videoURL() {
       return `https://www.youtube.com/embed/${this.item.key}`

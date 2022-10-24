@@ -1,5 +1,5 @@
 <template>
-  <div class="on-air">
+  <div class="popular">
     <div class="container container-flex">
       <card-list :path="$route.name" />
     </div>
@@ -15,14 +15,14 @@ import CardList from '@/components/CardList.vue'
 import PaginationComp from '@/components/PaginationComp.vue';
 
 export default {
-  name: 'OnAirView',
+  name: 'PopularView',
   components: { 
     CardList, 
     PaginationComp 
   },
   watch: {
     $route(to, from) {
-      this.$store.dispatch('onAir/getOnAir', { page: this.$route.query.page })
+      this.$store.dispatch('personPopular/getPopular', { page: this.$route.query.page })
     }
   },
   methods: {
@@ -34,7 +34,7 @@ export default {
 </script>
 
 <style scoped>
-  .on-air {
+  .popular {
     margin-bottom: 20px;
   }
 </style>

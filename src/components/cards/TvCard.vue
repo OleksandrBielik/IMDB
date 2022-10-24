@@ -16,10 +16,10 @@
 </template>
 
 <script>
-import { card } from '@/components/mixins/card';
+import { card, imgURL, link, addRecently } from '@/components/mixins/card';
 
 export default {
   name: 'TvCard',
-  mixins: [card]
+  mixins: [card, imgURL, link, addRecently]
 }
 </script>

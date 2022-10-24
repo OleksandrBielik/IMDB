@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <main class="home">
     <upcoming-list
       :path="$route.name"
       :component-name="'Upcoming'"
@@ -22,7 +22,7 @@
         :component-name="'Recently'"
       />
     </div>
-  </div>
+  </main>
 </template>
 
 <script>

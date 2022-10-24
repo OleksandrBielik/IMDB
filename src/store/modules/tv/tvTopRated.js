@@ -1,6 +1,6 @@
 import { TMDBAPI } from '@/api/tmdb-api';
 
-export const popular = {
+export const tvTopRated = {
   namespaced: true,
   state: () => ({
     itemList: [],
@@ -19,10 +19,10 @@ export const popular = {
     },
   },
   actions: {
-    async getPopular({ commit }, { page }) {
-      const res = await TMDBAPI.getPopular({ page })
+    async getTopRated({ commit }, { page }) {
+      const res = await TMDBAPI.tv.getTopRated({ page })
       res.data.results.map(item => {
-        item.media_type = 'person'
+        item.media_type = 'tv'
         item.card_type = 'flex-item'
       })
       commit('setItems', res.data.results)

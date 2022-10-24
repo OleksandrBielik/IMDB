@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <main class="page">
     <h1>{{ title }}</h1>
     <div class="wrapper">
       <div class="thumb">
@@ -26,7 +26,7 @@
         </li>
       </ul>
     </div>
-  </div>
+  </main>
 </template>
 
 <script>

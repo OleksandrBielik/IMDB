@@ -14,10 +14,10 @@
 </template>
 
 <script>
-import { card } from '@/components/mixins/card'
+import { card, imgURL, link, id } from '@/components/mixins/card'
 
 export default {
   name: 'ImageCard',
-  mixins: [card],
+  mixins: [card, imgURL, link, id],
 }
 </script>

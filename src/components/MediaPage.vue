@@ -1,18 +1,20 @@
 <template>
-  <img
-    v-if="media === 'images'"
-    :src="imgURL"
-    alt="image"
-  >
-  <div
-    v-else-if="media === 'videos'"
-    class="video"
-  >
-    <iframe
-      :src="videoURL"
-      frameborder="0"
-    />
-  </div>
+  <main>
+    <img
+      v-if="media === 'images'"
+      :src="imgURL"
+      alt="image"
+    >
+    <div
+      v-else-if="media === 'videos'"
+      class="video"
+    >
+      <iframe
+        :src="videoURL"
+        frameborder="0"
+      />
+    </div>
+  </main>
 </template>
 
 <script>

@@ -30,9 +30,11 @@
 </template>
 
 <script>
+import { imgURL } from '@/components/mixins/card';
 
 export default {
   name: 'UpcomingCard',
+  mixins: [imgURL],
   props: {
     item: {
       type: Object,
@@ -42,9 +44,6 @@ export default {
   computed: {
     backdropURL() {
       return 'https://image.tmdb.org/t/p/original' + this.item.backdrop_path
-    },
-    imgURL() {
-      return `${process.env.VUE_APP_IMG_URL}${this.item.poster_path}`
     },
     title() {
       let name = this.item.title || this.item.name

@@ -1,10 +1,6 @@
 <template>
   <div class="container">
     <person-page :path="$route.name" />
-    <!-- <slider-list
-      :path="$route.name"
-      :component-name="'Similar'"
-    /> -->
     <slider-list
       :path="$route.name"
       :component-name="'Credits'"
@@ -13,10 +9,6 @@
       :path="$route.name"
       :component-name="'Images'"
     />
-    <!-- <slider-list
-      :path="$route.name"
-      :component-name="'Videos'"
-    /> -->
     <slider-list
       :path="$route.name"
       :component-name="'Recently'"

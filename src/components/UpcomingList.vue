@@ -1,5 +1,5 @@
 <template>
-  <div class="upcoming">
+  <section class="upcoming">
     <div class="container">
       <Flicking
         ref="flicking"
@@ -39,7 +39,7 @@
         /></svg>
       </button>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -70,8 +70,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch('home/fetchUpcoming')
-    this.initArrows()
+    this.$store.dispatch('home/fetchUpcoming', { page:1 })
   },
   methods: {
     next() {
@@ -80,9 +79,6 @@ export default {
     prev() {
       this.$refs.flicking.prev();
     },
-    initArrows() {
-      setTimeout(()=> this.opacity = 1, 1000)
-    }
   }
 }
 </script>

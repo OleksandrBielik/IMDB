@@ -1,6 +1,6 @@
 import { TMDBAPI } from '@/api/tmdb-api';
 
-export const onAir = {
+export const tvOnAir = {
   namespaced: true,
   state: () => ({
     itemList: [],
@@ -20,7 +20,7 @@ export const onAir = {
   },
   actions: {
     async getOnAir({ commit }, { page }) {
-      const res = await TMDBAPI.getOnAir({ page })
+      const res = await TMDBAPI.tv.getOnAir({ page })
       res.data.results.map(item => {
         item.media_type = 'tv'
         item.card_type = 'flex-item'

@@ -5,7 +5,7 @@ export const card = {
       required: true
     },
     index: {
-      type: [Number, undefined],
+      type: Number,
       required: true
     },
     path: {
@@ -13,10 +13,18 @@ export const card = {
       required: true
     },
   },
+}
+
+export const imgURL = {
   computed: {
     imgURL() {
       return `${process.env.VUE_APP_IMG_URL}${this.item.poster_path || this.item.profile_path || this.item.file_path}`
     },
+  }
+}
+
+export const rating = {
+  computed: {
     rating() {
       if (this.item.vote_average) {
         return String(this.item.vote_average).slice(0,3)
@@ -26,6 +34,11 @@ export const card = {
         return undefined
       }
     },
+  }
+}
+
+export const title = {
+  computed: {
     title() {
       let name = this.item.title || this.item.name
       if (!name) {
@@ -37,12 +50,22 @@ export const card = {
         return name
       }
     },
+  }
+}
+
+export const id = {
+  computed: {
     parrentId() {
       return this.$route.params.id.split('-')[0]
     },
     childId() {
       return this.$route.params.id.split('-')[1]
     },
+  }
+}
+
+export const link = {
+  computed: {
     link() {
       switch(this.item.media_type) {
         case 'movie': return `/movie/${this.item.id}`
@@ -53,7 +76,10 @@ export const card = {
         default: return 
       }
     }
-  },
+  }
+}
+
+export const addRecently = {
   methods: {
     addRecently(item) {
       const res = { ...item }

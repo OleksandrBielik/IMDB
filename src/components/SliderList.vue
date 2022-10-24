@@ -1,5 +1,5 @@
 <template>
-  <div class="slider-list">
+  <section class="slider-list">
     <h2>{{ title }}</h2>
     <template v-if="componentName === 'Recently'">
       <p
@@ -80,7 +80,7 @@
         /></svg>
       </button>
     </div>
-  </div>
+  </section>
 </template>
 
 

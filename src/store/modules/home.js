@@ -38,8 +38,8 @@ export const home = {
       })
       commit('setTrending', res.data.results)
     },
-    async fetchUpcoming({ commit }) {
-      const res = await TMDBAPI.getUpcoming()
+    async fetchUpcoming({ commit }, { page }) {
+      const res = await TMDBAPI.movie.getUpcoming({ page })
       res.data.results.map(item => {
         item.media_type = 'movie'
         item.card_type = false
@@ -47,7 +47,7 @@ export const home = {
       commit('setUpcoming', res.data.results)
     },
     async fetchPopular({ commit }, { page }) {
-      const res = await TMDBAPI.getPopular({ page })
+      const res = await TMDBAPI.person.getPopular({ page })
       res.data.results.map(item => {
         item.media_type = 'person'
         item.card_type = false
@@ -55,7 +55,7 @@ export const home = {
       commit('setPopular', res.data.results)
     },
     async fetchOnAir({ commit }, { page }) {
-      const res = await TMDBAPI.getOnAir({ page })
+      const res = await TMDBAPI.tv.getOnAir({ page })
       res.data.results.map(item => {
         item.media_type = 'tv'
         item.card_type = false

@@ -2,7 +2,10 @@
   <header>
     <div class="container">
       <div class="wrapper w-100">
-        <div class="burger-menu">
+        <div
+          class="burger-menu"
+          @click="onClick"
+        >
           <svg
             id="iconContext-menu"
             xmlns="http://www.w3.org/2000/svg"
@@ -38,5 +41,11 @@ import SearchForm from './SearchForm.vue'
 export default {
   name: 'AppHeader',
   components: { SearchForm },
+  methods: {
+    onClick() {
+      this.$emit('on-click', true)
+      document.querySelector('body').style.overflow = 'hidden'
+    },
+  }
 }
 </script>

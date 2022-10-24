@@ -38,10 +38,10 @@
 </template>
 
 <script>
-import { card } from '@/components/mixins/card';
+import { card, rating, imgURL, title, link, addRecently } from '@/components/mixins/card';
 
 export default {
   name: 'FlexCard',
-  mixins: [card]
+  mixins: [card, rating, imgURL, title, link, addRecently]
 }
 </script>

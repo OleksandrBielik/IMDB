@@ -106,11 +106,15 @@ export default {
     }
   },
   computed: {
+    pathName() {
+      const path = this.path.split('-')[0] + (this.path.split('-')[1][0].toUpperCase() + this.path.split('-')[1].slice(1))
+      return path
+    },
     pages() {
-      return this.$store.getters[`${this.path}/getTotalPages`]
+      return this.$store.getters[`${this.pathName}/getTotalPages`]
     },
     page() {
-      return this.$store.getters[`${this.path}/getPage`]
+      return this.$store.getters[`${this.pathName}/getPage`]
     }
   },
   methods: {

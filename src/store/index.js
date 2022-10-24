@@ -3,12 +3,18 @@ import Vuex from 'vuex';
 import { search } from '@/store/modules/search';
 import { home } from '@/store/modules/home';
 import { trending } from '@/store/modules/trending';
-import { popular } from '@/store/modules/popular';
-import { onAir } from '@/store/modules/onAir';
-import { movie } from '@/store/modules/movie';
+import { personPopular } from '@/store/modules/person/personPopular';
+import { tvOnAir } from '@/store/modules/tv/tvOnAir';
+import { tvPopular } from '@/store/modules/tv/tvPopular';
+import { tvTopRated } from '@/store/modules/tv/tvTopRated';
+import { movie } from '@/store/modules/movie/movie';
 import { similar } from '@/store/modules/similar';
-import { tv } from '@/store/modules/tv';
-import { person } from '@/store/modules/person';
+import { tv } from '@/store/modules/tv/tv';
+import { person } from '@/store/modules/person/person';
+import { movieUpcoming } from '@/store/modules/movie/movieUpcoming';
+import { movieTopRated } from '@/store/modules/movie/movieTopRated';
+import { moviePopular } from '@/store/modules/movie/moviePopular';
+import { movieNowPlaying } from '@/store/modules/movie/movieNowPlaying';
 
 Vue.use(Vuex);
 
@@ -17,11 +23,17 @@ export default new Vuex.Store({
     search,
     home,
     trending,
-    popular,
-    onAir,
+    personPopular,
+    tvOnAir,
+    tvPopular,
+    tvTopRated,
     movie,
     similar,
     tv,
-    person
+    person,
+    movieUpcoming,
+    movieTopRated,
+    moviePopular,
+    movieNowPlaying,
   }
 })

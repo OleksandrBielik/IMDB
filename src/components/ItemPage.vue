@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <main class="page">
     <!-- <router-link to="###">
       Episode Guide
     </router-link> -->
@@ -136,7 +136,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </main>
 </template>
 
 <script>

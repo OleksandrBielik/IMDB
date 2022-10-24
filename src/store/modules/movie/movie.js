@@ -29,7 +29,7 @@ export const movie = {
   },
   actions: {
     async fetchMovie({ commit }, { id }) {
-      const res = await TMDBAPI.getMovie({ id })
+      const res = await TMDBAPI.movie.getMovie({ id })
       res.data.images.backdrops.map(item => {
         item.media_type = 'image'
         item.card_type = 'flick'

@@ -1,6 +1,10 @@
 <template>
   <div id="app">
-    <app-header />
+    <app-header @on-click="onClick" />
+    <burger-menu
+      :menu="menu"
+      @on-click="onClick"
+    />
     <router-view />
     <app-footer />
   </div>
@@ -9,10 +13,25 @@
 <script>
 import AppHeader from '@/components/AppHeader.vue';
 import AppFooter from '@/components/AppFooter.vue';
+import BurgerMenu from '@/components/BurgerMenu.vue';
 
 export default {
     name: 'App',
-    components: { AppHeader, AppFooter }
+    components: { 
+      AppHeader, 
+      AppFooter, 
+      BurgerMenu 
+    },
+    data() {
+      return {
+        menu: false
+      }
+    },
+    methods: {
+      onClick(menu) {
+        this.menu = menu
+      }
+    }
 }
 </script>
 

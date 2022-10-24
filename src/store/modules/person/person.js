@@ -29,7 +29,7 @@ export const person = {
   },
   actions: {
     async fetchPerson({ commit }, { id }) {
-      const res = await TMDBAPI.getPerson({ id })
+      const res = await TMDBAPI.person.getPerson({ id })
       res.data.images.profiles.map(item => {
         item.media_type = 'image'
         item.card_type = 'flick'
