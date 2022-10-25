@@ -1,7 +1,10 @@
 header {
   padding: 10px 0;
   background-color: $main-bg-color;
-  position: relative;
+  position: fixed;
+  z-index: 3;
+  top: 0;
+  width: 100%;
   img {
     fill: currentColor;
   }

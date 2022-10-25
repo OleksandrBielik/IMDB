@@ -229,7 +229,10 @@ export default {
 <style lang="scss" scoped>
   .page {
     color: #fff;
-    margin-top: 20px;
+    margin-top: 48px;
+    @media (min-width:400px) {
+      margin-top: 50.69px;
+    }
   }
   h1 {
     font-size: 32px;
@@ -389,6 +392,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding-top: 20px;
   }
   .imdb-rating, .your-rating {
     display: flex;

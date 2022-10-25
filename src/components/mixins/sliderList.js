@@ -60,7 +60,7 @@ export const sliderList = {
       switch(this.componentName) {
         case 'Trending': return 'Get more weekly top >'
         case 'Recently': return 'Remove recently viewed >'
-        case 'OnAir': return 'Clear recently viewed >'
+        case 'OnAir': return 'Get more on the air >'
         case 'Popular': return 'Get more popular celebrity >'
         case 'Similar': return 'Get more similar movies >'
         default: return
@@ -69,8 +69,8 @@ export const sliderList = {
     routerLink() {
       switch(this.componentName) {
         case 'Trending': return '/trending?page=1'
-        case 'OnAir': return '/onAir?page=1'
-        case 'Popular': return '/popular?page=1'
+        case 'OnAir': return '/tv/on-air?page=1'
+        case 'Popular': return '/person/popular?page=1'
         case 'Similar': return `/movie/${this.$route.params.id}/similar?page=1`
         default: return
       }

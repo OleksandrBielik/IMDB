@@ -1,32 +1,37 @@
 <template>
-  <article>
-    <img
-      class="backdrop-image"
-      :src="backdropURL"
-      :alt="item.title || item.name + 'backdrop image'"
-    >
-    <div class="description-drop" />
-    <div class="card-info">
-      <div class="thumb poster">
-        <img
-          class="poster-image"
-          :src="imgURL"
-          :alt="item.title || item.name + 'image'"
-        >
-      </div>
-      <div class="wrapper">
-        <div class="description">
-          <div class="title">
-            {{ title }}
-          </div>
-          <div class="title-lg">
-            {{ titleLg }}
+  <router-link
+    :to="`/movie/${item.id}`"
+    class="article"
+  >
+    <article>
+      <img
+        class="backdrop-image"
+        :src="backdropURL"
+        :alt="item.title || item.name + 'backdrop image'"
+      >
+      <div class="description-drop" />
+      <div class="card-info">
+        <div class="thumb poster">
+          <img
+            class="poster-image"
+            :src="imgURL"
+            :alt="item.title || item.name + 'image'"
+          >
+        </div>
+        <div class="wrapper">
+          <div class="description">
+            <div class="title">
+              {{ title }}
+            </div>
+            <div class="title-lg">
+              {{ titleLg }}
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="backdrop" />
-  </article>
+      <div class="backdrop" />
+    </article>
+  </router-link>
 </template>
 
 <script>
@@ -61,7 +66,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  article {
+  .article {
     position: relative;
     display: block;
     width: 100%;
@@ -94,56 +99,42 @@ export default {
     position: absolute;
     bottom: 0;
     left: 0;
-    height: 150px;
     width: 100%;
-    padding: 0 15px 0px 0px;
+    padding: 0 15px 10px 15px;
     display: flex;
     z-index: 3;
     @media(min-width:768px) {
-      padding: 0 55px 25px 10px;
+      padding: 0 55px 25px 35px;
     }
     @media(min-width:1440px) {
-      padding: 0 55px 25px 15px;
-      height: 260px;
     }
     .poster {
-      display: none;
       margin-right: 20px;
       margin-top: auto;
-      @media(min-width:768px) {
-        display: block;
-        min-width: 132px;
-        height: 195px;
-      }
       @media(min-width:1440px) {
-        min-width: 165px;
-        height: 245px;
         margin-right: 40px;
       }
     }
     .poster-image {
       min-width: 90px;
-      height: 133px;
+      width: 90px;
       object-fit: cover;
       @media(min-width:768px) {
-        min-width: 100px;
-        height: 160px;
+        width: 140px;
       }
       @media(min-width:1440px) {
-        min-width: 165px;
-        height: 245px;
+        width: 200px;
       }
     }
     .description {
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-end;
       @media(min-width:768px) {
         justify-content: flex-end;
       }
     }
     .title {
-      padding: 0 15px;
       font-size: 30px;
       @media(min-width:768px) {
         font-size: 50px;

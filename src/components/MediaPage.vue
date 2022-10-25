@@ -71,7 +71,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .video {
     position: relative;
     overflow: hidden;
@@ -91,5 +91,11 @@ export default {
   img {
     max-height: 800px;
     margin: 20px auto 50px auto;
+  }
+  main {
+    margin-top: 48px;
+    @media (min-width:400px) {
+      margin-top: 50.69px;
+    }
   }
 </style>

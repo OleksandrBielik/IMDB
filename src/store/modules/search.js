@@ -20,7 +20,7 @@ export const search = {
   },
   actions: {
     async onSearch({ commit }, { page, query }) {
-      const res = await TMDBAPI.search({ page, query })
+      const res = await TMDBAPI.search.search({ page, query })
       res.data.results.map(item => {
         item.card_type = 'flex-item'
       })

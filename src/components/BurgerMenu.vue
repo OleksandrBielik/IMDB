@@ -337,7 +337,7 @@ export default {
   }
   .panel {
     transform: translate(-100%);
-    width: 280px;
+    min-width: 280px;
     background-color: $card-bg-color;
     transition: all 200ms ease-out;
   }
@@ -348,6 +348,9 @@ export default {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    @media (min-width:400px) {
+      height: 50.69px;
+    }
   }
   button {
     background-color: inherit;

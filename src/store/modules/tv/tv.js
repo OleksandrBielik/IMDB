@@ -44,7 +44,7 @@ export const tv = {
       commit('setImages', res.data.images.backdrops)
     },
     async fetchSimilar({ commit }, { id, page }) {
-      const res = await TMDBAPI.getSimilar({ id, page, type: 'tv' })
+      const res = await TMDBAPI.common.getSimilar({ id, page, type: 'tv' })
       res.data.results.map(item => {
         item.media_type = 'tv'
         item.card_type = 'flick'
@@ -52,7 +52,7 @@ export const tv = {
       commit('setSimilar', res.data.results)
     },
     async fetchCredits({ commit }, { id, page }) {
-      const res = await TMDBAPI.getCredits({ id, page, type: 'tv' })
+      const res = await TMDBAPI.common.getCredits({ id, page, type: 'tv' })
       res.data.cast.map(item => {
         item.media_type = 'person'
         item.card_type = false

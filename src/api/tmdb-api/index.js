@@ -59,26 +59,29 @@ export const TMDBAPI = {
       const url = `/person/${id}`
       return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY, append_to_response: 'videos,images', id } })
     },
+    getCombinedCredits({ id, page }) {
+      const url = `/person/${id}/combined_credits`
+      return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY, id, page } })
+    }
   },
-  search({ page, query }) {
-    const url = '/search/multi'
-    return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY, page, query } })
+  search: {
+    search({ page, query }) {
+      const url = '/search/multi'
+      return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY, page, query } })
+    },
   },
-  getTrending({ page }) {
-    const url = '/trending/all/week'
-    return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY, page } })
+  common: {
+    getTrending({ page }) {
+      const url = '/trending/all/week'
+      return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY, page } })
+    },
+    getSimilar({ id, page, type }) {
+      const url = `/${type}/${id}/similar`
+      return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY, id, page } })
+    },
+    getCredits({ id, page, type }) {
+      const url = `/${type}/${id}/credits`
+      return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY, id, page } })
+    },
   },
-  getSimilar({ id, page, type }) {
-    const url = `/${type}/${id}/similar`
-    return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY, id, page } })
-  },
-  getCredits({ id, page, type }) {
-    const url = `/${type}/${id}/credits`
-    return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY, id, page } })
-  },
-  getCombinedCredits({ id, page }) {
-    const url = `/person/${id}/combined_credits`
-    return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY, id, page } })
-  }
-
 };

@@ -4,6 +4,10 @@
   margin: -15px;
   padding: 20px 0;
   max-width: 320px;
+  margin-top: 48px;
+  @media (min-width:400px) {
+    margin-top: 50.69px;
+  }
   @media(min-width: 480px) {
     max-width: 480px;
   }

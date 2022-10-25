@@ -19,7 +19,6 @@ const routes = [
     name: 'trending',
     component: () => import('../views/TrendingView.vue')
   },
-
   {
     path: '/tv/images/:id',
     name: 'tv-images',
@@ -48,7 +47,7 @@ const routes = [
   {
     path: '/tv/:id',
     name: 'tv',
-    component: () => import('../views/TvView.vue')
+    component: () => import('../views/tv/TvView.vue')
   },
   {
     path: '/movie/images/:id',
@@ -63,7 +62,7 @@ const routes = [
   {
     path: '/movie/:id/similar',
     name: 'similar',
-    component: () => import('../views/SimilarMoviesView.vue')
+    component: () => import('../views/movie/SimilarView.vue')
   },
   {
     path: '/movie/upcoming',
@@ -88,7 +87,7 @@ const routes = [
   {
     path: '/movie/:id',
     name: 'movie',
-    component: () => import('../views/MovieView.vue')
+    component: () => import('../views/movie/MovieView.vue')
   },
   {
     path: '/person/popular',
@@ -105,10 +104,6 @@ const routes = [
     name: 'person',
     component: () => import('../views/person/PersonView.vue')
   },
-
-
-
-
 ]
 
 const router = new VueRouter({

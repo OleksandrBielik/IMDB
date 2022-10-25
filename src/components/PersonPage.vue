@@ -77,13 +77,17 @@ export default {
 <style lang="scss" scoped>
   .page {
     color: #fff;
-    margin-top: 20px;
+    margin-top: 48px;
     line-height: 24px;
+    @media (min-width:400px) {
+      margin-top: 50.69px;
+    }
   }
   h1 {
     font-size: 32px;
     line-height: 48px;
     margin-bottom: 20px;
+    padding-top: 20px;
   }
   .wrapper {
     display: flex;
