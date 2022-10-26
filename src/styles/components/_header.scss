@@ -8,17 +8,6 @@ header {
   img {
     fill: currentColor;
   }
-  .logo {
-    display: block;
-    background-color: $gold-color;
-    color: $black;
-    font-size: 18px;
-    font-weight: 800;
-    padding: 5px;
-    border-radius: 5px;
-    margin-right: 12px;
-    text-decoration: none;
-  }
   .wrapper {
     display: flex;
     justify-content: start;
@@ -40,5 +29,17 @@ header {
   }
   .registration {
     white-space: nowrap;
+  }
+  .user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: $gold-color;
+    color: $black;
+    cursor: pointer;
   }
 }

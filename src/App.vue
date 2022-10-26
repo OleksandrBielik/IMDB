@@ -1,12 +1,15 @@
 <template>
   <div id="app">
-    <app-header @on-click="onClick" />
+    <app-header
+      v-if="$route.path !== '/login'"
+      @on-click="onClick"
+    />
     <burger-menu
       :menu="menu"
       @on-click="onClick"
     />
     <router-view />
-    <app-footer />
+    <app-footer v-if="$route.path !== '/login'" />
   </div>
 </template>
 

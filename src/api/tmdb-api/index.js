@@ -1,15 +1,15 @@
-import { DefaultAPIInstance } from '@/api';
+import { DefaultAPIInstance, LoginAPIInstance } from '@/api';
 
 export const TMDBAPI = {
-  // login(login, password) {
-  //   const url = '/login';
-  //   const data = { login, password };
-  //   return LoginAPIInstance.post(url, data);
-  // },
-  // logout() {
-  //   const url = '/logout';
-  //   return DefaultAPIInstance.post(url);
-  // },
+  login(login, password) {
+    const url = '/login';
+    const data = { login, password };
+    return LoginAPIInstance.post(url, data);
+  },
+  logout() {
+    const url = '/logout';
+    return DefaultAPIInstance.post(url);
+  },
   movie: {
     getUpcoming({ page }) {
       const url = '/movie/upcoming'

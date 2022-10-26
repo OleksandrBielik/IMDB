@@ -15,6 +15,7 @@ import { movieUpcoming } from '@/store/modules/movie/movieUpcoming';
 import { movieTopRated } from '@/store/modules/movie/movieTopRated';
 import { moviePopular } from '@/store/modules/movie/moviePopular';
 import { movieNowPlaying } from '@/store/modules/movie/movieNowPlaying';
+import { auth } from '@/store/modules/auth';
 
 Vue.use(Vuex);
 
@@ -35,5 +36,6 @@ export default new Vuex.Store({
     movieTopRated,
     moviePopular,
     movieNowPlaying,
+    auth
   }
 })

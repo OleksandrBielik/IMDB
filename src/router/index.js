@@ -104,6 +104,11 @@ const routes = [
     name: 'person',
     component: () => import('../views/person/PersonView.vue')
   },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('../views/LoginView.vue')
+  },
 ]
 
 const router = new VueRouter({

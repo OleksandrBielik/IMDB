@@ -28,24 +28,58 @@
         </router-link>
         <search-form />
       </div>
-      <div class="registration">
+      <router-link
+        v-if="!userLogin"
+        to="/login"
+        class="registration"
+      >
         Sign in
-      </div>
+      </router-link>
+      <button
+        v-else
+        type="button"
+        class="user"
+        @click="showModal"
+      >
+        {{ userLetter }}
+      </button>
     </div>
+    <user-modal v-if="modal" />
   </header>
 </template>
 
 <script>
+import UserModal from './modals/UserModal.vue'
 import SearchForm from './SearchForm.vue'
 
 export default {
   name: 'AppHeader',
-  components: { SearchForm },
+  components: { SearchForm, UserModal },
+  data() {
+    return {
+      modal: false
+    }
+  },
+  computed: {
+    userLogin() {
+      return this.$store.getters['auth/getUserLogin']
+    },
+    userLetter() {
+      try {
+        return this.$store.getters['auth/getUserLogin'][0]
+      } catch (error) {
+        return ''
+      }
+    }
+  },
   methods: {
     onClick() {
       this.$emit('on-click', true)
       document.querySelector('body').style.overflow = 'hidden'
     },
+    showModal() {
+      this.modal = !this.modal
+    }
   }
 }
 </script>
