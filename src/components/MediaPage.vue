@@ -59,6 +59,7 @@ export default {
     }
   },
   mounted() {
+    this.scrollUp()
     switch(this.path) {
       case 'tv': this.$store.dispatch('tv/fetchTv', { id: this.parrentId })
       break
@@ -67,6 +68,11 @@ export default {
       case 'person': this.$store.dispatch('person/fetchPerson', { id: this.parrentId })
       break
     }
+  },
+  methods: {
+    scrollUp() {
+      document.querySelector('#app').scrollIntoView({ block: 'start', behavior: 'smooth' })
+    },
   }
 }
 </script>
@@ -93,9 +99,9 @@ export default {
     margin: 20px auto 50px auto;
   }
   main {
-    margin-top: 48px;
+    padding-top: 50px;
     @media (min-width:400px) {
-      margin-top: 50.69px;
+      padding-top: 50.69px;
     }
   }
 </style>

@@ -107,14 +107,18 @@ export default {
   },
   computed: {
     pathName() {
-      const path = this.path.split('-')[0] + (this.path.split('-')[1][0].toUpperCase() + this.path.split('-')[1].slice(1))
-      return path
+      try {
+        const path = this.path.split('-')[0] + (this.path.split('-')[1][0].toUpperCase() + this.path.split('-')[1].slice(1))
+        return path        
+      } catch (error) {
+        return undefined
+      }
     },
     pages() {
-      return this.$store.getters[`${this.pathName}/getTotalPages`]
+      return this.$store.getters[`${this.pathName || this.path}/getTotalPages`]
     },
     page() {
-      return this.$store.getters[`${this.pathName}/getPage`]
+      return this.$store.getters[`${this.pathName || this.path}/getPage`]
     }
   },
   methods: {
@@ -123,7 +127,7 @@ export default {
       this.scrollUp()
     },
     scrollUp() {
-      document.querySelector('header').scrollIntoView({ block: 'center', behavior: 'smooth' })
+      document.querySelector('#app').scrollIntoView({ block: 'start', behavior: 'smooth' })
     },
   }
 }

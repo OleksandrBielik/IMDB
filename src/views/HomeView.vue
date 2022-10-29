@@ -34,6 +34,9 @@ export default {
   components: {
     SliderList,
     UpcomingList,
+  },
+  mounted() {
+    document.querySelector('#app').scrollIntoView({ block: 'start', behavior: 'smooth' })
   }
 }
 </script>

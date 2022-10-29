@@ -18,7 +18,11 @@ export const card = {
 export const imgURL = {
   computed: {
     imgURL() {
-      return `${process.env.VUE_APP_IMG_URL}${this.item.poster_path || this.item.profile_path || this.item.file_path}`
+      const imgPath = this.item.poster_path || this.item.profile_path || this.item.file_path
+      if (!imgPath) {
+        return null
+      }
+      return `${process.env.VUE_APP_IMG_URL}${imgPath}`
     },
   }
 }
@@ -86,8 +90,10 @@ export const addRecently = {
       res.card_type = 'flick'
       if (!localStorage.getItem('items')) {
         localStorage.setItem('items', JSON.stringify([res]))
+      } else if (JSON.parse(localStorage.getItem('items')).find(item => item.id === res.id)) {
+        return
       } else {
-          localStorage.setItem('items', JSON.stringify([...JSON.parse(localStorage.getItem('items')), res]))
+        localStorage.setItem('items', JSON.stringify([...JSON.parse(localStorage.getItem('items')), res]))
       }
       this.$store.dispatch('home/addRecently', { item: res })
     }

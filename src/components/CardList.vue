@@ -1,5 +1,14 @@
 <template>
-  <ul class="card-list">
+  <div
+    v-if="loading"
+    class="spinner"
+  >
+    <i />
+  </div>
+  <ul
+    v-else
+    class="card-list"
+  >
     <card-item
       v-for="(item, index) in items"
       :key="item.id"
@@ -30,17 +39,25 @@ export default {
   },
   computed: {
     pathName() {
-      const path = this.path.split('-')[0] + (this.path.split('-')[1][0].toUpperCase() + this.path.split('-')[1].slice(1))
-      return path
+      try {
+        const path = this.path.split('-')[0] + (this.path.split('-')[1][0].toUpperCase() + this.path.split('-')[1].slice(1))
+        return path
+      } catch (error) {
+        return ''
+      }
     },
     items() {
-      return this.$store.getters[`${this.pathName}/getItems`]
+      return this.$store.getters[`${this.pathName || this.path}/getItems`]
     },
     totalPages() {
-      return this.$store.getters[`${this.pathName}/getTotalPages`]
+      return this.$store.getters[`${this.pathName || this.path}/getTotalPages`]
     },
+    loading() {
+      return this.$store.getters[`${this.pathName || this.path}/getLoading`]
+    }
   },
   mounted() {
+    this.scrollUp()
     switch(this.path) {
       case 'search': this.$store.dispatch('search/onSearch', { query: this.$route.query.query, page: this.$route.query.page })
       break
@@ -67,5 +84,22 @@ export default {
       default: return
     }
   },
+  methods: {
+    scrollUp() {
+      document.querySelector('#app').scrollIntoView({ block: 'start', behavior: 'smooth' })
+    },
+  }
 }
 </script>
+
+<style lang="scss" scoped>
+  .spinner {
+    height: 100vh;
+    i {
+      margin: 20em auto;
+      @media (min-width:1024px) {
+        margin: 30em auto;
+      }
+    }
+  }
+</style>

@@ -75,14 +75,14 @@ export default {
   .modal-user {
     box-shadow: -1px 4px 22px 0px rgba(0,0,0,0.75);
     position: absolute;
-    right: 0px;
-    top: 48px;
+    top: 50px;
     color: $black;
     max-width: 320px;
     width: 100%;
     border-radius: 5px;
     overflow: hidden;
     background-color: $white;
+    margin-left: auto;
     @media(min-width: 400px) {
       right: 25px;
       top: 60px;

@@ -2,6 +2,7 @@
 @import './base/reset';
 @import './base/normalize';
 @import './common/container';
+@import './common/visually-hidden';
 @import './components/arrows';
 @import './components/pagination';
 @import './components/search-form';
@@ -14,3 +15,4 @@
 @import './components/poster-card';
 @import './components/link';
 @import './components/logo';
+@import './components/spinner';

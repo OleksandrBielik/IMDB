@@ -7,8 +7,15 @@
     <article @click="addRecently(item)">
       <div class="thumb">
         <img
+          v-if="imgURL"
           :src="imgURL"
-          :alt="item.name + 'image'"
+          :alt="item.title + 'poster image'"
+        >
+        <img
+          v-else
+          class="image-not-found"
+          src="../../assets/image-not-found-icon.svg"
+          alt="image not found"
         >
       </div>
       <p class="name">

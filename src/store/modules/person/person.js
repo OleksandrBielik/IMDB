@@ -6,10 +6,12 @@ export const person = {
     personData: {},
     creditsList: [],
     imagesList: [],
+    loading: true
   }),
   mutations: {
     setPerson(state, data) {
       state.personData = { ...data }
+      setTimeout(() => state.loading = false, 1500)
     },
     setCredits(state, items) {
       state.creditsList = [...items]
@@ -40,7 +42,8 @@ export const person = {
   },
   getters: {
     getData: (state) => state.personData,
-    getSimilar: (state) => state.similarList,
+    getCredits: (state) => state.creditsList,
     getImages: (state) => state.imagesList,
+    getLoading: (state) => state.loading,
   },
 }

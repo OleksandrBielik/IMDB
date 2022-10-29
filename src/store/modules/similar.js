@@ -6,10 +6,12 @@ export const similar = {
     itemList: [],
     page: undefined,
     totalPages: undefined,
+    loading: true
   }),
   mutations: {
     setItems(state, items) {
       state.itemList = [...items]
+      setTimeout(() => state.loading = false, 1500)
     },
     setPage(state, page) {
       state.page = page
@@ -20,7 +22,7 @@ export const similar = {
   },
   actions: {
     async getSimilarMovies({ commit }, { page, id }) {
-      const res = await TMDBAPI.getSimilar({ page, id, type: 'movie' })
+      const res = await TMDBAPI.common.getSimilar({ page, id, type: 'movie' })
       res.data.results.map(item => {
         item.card_type = 'flex-item'
         item.media_type = 'movie'
@@ -34,5 +36,6 @@ export const similar = {
     getItems: (state) => state.itemList,
     getPage: (state) => state.page,
     getTotalPages: (state) => state.totalPages,
+    getLoading: (state) => state.loading,
   },
 }

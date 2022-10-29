@@ -19,7 +19,8 @@ export const sliderList = {
   },
   data() {
     return {
-      last: false
+      last: false,
+      loading: false
     }
   },
   computed: {
@@ -27,7 +28,6 @@ export const sliderList = {
       if (this.componentName === 'Recently') {
         return this.$store.getters[`home/get${this.componentName}`]
       } else {
-        console.log(this.$store.getters[`${this.path}/get${this.componentName}`], this.componentName)
         return this.$store.getters[`${this.path}/get${this.componentName}`]
       }
     },
@@ -77,11 +77,14 @@ export const sliderList = {
     }
   },
   mounted() {
+    this.loading = true
     const pathName = this.componentName === 'Recently' || this.componentName === 'Images' || this.componentName === 'Videos'
     if (pathName) {
+      this.stopLoading()
       return
     } else {
       this.$store.dispatch(`${this.path}/fetch${this.componentName}`, { page: 1, id: this.$route.params.id })
+      this.stopLoading()
     }
   },
   methods: {
@@ -95,6 +98,9 @@ export const sliderList = {
     },
     removeRecently() {
       this.$store.dispatch('home/removeRecently')
+    },
+    stopLoading() {
+      setTimeout(() => this.loading = false, 1500)
     }
-  }
+  },
 }

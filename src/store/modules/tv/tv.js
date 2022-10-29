@@ -8,10 +8,12 @@ export const tv = {
     creditsList: [],
     imagesList: [],
     videosList: [],
+    loading: true
   }),
   mutations: {
     setTv(state, data) {
       state.tvData = { ...data }
+      setTimeout(() => state.loading = false, 2000)
     },
     setSimilar(state, items) {
       state.similarList = [...items]
@@ -24,7 +26,6 @@ export const tv = {
     },
     setVideos(state, items) {
       state.videosList = [...items]
-      console.log(state.videosList)
     },
   },
   actions: {
@@ -66,5 +67,6 @@ export const tv = {
     getCredits: (state) => state.creditsList,
     getImages: (state) => state.imagesList,
     getVideos: (state) => state.videosList,
+    getLoading: (state) => state.loading,
   },
 }

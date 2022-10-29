@@ -62,5 +62,9 @@
         height: 340px;
       }
     }
+    img.image-not-found {
+      object-fit: contain;
+      transform: scale(0.8);
+    }
   }
 }

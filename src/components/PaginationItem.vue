@@ -25,17 +25,22 @@ export default {
   },
   computed: {
     active() {
+      console.log(this.page, this.item)
       return this.page === this.item ? 'background-color: gray;' : ''
     },
     pathName() {
-      const path = this.path.split('-')[0] + (this.path.split('-')[1][0].toUpperCase() + this.path.split('-')[1].slice(1))
-      return path
+      try {
+        const path = this.path.split('-')[0] + (this.path.split('-')[1][0].toUpperCase() + this.path.split('-')[1].slice(1))
+        return path        
+      } catch (error) {
+        return undefined
+      }
     },
     pages() {
-      return this.$store.getters[`${this.pathName}/getTotalPages`]
+      return this.$store.getters[`${this.pathName || this.path}/getTotalPages`]
     },
     page() {
-      return this.$store.getters[`${this.pathName}/getPage`]
+      return this.$store.getters[`${this.pathName || this.path}/getPage`]
     },
     disabled() {
       return (function() {

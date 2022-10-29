@@ -1,8 +1,14 @@
 <template>
-  <main class="page">
-    <!-- <router-link to="###">
-      Episode Guide
-    </router-link> -->
+  <div
+    v-if="loading"
+    class="spinner"
+  >
+    <i />
+  </div>
+  <main
+    v-else
+    class="page"
+  >
     <div class="flex">
       <div class="wrapper-title">
         <h1>{{ title }}</h1>
@@ -52,9 +58,16 @@
         </div>
         <div class="video">
           <iframe
+            v-if="videos.length"
             :src="trailerURL"
             frameborder="0"
           />
+          <p
+            v-else
+            class="not-found"
+          >
+            Video not found
+          </p>
         </div>
       </div>
       <div class="wrapper">
@@ -136,12 +149,15 @@
         </div>
       </div>
     </div>
+    <rate-modal :title="title" />
   </main>
 </template>
 
 <script>
+import RateModal from './modals/RateModal.vue'
 export default {
   name: 'ItemPage',
+  components: { RateModal },
   props: {
     path: {
       type: String,
@@ -153,18 +169,13 @@ export default {
       return this.$store.getters[`${this.path}/getData`]
     },
     videos() {
-      try {
-        return this.items.videos.results
-      } catch (error) {
-        return ''
-      }
+      return this.$store.getters[`${this.path}/getVideos`]
+    },
+    loading() {
+      return this.$store.getters[`${this.path}/getLoading`]
     },
     images() {
-      try {
-        return this.items.images.posters || this.items.images.profiles
-      } catch (error) {
-        return ''
-      }
+      return this.$store.getters[`${this.path}/getImages`]
     },
     title() {
       return this.items.title || this.items.name
@@ -208,6 +219,7 @@ export default {
     }
   },
   mounted() {
+    this.scrollUp()
     switch(this.path) {
       case 'movie': this.$store.dispatch('movie/fetchMovie', { id: this.$route.params.id })
       break
@@ -215,13 +227,15 @@ export default {
       break
       case 'person': this.$store.dispatch('person/fetchPerson', { id: this.$route.params.id })
       break
-      default: this.scrollUp()
     }
   },
   methods: {
     scrollUp() {
-      document.querySelector('header').scrollIntoView({ block: 'center', behavior: 'smooth' })
+      document.querySelector('#app').scrollIntoView({ block: 'start', behavior: 'smooth' })
     },
+    stopLoading() {
+      setTimeout(() => this.loading = false, 1500)
+    }
   }
 }
 </script>
@@ -229,9 +243,9 @@ export default {
 <style lang="scss" scoped>
   .page {
     color: #fff;
-    margin-top: 48px;
+    padding-top: 50px;
     @media (min-width:400px) {
-      margin-top: 50.69px;
+      padding-top: 50.69px;
     }
   }
   h1 {
@@ -466,5 +480,20 @@ export default {
     @media(min-width:768px) {
       display: flex;
     }
+  }
+  .spinner {
+    height: 100vh;
+    i {
+      margin: 20em auto;
+      @media (min-width: 1024px) {
+        margin: 30em auto;
+      }
+    }
+  }
+  .not-found {
+    text-align: center;
+    padding: 25% 0;
+    height: 100%;
+    font-size: 25px;
   }
 </style>

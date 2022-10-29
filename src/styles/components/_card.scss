@@ -41,6 +41,10 @@
         height: 274px;
       }
     }
+    img.image-not-found {
+      object-fit: contain;
+      transform: scale(0.8);
+    }
   }
   article {
     width: 124px;

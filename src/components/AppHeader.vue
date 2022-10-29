@@ -44,6 +44,11 @@
         {{ userLetter }}
       </button>
     </div>
+    <div
+      v-if="modal"
+      class="overlay"
+      @click="showModal"
+    />
     <user-modal v-if="modal" />
   </header>
 </template>

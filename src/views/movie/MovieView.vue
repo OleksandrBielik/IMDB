@@ -10,10 +10,12 @@
       :component-name="'Credits'"
     />
     <slider-list
+      :id="'images'"
       :path="$route.name"
       :component-name="'Images'"
     />
     <slider-list
+      :id="'video'"
       :path="$route.name"
       :component-name="'Videos'"
     />

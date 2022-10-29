@@ -64,11 +64,12 @@ export default {
     },
   },
   mounted() {
+    this.scrollUp()
     this.$store.dispatch('person/fetchPerson', { id: this.$route.params.id })
   },
   methods: {
     scrollUp() {
-      document.querySelector('header').scrollIntoView({ block: 'center', behavior: 'smooth' })
+      document.querySelector('#app').scrollIntoView({ block: 'start', behavior: 'smooth' })
     },
   }
 }
@@ -77,10 +78,10 @@ export default {
 <style lang="scss" scoped>
   .page {
     color: #fff;
-    margin-top: 48px;
+    padding-top: 50px;
     line-height: 24px;
     @media (min-width:400px) {
-      margin-top: 50.69px;
+      padding-top: 50.69px;
     }
   }
   h1 {
@@ -92,7 +93,7 @@ export default {
   .wrapper {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     @media(min-width:768px) {
       flex-direction: row;

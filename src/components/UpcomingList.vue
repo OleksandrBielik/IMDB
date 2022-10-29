@@ -1,7 +1,14 @@
 <template>
   <section class="upcoming">
     <div class="container">
+      <div
+        v-if="loading"
+        class="spinner"
+      >
+        <i />
+      </div>
       <Flicking
+        v-else
         ref="flicking"
         :options="{ moveType: ['strict', { count: 1 }], circular: true, bounce: '4%' }"
         :plugins="plugins"
@@ -29,7 +36,8 @@ export default {
   },
   data() {
     return {
-      plugins: [new AutoPlay({ duration: 3000, direction: 'NEXT', stopOnHover: false })]
+      plugins: [new AutoPlay({ duration: 3000, direction: 'NEXT', stopOnHover: false })],
+      loading: false
     }
   },
   computed: {
@@ -38,7 +46,14 @@ export default {
     },
   },
   mounted() {
+    this.loading = true
     this.$store.dispatch('home/fetchUpcoming', { page:1 })
+    this.stopLoading()
+  },
+  methods: {
+    stopLoading() {
+      setTimeout(() => this.loading = false, 1500)
+    }
   },
 }
 </script>
@@ -56,5 +71,19 @@ export default {
   .container {
     position: relative;
     padding: 0;
+  }
+  .spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    height: 300px;
+    @media (min-width: 1024px) {
+      height: 600px;
+      i {
+        margin: 20em auto;
+      }
+    }
   }
 </style>

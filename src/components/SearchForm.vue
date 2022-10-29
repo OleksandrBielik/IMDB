@@ -76,6 +76,9 @@ export default {
   },
   methods: {
     onSubmit() {
+      if (this.$route.query.query === this.query) {
+        return
+      }
       this.$router.push({
         path: '/search',
         query: {

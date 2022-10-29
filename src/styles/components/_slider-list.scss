@@ -12,11 +12,16 @@
   }
   .description {
     padding: 20px 0;
+    text-align: left;
   }
   .wrapper {
     text-align: right;
   }
   .slider-wrapper {
     position: relative;
+  }
+  .spinner {
+    width: 100%;
+    height: 300px;
   }
 }

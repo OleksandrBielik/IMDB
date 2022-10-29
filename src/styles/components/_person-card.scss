@@ -26,6 +26,10 @@
         height: 185px;
       }
     }
+    img.image-not-found {
+      object-fit: contain;
+      transform: scale(0.6);
+    }
   }
   .name {
     max-width: 124px;
