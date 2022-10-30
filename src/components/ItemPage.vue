@@ -31,7 +31,10 @@
         </div>
         <div class="your-rating">
           <span>YOUR RATING</span>
-          <span class="rate"><svg
+          <span
+            class="rate"
+            @click="onClick"
+          ><svg
             id="iconContext-star-border"
             xmlns="http://www.w3.org/2000/svg"
             width="35"
@@ -149,7 +152,11 @@
         </div>
       </div>
     </div>
-    <rate-modal :title="title" />
+    <rate-modal
+      v-if="modal"
+      :title="title"
+      @on-close="onClose"
+    />
   </main>
 </template>
 
@@ -162,6 +169,11 @@ export default {
     path: {
       type: String,
       required: true
+    }
+  },
+  data() {
+    return {
+      modal: false
     }
   },
   computed: {
@@ -235,6 +247,12 @@ export default {
     },
     stopLoading() {
       setTimeout(() => this.loading = false, 1500)
+    },
+    onClose(modal) {
+      this.modal = modal
+    },
+    onClick() {
+      this.modal = true
     }
   }
 }
@@ -428,6 +446,7 @@ export default {
   }
   .rate {
     color: $light-blue-color;
+    cursor: pointer;
   }
   .imdb-rate {
     color: $white;

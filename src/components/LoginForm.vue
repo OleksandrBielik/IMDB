@@ -24,9 +24,50 @@
         >
         <label for="checkbox-login">Remember me?</label>
       </div>
-      <button type="submit">
+      <button
+        v-if="!loading && !success"
+        type="submit"
+      >
         SUBMIT
       </button>
+      <div
+        v-else-if="success"
+        class="success-animation"
+      >
+        <svg
+          class="checkmark"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 52 52"
+        ><circle
+          class="checkmark__circle"
+          cx="26"
+          cy="26"
+          r="25"
+          fill="none"
+        /><path
+          class="checkmark__check"
+          fill="none"
+          d="M14.1 27.2l7.1 7.2 16.7-16.8"
+        /></svg>
+      </div>
+      <div
+        v-else-if="loading"
+        class="wrapper-spinner-circle"
+      >
+        <svg
+          class="spinner-circle"
+          viewBox="0 0 50 50"
+        >
+          <circle
+            class="path"
+            cx="25"
+            cy="25"
+            r="20"
+            fill="none"
+            stroke-width="5"
+          />
+        </svg>
+      </div>
     </form>
   </fieldset>
   <div
@@ -52,7 +93,9 @@ export default {
     return {
       login: '',
       password: '',
-      save: false
+      save: false,
+      loading: false,
+      success: false
     }
   },
   computed: {
@@ -69,13 +112,20 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.$store.dispatch('auth/onLogin', { login: this.login, password: this.password })
+      this.loading = true
+      setTimeout(() => {
+        this.loading = false
+        this.success = true
+      }, 1000)
+      setTimeout(() => {
+        this.$store.dispatch('auth/onLogin', { login: this.login, password: this.password })
         .then(() => {
           this.$router.push({ name:'home' })
           if (this.save) {
             localStorage.setItem('savedData', JSON.stringify({ login: this.login, password: this.password }))
           }
         })
+      }, 3000)
     }
   }
 }
@@ -131,5 +181,10 @@ export default {
       margin-right: 10px;
       cursor: pointer;
     }
+  }
+  .wrapper-spinner-circle {
+    height: 50px;
+    margin-top: 10px;
+    position: relative;
   }
 </style>
