@@ -12,7 +12,7 @@
       <div class="panel">
         <button
           type="button"
-          class="watchlist"
+          class="watchlist-button"
         >
           <svg
             id="iconContext-watchlist"
@@ -29,6 +29,28 @@
           /></svg>
           <span>My watchlist</span>
         </button>
+        <div class="control-panel">
+          <button
+            type="button"
+            class="remove-button"
+            @click="onRemove"
+          >
+            Remove{{ '(' + selectedList.length + ')' }}
+          </button>
+        </div>
+        <div class="watchlist">
+          <Flicking
+            ref="flicking"
+            :options="{ moveType: 'freeScroll', bounce: '1%', align: 'prev', bound: true }"
+          >
+            <watchlist-card
+              v-for="item in items"
+              :key="item.id"
+              :item="item"
+              @on-select="onSelect"
+            />
+          </Flicking>
+        </div>
         <button
           type="button"
           class="logout"
@@ -48,8 +70,17 @@
 </template>
 
 <script>
+import WatchlistCard from '@/components/cards/WatchlistCard.vue'
+import { Flicking } from '@egjs/vue-flicking';
+
 export default {
   name: 'UserModal',
+  components: { WatchlistCard, Flicking },
+  data() {
+    return {
+      selectedList: []
+    }
+  },
   computed: {
     userLogin() {
       return this.$store.getters['auth/getUserLogin']
@@ -60,12 +91,36 @@ export default {
       } catch (error) {
         return ''
       }
-    }
+    },
+    items() {
+      return this.$store.getters['watchlist/getItems']
+    },
   },
   methods: {
     onLogout() {
       this.$store.dispatch('auth/onLogout')
       location.reload()
+    },
+    onSelect({ item, method }) {
+      if (method === 'push') {
+        this.selectedList.push(item)
+      } else {
+        this.selectedList = this.selectedList.filter(elem => elem.id !== item.id)
+      }
+    },
+    onRemove() {
+      const arr = []
+      let res = [...this.items]
+      this.selectedList.forEach(item => {
+        arr.push(item.id)
+      })
+      
+      arr.forEach(item => {
+        res = res.filter(elem => elem.id !== item)
+      })
+      console.log(res)
+      this.$store.dispatch('watchlist/setItems', { items: res })
+      this.selectedList = []
     }
   }
 }
@@ -127,13 +182,24 @@ export default {
       display: flex;
       flex-direction: column;
     }
-    .watchlist {
+    .watchlist-button {
       margin-bottom: 10px;
     }
     .logout {
       img {
         margin-right: 8px;
       }
+    }
+    .control-panel {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 10px;
+    }
+    .remove-button {
+      background-color: rgb(207, 15, 15);
+      border-radius: 3px;
+      padding: 2px 5px;
+      font-size: 14px;
     }
   }
 </style>

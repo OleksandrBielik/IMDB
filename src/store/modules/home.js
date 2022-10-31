@@ -7,7 +7,7 @@ export const home = {
     upcomingList: [],
     popularList: [],
     onAirList: [],
-    recentlyList: JSON.parse(localStorage.getItem('items')) || [],
+    recentlyList: JSON.parse(localStorage.getItem('recently')) || [],
   }),
   mutations: {
     setTrending(state, items) {
@@ -24,10 +24,15 @@ export const home = {
     },
     addRecently(state, item) {
       state.recentlyList.push(item)
+      if (!localStorage.getItem('recently')) {
+        localStorage.setItem('recently', JSON.stringify([item]))
+      } else {
+        localStorage.setItem('recently', JSON.stringify([...JSON.parse(localStorage.getItem('recently')), item]))
+      }
     },
     removeRecently(state) {
       state.recentlyList = []
-      localStorage.removeItem('items')
+      localStorage.removeItem('recently')
     }
   },
   actions: {

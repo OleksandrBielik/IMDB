@@ -83,19 +83,62 @@ export const link = {
   }
 }
 
-export const addRecently = {
+export const statusRecently = {
+  computed: {
+    statusRecently() {
+      try {
+        return this.items.find(item => item.id === this.item.id)
+      } catch (error) {
+        return null
+      }
+    }
+  }
+}
+
+export const recently = {
   methods: {
-    addRecently(item) {
+    addToRecentlyList(item) {
+      if (this.statusRecentlyList) {
+        return
+      }
       const res = { ...item }
       res.card_type = 'flick'
-      if (!localStorage.getItem('items')) {
-        localStorage.setItem('items', JSON.stringify([res]))
-      } else if (JSON.parse(localStorage.getItem('items')).find(item => item.id === res.id)) {
-        return
-      } else {
-        localStorage.setItem('items', JSON.stringify([...JSON.parse(localStorage.getItem('items')), res]))
+      this.$store.dispatch('home/addRecently', { item })
+    },
+  },
+  computed: {
+    recentlyList() {
+      return this.$store.getters['home/getRecently']
+    },
+    statusRecentlyList() {
+      try {
+        return this.recentlyList.find(item => item.id === this.item.id)
+      } catch (error) {
+        return null
       }
-      this.$store.dispatch('home/addRecently', { item: res })
+    },
+  }
+}
+
+export const watchList = {
+  computed: {
+    watchList() {
+      return this.$store.getters['watchlist/getItems']
+    },
+    statusWatchList() {
+      try {
+        return this.watchList.find(item => item.id === this.item.id)
+      } catch (error) {
+        return null
+      }
     }
+  },
+  methods: {
+    addToWatchList() {
+      if (this.statusWatchList) {
+        return
+      }
+      this.$store.dispatch('watchlist/addItem', { item: this.item })
+    },
   }
 }
