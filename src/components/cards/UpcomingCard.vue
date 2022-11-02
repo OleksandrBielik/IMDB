@@ -3,7 +3,7 @@
     :to="`/movie/${item.id}`"
     class="article"
   >
-    <article>
+    <article @click="addToRecentlyList(item)">
       <img
         class="backdrop-image"
         :src="backdropURL"
@@ -35,11 +35,11 @@
 </template>
 
 <script>
-import { imgURL } from '@/components/mixins/card';
+import { imgURL, recently } from '@/components/mixins/card';
 
 export default {
   name: 'UpcomingCard',
-  mixins: [imgURL],
+  mixins: [imgURL, recently],
   props: {
     item: {
       type: Object,

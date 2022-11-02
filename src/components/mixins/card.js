@@ -48,8 +48,19 @@ export const title = {
       if (!name) {
         return
       }
-      if (name.length > 25) {
-        return name.slice(0,25) + '...'
+      if (name.length > 30) {
+        return name.slice(0,30) + '...'
+      } else {
+        return name
+      }
+    },
+    titleLg() {
+      let name = this.item.title || this.item.name
+      if (!name) {
+        return
+      }
+      if (name.length > 43) {
+        return name.slice(0,43) + '...'
       } else {
         return name
       }
@@ -83,6 +94,14 @@ export const link = {
   }
 }
 
+export const user = {
+  computed: {
+    user() {
+      return this.$store.getters['auth/getUserLogin']
+    }
+  }
+}
+
 export const statusRecently = {
   computed: {
     statusRecently() {
@@ -101,9 +120,9 @@ export const recently = {
       if (this.statusRecentlyList) {
         return
       }
-      const res = { ...item }
-      res.card_type = 'flick'
-      this.$store.dispatch('home/addRecently', { item })
+      const res = { ...item, card_type: 'flick' }
+      console.log(res)
+      this.$store.dispatch('home/addRecently', { item: res })
     },
   },
   computed: {

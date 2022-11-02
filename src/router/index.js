@@ -87,7 +87,7 @@ const routes = [
   {
     path: '/movie/:id',
     name: 'movie',
-    component: () => import('../views/movie/MovieView.vue')
+    component: () => import('../views/movie/MovieView.vue'),
   },
   {
     path: '/person/popular',

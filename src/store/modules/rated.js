@@ -1,23 +1,24 @@
-export const watchlist = {
+export const rated = {
   namespaced: true,
   state: () => ({
-    itemList: JSON.parse(localStorage.getItem('watchlist')) || [],
+    itemList: JSON.parse(localStorage.getItem('rated')) || [],
   }),
   mutations: {
     setItems(state, items) {
       state.itemList = items
+      localStorage.setItem('rated', JSON.stringify(items))
     },
     addItem(state, item) {
       state.itemList.push(item)
-      if (!localStorage.getItem('watchlist')) {
-        localStorage.setItem('watchlist', JSON.stringify([item]))
+      if (!localStorage.getItem('rated')) {
+        localStorage.setItem('rated', JSON.stringify([item]))
       } else {
-        localStorage.setItem('watchlist', JSON.stringify([...JSON.parse(localStorage.getItem('watchlist')), item]))
+        localStorage.setItem('rated', JSON.stringify([...JSON.parse(localStorage.getItem('rated')), item]))
       }
     },
     clearItems(state) {
       state.itemList = []
-      localStorage.removeItem('watchlist')
+      localStorage.removeItem('rated')
     }
   },
   actions: {

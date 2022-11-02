@@ -107,8 +107,12 @@ export default {
     },
   },
   mounted() {
-    this.login = JSON.parse(localStorage.getItem('savedData')).login
-    this.password = JSON.parse(localStorage.getItem('savedData')).password
+    try {
+      this.login = JSON.parse(localStorage.getItem('savedData')).login || ''
+      this.password = JSON.parse(localStorage.getItem('savedData')).password || ''
+    } catch (error) {
+      return
+    }
   },
   methods: {
     onSubmit() {

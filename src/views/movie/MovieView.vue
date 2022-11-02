@@ -36,8 +36,14 @@ export default {
   watch: {
     $route(to, from) {
       this.$store.dispatch('movie/fetchMovie', { id: this.$route.params.id })
+      this.scrollUp()
     }
   },
+  methods: {
+    scrollUp() {
+      document.querySelector('#app').scrollIntoView({ block: 'start', behavior: 'smooth' })
+    },
+  }
 }
 </script>
 

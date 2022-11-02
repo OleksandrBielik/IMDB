@@ -4,7 +4,7 @@
     :to="link"
     class="person-card"
   >
-    <article @click="addRecently(item)">
+    <article @click="addToRecentlyList(item)">
       <div class="thumb">
         <img
           v-if="imgURL"
@@ -33,3 +33,51 @@ export default {
   mixins: [card, imgURL, link, recently]
 }
 </script>
+
+<style lang="scss" scoped>
+.person-card {
+  margin: 8px;
+  border-radius: 5px;
+  overflow: hidden;
+  @media (min-width:1024px) {
+    margin: 12px;
+  }
+  article {
+    padding: 10px 0;
+  }
+  .thumb {
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 10px;
+    img {
+      object-fit: cover;
+      display: block;
+      width: 124px;
+      height: 124px;
+      @media (min-width:768px) {
+        width: 159px;
+        height: 159px;
+      }
+      @media (min-width:1440px) {
+        width: 185px;
+        height: 185px;
+      }
+    }
+    img.image-not-found {
+      object-fit: contain;
+      transform: scale(0.6);
+    }
+  }
+  .name {
+    max-width: 124px;
+    text-align: center;
+    white-space: normal;
+    @media (min-width:768px) {
+      max-width: 159px;
+    }
+    @media (min-width:1440px) {
+      max-width: 185px;
+    }
+  }
+}
+</style>

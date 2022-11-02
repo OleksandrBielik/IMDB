@@ -1,8 +1,9 @@
 <template>
   <router-link
+    class="poster-card"
     :to="link"
   >
-    <article class="poster-card">
+    <article>
       <div class="thumb">
         <img
           :src="imgURL"

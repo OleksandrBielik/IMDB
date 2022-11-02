@@ -1,18 +1,20 @@
 <template>
   <main>
-    <img
-      v-if="media === 'images'"
-      :src="imgURL"
-      alt="image"
-    >
-    <div
-      v-else-if="media === 'videos'"
-      class="video"
-    >
-      <iframe
-        :src="videoURL"
-        frameborder="0"
-      />
+    <div class="container">
+      <img
+        v-if="media === 'images'"
+        :src="imgURL"
+        alt="image"
+      >
+      <div
+        v-else-if="media === 'videos'"
+        class="video"
+      >
+        <iframe
+          :src="videoURL"
+          frameborder="0"
+        />
+      </div>
     </div>
   </main>
 </template>
@@ -36,11 +38,14 @@ export default {
     childId() {
       return this.$route.params.id.split('-')[1]
     },
+    pathName() {
+      return this.$route.name.split('-')[0]
+    },
     items() {
       switch(this.media) {
-        case 'images': return this.$store.getters[`${this.path}/getImages`][this.childId-1]
-        case 'videos': return this.$store.getters[`${this.path}/getVideos`][this.childId-1]
-        default: return undefined
+        case 'images': return this.$store.getters[`${this.pathName}/getImages`][this.childId-1]
+        case 'videos': return this.$store.getters[`${this.pathName}/getVideos`][this.childId-1]
+        default: return null
       }
     },
     imgURL() {
@@ -60,7 +65,7 @@ export default {
   },
   mounted() {
     this.scrollUp()
-    switch(this.path) {
+    switch(this.pathName) {
       case 'tv': this.$store.dispatch('tv/fetchTv', { id: this.parrentId })
       break
       case 'movie': this.$store.dispatch('movie/fetchMovie', { id: this.parrentId })
@@ -82,20 +87,33 @@ export default {
     position: relative;
     overflow: hidden;
     width: 100%;
-    padding-top: 56.25%;
+    height: 0;
+    padding-bottom: 56.25%;
     margin: 20px auto 50px auto;
+    @media (min-width:1024px) {
+      height: 100%;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
   iframe {
     position: absolute;
     top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
+    height: 0;
     width: 100%;
     height: 100%;
+    border: none;
+    @media (min-width:1024px) {
+      position: relative;
+      height: 55vh;
+      width: 1024px;
+    }
   }
   img {
-    max-height: 800px;
+    object-fit: cover;
+    max-height: 55vh;
     margin: 20px auto 50px auto;
   }
   main {

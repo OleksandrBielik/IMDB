@@ -4,7 +4,7 @@
     :to="link"
     class="poster-card"
   >
-    <article @click="addRecently(item)">
+    <article @click="addToRecentlyList(item)">
       <div class="thumb">
         <img
           :src="imgURL"

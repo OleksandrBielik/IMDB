@@ -36,8 +36,8 @@
           <rating-star
             v-for="(item,i) in 10"
             :key="i"
-            :value="i+1"
             :star="star"
+            :value="i+1"
             tabindex="0"
             @on-change="onChange"
           />
@@ -105,13 +105,13 @@ export default {
     title: {
       type: String,
       required: true
-    }
+    },
   },
   data() {
     return {
-      star: 0,
       loading: false,
-      success: false
+      success: false,
+      star: 0
     }
   },
   computed: {
@@ -120,6 +120,17 @@ export default {
     },
     disabledClass() {
       return !this.star ? 'disabled' : ''
+    },
+    rated() {
+      return this.$store.getters['rated/getItems']
+    },
+  },
+  mounted() {
+    const index = this.rated.findIndex(item=> item.id === this.$route.params.id)
+    if (index >= 0) {
+      this.star = this.rated[index].rate
+    } else {
+      this.star = 0
     }
   },
   methods: {
@@ -128,11 +139,28 @@ export default {
     },
     onSubmit() {
       this.loading = true
+
       setTimeout(() => {
         this.loading = false
         this.success = true
-        }, 1000)
-      setTimeout(() => this.onClose(), 3000)
+        }, 700)
+
+      setTimeout(() => {
+        this.onClose()
+        if (this.rated.find(item=> item.id === this.$route.params.id)) {
+          const res = this.rated.map(item => {
+            if (item.id === this.$route.params.id) {
+              return { id: item.id, rate: this.star }
+            } else {
+              return item
+            }
+          })
+          this.$store.dispatch('rated/setItems', { items: res } )
+        } else {
+          this.$store.dispatch('rated/addItem', { item: { id: this.$route.params.id, rate: this.star } })
+        }
+      }, 2500)
+
     },
     onClose() {
       this.$emit('on-close', false)

@@ -29,16 +29,24 @@
           /></svg>
           <span>My watchlist</span>
         </button>
-        <div class="control-panel">
+        <div
+          v-if="items.length"
+          class="control-panel"
+        >
           <button
             type="button"
             class="remove-button"
+            :class="{disabled: selectedList.length === 0}"
+            :disabled="disabled"
             @click="onRemove"
           >
             Remove{{ '(' + selectedList.length + ')' }}
           </button>
         </div>
-        <div class="watchlist">
+        <div
+          v-if="items.length"
+          class="watchlist"
+        >
           <Flicking
             ref="flicking"
             :options="{ moveType: 'freeScroll', bounce: '1%', align: 'prev', bound: true }"
@@ -50,6 +58,12 @@
               @on-select="onSelect"
             />
           </Flicking>
+        </div>
+        <div
+          v-else
+          class="empty"
+        >
+          Empty
         </div>
         <button
           type="button"
@@ -92,6 +106,9 @@ export default {
         return ''
       }
     },
+    disabled() {
+      return this.selectedList.length ? false : 'disabled'
+    },
     items() {
       return this.$store.getters['watchlist/getItems']
     },
@@ -99,6 +116,10 @@ export default {
   methods: {
     onLogout() {
       this.$store.dispatch('auth/onLogout')
+      this.$store.dispatch('watchlist/clearItems')
+      this.$router.push({
+        name: 'home'
+      })
       location.reload()
     },
     onSelect({ item, method }) {
@@ -109,16 +130,15 @@ export default {
       }
     },
     onRemove() {
+      console.log(1)
       const arr = []
       let res = [...this.items]
       this.selectedList.forEach(item => {
         arr.push(item.id)
       })
-      
       arr.forEach(item => {
         res = res.filter(elem => elem.id !== item)
       })
-      console.log(res)
       this.$store.dispatch('watchlist/setItems', { items: res })
       this.selectedList = []
     }
@@ -131,6 +151,7 @@ export default {
     box-shadow: -1px 4px 22px 0px rgba(0,0,0,0.75);
     position: absolute;
     top: 50px;
+    right: 0;
     color: $black;
     max-width: 320px;
     width: 100%;
@@ -200,6 +221,18 @@ export default {
       border-radius: 3px;
       padding: 2px 5px;
       font-size: 14px;
+    }
+    .disabled {
+      background-color: $gray;
+      color: $white;
+    }
+    .empty {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+      height: 220px;
     }
   }
 </style>

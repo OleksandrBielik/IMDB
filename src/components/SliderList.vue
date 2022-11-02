@@ -99,9 +99,140 @@
 
 
 <script>
-import { sliderList } from '@/components/mixins/sliderList';
+import CardItem from '@/components/CardItem.vue';
+import { Flicking } from '@egjs/vue-flicking';
 
 export default {
-  mixins: [sliderList],
+  name: 'SliderList',
+  components: { 
+    CardItem,
+    Flicking
+  },
+  props: {
+    path: {
+      type: String,
+      required: true
+    },
+    componentName: {
+      type: String,
+      required: true
+    }
+  },
+  data() {
+    return {
+      last: false,
+      loading: false
+    }
+  },
+  computed: {
+    items() {
+      if (this.componentName === 'Recently') {
+        return this.$store.getters[`home/get${this.componentName}`]
+      } else {
+        return this.$store.getters[`${this.path}/get${this.componentName}`]
+      }
+    },
+    description() {
+      switch(this.componentName) {
+        case 'Trending': return 'This week\'s top TV and movies'
+        case 'Recently': return 'You have no recently viewed pages'
+        case 'OnAir': return 'List of shows that are currently on the air'
+        case 'Popular': return 'Most popular celebrity on TMDb'
+        case 'Similar': return 'List of similar movies'
+        case 'Images': return `List of ${this.path} images`
+        case 'Videos': return `List of ${this.path} videos`
+        default: return null
+      }
+    },
+    title() {
+      switch(this.componentName) {
+        case 'Trending': return 'Fan favorites'
+        case 'Recently': return 'Recently viewed'
+        case 'OnAir': return 'On the air'
+        case 'Popular': return 'Popular celebrity'
+        case 'Similar': return 'Similar movies'
+        case 'Credits': return 'Credits'
+        case 'Images': return 'Images'
+        case 'Videos': return 'Videos'
+        default: return null
+      }
+    },
+    link() {
+      switch(this.componentName) {
+        case 'Trending': return 'Get more weekly top >'
+        case 'Recently': return 'Remove recently viewed >'
+        case 'OnAir': return 'Get more on the air >'
+        case 'Popular': return 'Get more popular celebrity >'
+        case 'Similar': return 'Get more similar movies >'
+        default: return null
+      }
+    },
+    routerLink() {
+      switch(this.componentName) {
+        case 'Trending': return '/trending?page=1'
+        case 'OnAir': return '/tv/on-air?page=1'
+        case 'Popular': return '/person/popular?page=1'
+        case 'Similar': return `/movie/${this.$route.params.id}/similar?page=1`
+        default: return null
+      }
+    }
+  },
+  mounted() {
+    this.loading = true
+    const pathName = this.componentName === 'Recently' || this.componentName === 'Images' || this.componentName === 'Videos'
+    if (pathName) {
+      this.stopLoading()
+      return
+    } else {
+      this.$store.dispatch(`${this.path}/fetch${this.componentName}`, { page: 1, id: this.$route.params.id })
+      this.stopLoading()
+    }
+  },
+  methods: {
+    moveEnd() {
+      this.$refs.flicking.moveTo(this.items.length-1);
+      this.last = true
+    },
+    moveStart() {
+      this.$refs.flicking.moveTo(0);
+      this.last = false
+    },
+    removeRecently() {
+      this.$store.dispatch('home/removeRecently')
+    },
+    stopLoading() {
+      setTimeout(() => this.loading = false, 1500)
+    }
+  },
 }
 </script>
+
+<style lang="scss" scoped>
+.slider-list {
+  position: relative;
+  color: inherit;
+  margin-bottom: 50px;
+  @media (min-width: 1024px) {
+    margin-bottom: 100px;
+  }
+  h2 {
+    font-size: 30px;
+    margin-bottom: 5px;
+    color: $gold-color;
+  }
+  .description {
+    padding: 20px 0;
+    text-align: left;
+  }
+  .wrapper {
+    text-align: right;
+  }
+  .slider-wrapper {
+    position: relative;
+  }
+  .spinner {
+    width: 100%;
+    height: 300px;
+  }
+}
+</style>

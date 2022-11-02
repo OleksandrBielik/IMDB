@@ -88,3 +88,58 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+header {
+  padding: 10px 0;
+  background-color: $main-bg-color;
+  position: fixed;
+  z-index: 3;
+  top: 0;
+  width: 100%;
+  img {
+    fill: currentColor;
+  }
+  .wrapper {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+  }
+  .burger-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+  }
+  .w-100 {
+    width: 100%;
+  }
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: none;
+  }
+  .registration {
+    white-space: nowrap;
+  }
+  .user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: $gold-color;
+    color: $black;
+    cursor: pointer;
+  }
+  .overlay {
+    position: absolute;
+    top: 0;
+    min-height: 100vh;
+    width: 100%;
+  }
+}
+</style>

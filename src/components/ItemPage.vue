@@ -27,19 +27,28 @@
             src="../assets/star-icon.svg"
             alt="rating icon"
             width="25"
-          >{{ String(items.vote_average).slice(0,3) }}/10</span>
+          >{{ Math.round(items.vote_average) }}/10</span>
         </div>
         <div class="your-rating">
           <span>YOUR RATING</span>
           <span
+            v-if="rate"
+            class="imdb-rate"
+            @click="onClick"
+          ><img
+            class="star-icon"
+            src="../assets/star-icon.svg"
+            alt="rating icon"
+            width="25"
+          >{{ rate }}/10</span>
+          <span
+            v-if="user && !rate"
             class="rate"
             @click="onClick"
           ><svg
-            id="iconContext-star-border"
             xmlns="http://www.w3.org/2000/svg"
             width="35"
             height="35"
-            class="ipc-icon ipc-icon--star-border sc-ab12c7bd-4 cNHRQT"
             viewBox="0 0 24 24"
             fill="currentColor"
             role="presentation"
@@ -47,6 +56,24 @@
             fill="none"
             d="M0 0h24v24H0V0z"
           /><path d="M19.65 9.04l-4.84-.42-1.89-4.45c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5 4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.73 3.67-3.18c.67-.58.32-1.68-.56-1.75zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z" /></svg> Rate</span>
+          <router-link
+            v-if="!user"
+            to="/login"
+            class="rate"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="35"
+              height="35"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              role="presentation"
+            ><path
+              fill="none"
+              d="M0 0h24v24H0V0z"
+            /><path d="M19.65 9.04l-4.84-.42-1.89-4.45c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5 4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.73 3.67-3.18c.67-.58.32-1.68-.56-1.75zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z" /></svg>
+            Rate
+          </router-link>
         </div>
       </div>
     </div>
@@ -59,11 +86,53 @@
             :alt="items.title || items.name + 'image'"
           >
         </div>
-        <div class="video">
+        <div
+          class="video"
+          tabindex="0"
+          aria-label="video"
+        >
+          <picture v-if="!iframe">
+            <source
+              :srcset="BgVideoWebpURL"
+              type="image/webp"
+            >
+            <img
+              class="video-media"
+              :src="BgVideoURL"
+              :alt="title + ' image'"
+            >
+          </picture>
+          <div
+            class="overlay-button"
+            @click="onPlay"
+          >
+            <button
+              v-if="!iframe"
+              type="button"
+              class="play"
+              aria-label="Play video"
+            >
+              <svg
+                height="100%"
+                version="1.1"
+                viewBox="0 0 68 48"
+                width="100%"
+              ><path
+                class="play-fragment"
+                d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z"
+                fill="#f00"
+              /><path
+                class="play-inner-fragment"
+                d="M 45,24 27,14 27,34"
+                fill="#fff"
+              /></svg>
+            </button>
+          </div>
           <iframe
-            v-if="videos.length"
+            v-if="videos.length && iframe"
             :src="trailerURL"
             frameborder="0"
+            allow="autoplay"
           />
           <p
             v-else
@@ -173,7 +242,8 @@ export default {
   },
   data() {
     return {
-      modal: false
+      modal: false,
+      iframe: false,
     }
   },
   computed: {
@@ -191,6 +261,9 @@ export default {
     },
     title() {
       return this.items.title || this.items.name
+    },
+    rated() {
+      return this.$store.getters['rated/getItems']
     },
     originalTitle() {
       return this.items.original_title || this.items.original_name
@@ -224,11 +297,38 @@ export default {
     trailerURL() {
       try {
         const key = this.videos.find(item => item.type === 'Trailer').key
-        return `https://www.youtube.com/embed/${key}`
+        return `${process.env.VUE_APP_VIDEO_URL}${key}?rel=0&showinfo=0&autoplay=1`
       } catch (error) {
         return ''
       }
-    }
+    },
+    BgVideoURL() {
+      try {
+        const key = this.videos.find(item => item.type === 'Trailer').key
+        return `${process.env.VUE_APP_BACKVIDEOIMG_URL}${key}/maxresdefault.jpg`
+      } catch (error) {
+        return ''
+      }
+    },
+    BgVideoWebpURL() {
+      try {
+        const key = this.videos.find(item => item.type === 'Trailer').key
+        return `${process.env.VUE_APP_BACKVIDEOIMG_WEBP_URL}${key}/maxresdefault.webp`
+      } catch (error) {
+        return ''
+      }
+    },
+    user() {
+      return this.$store.getters['auth/getUserLogin']
+    },
+    rate() {
+      const index = this.rated.findIndex(item=> item.id === this.$route.params.id)
+      if (index >= 0) {
+        return this.rated[index].rate
+      } else {
+        return undefined
+      }
+    },
   },
   mounted() {
     this.scrollUp()
@@ -253,6 +353,9 @@ export default {
     },
     onClick() {
       this.modal = true
+    },
+    onPlay() {
+      this.iframe = !this.iframe
     }
   }
 }
@@ -329,10 +432,52 @@ export default {
     position: relative;
     overflow: hidden;
     width: 100%;
-    padding-top: 56.25%;
+    height: 0;
+    padding-bottom: 56.25%;
+    background-color: $black;
     @media(min-width:600px) {
       padding: 0;
+      height: 100%;
     }
+  }
+  .video-media {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+  }
+  .overlay-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .play {
+    cursor: pointer;
+    background-color: transparent;
+    width: 50px;
+    @media(min-width:400px) {
+      width: 80px;
+    }
+    .play-fragment {
+      fill: $main-bg-color;
+      fill-opacity: 0.8;
+    }
+    .play-fragment:hover {
+      fill: #FF0000;
+      fill-opacity: 1;
+    }
+    .play-inner-fragment {
+      fill: $white;
+    }
+  }
+  .video:hover .play-fragment, .video:focus .play-fragment {
+    fill: #FF0000;
+    fill-opacity: 1;
   }
   .wrapper {
     display: flex;

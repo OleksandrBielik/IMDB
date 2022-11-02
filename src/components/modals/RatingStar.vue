@@ -31,7 +31,7 @@ export default {
       return {
         'active' : this.value <= this.star
       }
-    }
+    },
   },
   methods: {
     onChange() {
