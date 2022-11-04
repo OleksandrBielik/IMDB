@@ -13,6 +13,7 @@
 <script>
 import CardList from '@/components/CardList.vue'
 import PaginationComp from '@/components/PaginationComp.vue';
+import { scrollUp } from '@/components/mixins/common/scrollUp';
 
 export default {
   name: 'OnAirView',
@@ -20,10 +21,14 @@ export default {
     CardList, 
     PaginationComp 
   },
+  mixins: [scrollUp],
   watch: {
     $route(to, from) {
       this.$store.dispatch('tvOnAir/getOnAir', { page: this.$route.query.page })
     }
+  },
+  mounted() {
+    setTimeout(()=> this.scrollUp(), 1000)
   },
   methods: {
     changePage(page) {

@@ -5,18 +5,23 @@
   >
     <i />
   </div>
-  <ul
-    v-else
-    class="card-list"
+  <div
+    v-else-if="!items.length"
+    class="no-results"
   >
-    <card-item
-      v-for="(item, index) in items"
-      :key="item.id"
-      :index="index"
-      :path="path"
-      :item="item"
-    />
-  </ul>
+    No results
+  </div>
+  <section v-else>
+    <ul class="card-list">
+      <card-item
+        v-for="(item, index) in items"
+        :key="item.id"
+        :index="index"
+        :path="$route.name"
+        :item="item"
+      />
+    </ul>
+  </section>
 </template>
 
 <script>
@@ -27,68 +32,174 @@ export default {
   components: {
     CardItem,
   },
-  props: {
-    path: {
-      type: String,
-      required: true
-    },
-    type: {
-      type: String,
-      default: ''
+  data() {
+    return {
+      loading: true,
     }
   },
   computed: {
     pathName() {
       try {
-        const path = this.path.split('-')[0] + (this.path.split('-')[1][0].toUpperCase() + this.path.split('-')[1].slice(1))
+        const path = this.$route.name.split('-')[0] + (this.$route.name.split('-')[1][0].toUpperCase() + this.$route.name.split('-')[1].slice(1))
         return path
       } catch (error) {
         return ''
       }
     },
     items() {
-      return this.$store.getters[`${this.pathName || this.path}/getItems`]
+      return this.$store.getters[`${this.pathName || this.$route.name}/getItems`]
     },
     totalPages() {
-      return this.$store.getters[`${this.pathName || this.path}/getTotalPages`]
+      return this.$store.getters[`${this.pathName || this.$route.name}/getTotalPages`]
     },
-    loading() {
-      return this.$store.getters[`${this.pathName || this.path}/getLoading`]
-    }
   },
   mounted() {
-    this.scrollUp()
-    switch(this.path) {
-      case 'search': this.$store.dispatch('search/onSearch', { query: this.$route.query.query, page: this.$route.query.page })
-      break
-      case 'trending': this.$store.dispatch('trending/getTrending', { page: this.$route.query.page })
-      break
-      case 'person-popular': this.$store.dispatch('personPopular/getPopular', { page: this.$route.query.page })
-      break
-      case 'tv-onAir': this.$store.dispatch('tvOnAir/getOnAir', { page: this.$route.query.page })
-      break
-      case 'tv-popular': this.$store.dispatch('tvPopular/getPopular', { page: this.$route.query.page })
-      break
-      case 'tv-topRated': this.$store.dispatch('tvTopRated/getTopRated', { page: this.$route.query.page })
-      break
-      case 'movie-upcoming': this.$store.dispatch('movieUpcoming/getUpcoming', { page: this.$route.query.page })
-      break
-      case 'movie-topRated': this.$store.dispatch('movieTopRated/getTopRated', { page: this.$route.query.page })
-      break
-      case 'movie-popular': this.$store.dispatch('moviePopular/getPopular', { page: this.$route.query.page })
-      break
-      case 'movie-nowPlaying': this.$store.dispatch('movieNowPlaying/getNowPlaying', { page: this.$route.query.page })
-      break
-      case 'similar': this.$store.dispatch(`similar/getSimilar${this.type}`, { page: this.$route.query.page, id: this.$route.params.id })
-      break
-      default: return
+    switch(this.$route.name) {
+      case 'search': {
+        return this.$store.dispatch('search/onSearch', { query: this.$route.query.query, page: this.$route.query.page })
+        .then(res => this.loading = false)
+        .catch(error => {
+          if (error.response.status === 404) {
+            this.$emit('on-error', true)
+          } else if (error.request.status >= 500) {
+            console.log('server-side error');
+          } else {
+            console.log('Error', error.message);
+          }
+        });
+      }
+      case 'trending': {
+        return this.$store.dispatch('trending/getTrending', { page: this.$route.query.page })
+        .then(res => this.loading = false)
+        .catch(error => {
+          if (error.response.status === 404) {
+            this.$emit('on-error', true)
+          } else if (error.request.status >= 500) {
+            console.log('server-side error');
+          } else {
+            console.log('Error', error.message);
+          }
+        });
+      }
+      case 'person-popular': {
+        return this.$store.dispatch('personPopular/getPopular', { page: this.$route.query.page })
+        .then(res => this.loading = false)
+        .catch(error => {
+          if (error.response.status === 404) {
+            this.$emit('on-error', true)
+          } else if (error.request.status >= 500) {
+            console.log('server-side error');
+          } else {
+            console.log('Error', error.message);
+          }
+        });
+      }
+      case 'tv-onAir': {
+        return this.$store.dispatch('tvOnAir/getOnAir', { page: this.$route.query.page })
+        .then(res => this.loading = false)
+        .catch(error => {
+          if (error.response.status === 404) {
+            this.$emit('on-error', true)
+          } else if (error.request.status >= 500) {
+            console.log('server-side error');
+          } else {
+            console.log('Error', error.message);
+          }
+        });
+      }
+      case 'tv-popular': {
+        return this.$store.dispatch('tvPopular/getPopular', { page: this.$route.query.page })
+        .then(res => this.loading = false)
+        .catch(error => {
+          if (error.response.status === 404) {
+            this.$emit('on-error', true)
+          } else if (error.request.status >= 500) {
+            console.log('server-side error');
+          } else {
+            console.log('Error', error.message);
+          }
+        });
+      }
+      case 'tv-topRated': {
+        return this.$store.dispatch('tvTopRated/getTopRated', { page: this.$route.query.page })
+        .then(res => this.loading = false)
+        .catch(error => {
+          if (error.response.status === 404) {
+            this.$emit('on-error', true)
+          } else if (error.request.status >= 500) {
+            console.log('server-side error');
+          } else {
+            console.log('Error', error.message);
+          }
+        });
+      }
+      case 'movie-upcoming': {
+        return this.$store.dispatch('movieUpcoming/getUpcoming', { page: this.$route.query.page })
+        .then(res => this.loading = false)
+        .catch(error => {
+          if (error.response.status === 404) {
+            this.$emit('on-error', true)
+          } else if (error.request.status >= 500) {
+            console.log('server-side error');
+          } else {
+            console.log('Error', error.message);
+          }
+        });
+      }
+      case 'movie-topRated': {
+        return this.$store.dispatch('movieTopRated/getTopRated', { page: this.$route.query.page })
+        .then(res => this.loading = false)
+        .catch(error => {
+          if (error.response.status === 404) {
+            this.$emit('on-error', true)
+          } else if (error.request.status >= 500) {
+            console.log('server-side error');
+          } else {
+            console.log('Error', error.message);
+          }
+        });
+      }
+      case 'movie-popular': {
+        return this.$store.dispatch('moviePopular/getPopular', { page: this.$route.query.page })
+        .then(res => this.loading = false)
+        .catch(error => {
+          if (error.response.status === 404) {
+            this.$emit('on-error', true)
+          } else if (error.request.status >= 500) {
+            console.log('server-side error');
+          } else {
+            console.log('Error', error.message);
+          }
+        });
+      }
+      case 'movie-nowPlaying': {
+        return this.$store.dispatch('movieNowPlaying/getNowPlaying', { page: this.$route.query.page })
+        .then(res => this.loading = false)
+        .catch(error => {
+          if (error.response.status === 404) {
+            this.$emit('on-error', true)
+          } else if (error.request.status >= 500) {
+            console.log('server-side error');
+          } else {
+            console.log('Error', error.message);
+          }
+        });
+      }
+      case 'similar': {
+        return this.$store.dispatch('similar/getSimilarMovies', { page: this.$route.query.page, id: this.$route.params.id })
+        .then(res => this.loading = false)
+        .catch(error => {
+          if (error.response.status === 404) {
+            this.$emit('on-error', true)
+          } else if (error.request.status >= 500) {
+            console.log('server-side error');
+          } else {
+            console.log('Error', error.message);
+          }
+        });
+      }
     }
   },
-  methods: {
-    scrollUp() {
-      document.querySelector('#app').scrollIntoView({ block: 'start', behavior: 'smooth' })
-    },
-  }
 }
 </script>
 
@@ -124,5 +235,11 @@ export default {
         margin: 30em auto;
       }
     }
+  }
+  .no-results {
+    padding: 70px 0 0 15px;
+    font-size: 30px;
+    width: 100%;
+    height: 70vh;
   }
 </style>

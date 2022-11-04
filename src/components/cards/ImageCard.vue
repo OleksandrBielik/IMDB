@@ -7,7 +7,7 @@
       <div class="thumb">
         <img
           :src="imgURL"
-          :alt="'poster image'"
+          :alt="name + 'image'"
         >
       </div>
     </article>
@@ -15,10 +15,23 @@
 </template>
 
 <script>
-import { card, imgURL, link, id } from '@/components/mixins/card'
+import { props } from '@/components/mixins/card/props';
+import { computed } from '@/components/mixins/card/computed';
+
+const { computed: {
+    link,
+    imgURL,
+    name,
+  }
+} = computed;
 
 export default {
   name: 'ImageCard',
-  mixins: [card, imgURL, link, id],
+  mixins: [props],
+  computed: {
+    link,
+    imgURL,
+    name,
+  }
 }
 </script>

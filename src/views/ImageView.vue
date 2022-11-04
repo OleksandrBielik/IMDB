@@ -11,8 +11,9 @@
 </template>
 
 <script>
-import MediaPage from '@/components/MediaPage.vue'
-import SliderList from '@/components/SliderList.vue'
+import MediaPage from '@/components/MediaPage.vue';
+import SliderList from '@/components/SliderList.vue';
+import { scrollUp } from '@/components/mixins/common/scrollUp';
 
 export default {
   name: 'ImageView',
@@ -20,6 +21,7 @@ export default {
     MediaPage,
     SliderList
   },
+  mixins: [scrollUp],
   computed: {
     path() {
       return this.$route.name.split('-')[0]
@@ -44,6 +46,9 @@ export default {
       }
       
     }
+  },
+  mounted() {
+    setTimeout(()=> this.scrollUp(), 1000)
   },
 }
 </script>

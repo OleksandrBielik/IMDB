@@ -1,11 +1,15 @@
 <template>
   <fieldset v-if="userRole === 'guest'">
     <legend>Login</legend>
-    <form @submit.prevent="onSubmit">
+    <form
+      name="login-form"
+      @submit.prevent="onSubmit"
+    >
       <input
         v-model="login"
         required
         class="login"
+        name="login"
         type="text"
         placeholder="Login"
       >
@@ -14,12 +18,14 @@
         required
         class="password"
         type="password"
+        name="password"
         placeholder="Password"
       >
       <div class="wrapper-checkbox">
         <input
           id="checkbox-login"
           v-model="save"
+          name="save"
           type="checkbox"
         >
         <label for="checkbox-login">Remember me?</label>

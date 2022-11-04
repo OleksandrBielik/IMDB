@@ -27,14 +27,19 @@
 <script>
 import SliderList from '@/components/SliderList.vue'
 import ItemPage from '@/components/ItemPage.vue'
+import { scrollUp } from '@/components/mixins/common/scrollUp';
 
 export default {
   name: 'TvView',
   components: { ItemPage, SliderList },
+  mixins: [scrollUp],
   watch: {
     $route(to, from) {
       this.$store.dispatch('tv/fetchTv', { id: this.$route.params.id })
     }
+  },
+  mounted() {
+    setTimeout(()=> this.scrollUp(), 1000)
   },
 }
 </script>

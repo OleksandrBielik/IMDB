@@ -117,6 +117,7 @@ export default {
     onLogout() {
       this.$store.dispatch('auth/onLogout')
       this.$store.dispatch('watchlist/clearItems')
+      this.$store.dispatch('rated/clearItems')
       this.$router.push({
         name: 'home'
       })

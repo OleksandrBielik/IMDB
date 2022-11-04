@@ -40,6 +40,6 @@ export default new Vuex.Store({
     movieNowPlaying,
     auth,
     watchlist,
-    rated
+    rated,
   }
 })

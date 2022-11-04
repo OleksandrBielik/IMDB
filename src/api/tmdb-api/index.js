@@ -57,7 +57,7 @@ export const TMDBAPI = {
     },
     getPerson({ id }) {
       const url = `/person/${id}`
-      return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY, append_to_response: 'videos,images', id } })
+      return DefaultAPIInstance.get(url, { params: { api_key: process.env.VUE_APP_API_KEY, append_to_response: 'images', id } })
     },
     getCombinedCredits({ id, page }) {
       const url = `/person/${id}/combined_credits`

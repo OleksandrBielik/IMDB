@@ -2,11 +2,13 @@
   <div class="search-form">
     <form
       class="form-main"
+      name="search-form"
       @submit.prevent="onSubmit"
     >
       <input
         v-model="query"
         type="search"
+        name="search"
         placeholder="Search IMDb"
       >
       <button type="submit">
@@ -136,6 +138,7 @@ export default {
       justify-content: space-between;
       align-items: center;
       color: inherit;
+      cursor: pointer;
     }
   }
   .form-mobile {

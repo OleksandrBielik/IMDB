@@ -7,7 +7,7 @@
       <img
         class="backdrop-image"
         :src="backdropURL"
-        :alt="item.title || item.name + 'backdrop image'"
+        :alt="name + 'backdrop image'"
       >
       <div class="description-drop" />
       <div class="card-info">
@@ -15,7 +15,7 @@
           <img
             class="poster-image"
             :src="imgURL"
-            :alt="item.title || item.name + 'image'"
+            :alt="name + 'image'"
           >
         </div>
         <div class="wrapper">
@@ -35,20 +35,35 @@
 </template>
 
 <script>
-import { imgURL, recently } from '@/components/mixins/card';
+import { props } from '@/components/mixins/card/props';
+import { computed } from '@/components/mixins/card/computed';
+import { methods } from '@/components/mixins/card/methods';
+
+const { computed: {
+    name,
+    imgURL,
+    recentlyList,
+    statusRecentlyList,
+  }
+} = computed;
+
+const { methods: {
+    addToRecentlyList,
+  }
+} = methods;
+
+const { item } = props;
 
 export default {
   name: 'UpcomingCard',
-  mixins: [imgURL, recently],
-  props: {
-    item: {
-      type: Object,
-      required: true
-    }
-  },
+  props: { item },
   computed: {
+    name,
+    imgURL,
+    recentlyList,
+    statusRecentlyList,
     backdropURL() {
-      return 'https://image.tmdb.org/t/p/original' + this.item.backdrop_path
+      return `${process.env.VUE_APP_IMG_URL}` + this.item.backdrop_path
     },
     title() {
       let name = this.item.title || this.item.name
@@ -61,7 +76,8 @@ export default {
     titleLg() {
       return this.item.title || this.item.name
     }
-  }
+  },
+  methods: { addToRecentlyList }
 }
 </script>
 

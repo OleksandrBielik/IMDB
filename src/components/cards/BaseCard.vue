@@ -8,7 +8,7 @@
         <img
           v-if="imgURL"
           :src="imgURL"
-          :alt="item.title + 'poster image'"
+          :alt="name + 'poster image'"
         >
         <img
           v-else
@@ -111,16 +111,57 @@
 </template>
 
 <script>
-import { card, rating, imgURL, title, link, recently, watchList, user } from '@/components/mixins/card';
+import { props } from '@/components/mixins/card/props';
+import { computed } from '@/components/mixins/card/computed';
+import { methods } from '@/components/mixins/card/methods';
+
+const { 
+  computed: {
+    link,
+    imgURL,
+    name,
+    rating,
+    title,
+    titleLg,
+    user,
+    watchList,
+    recentlyList,
+    statusWatchList,
+    statusRecentlyList,
+  }
+} = computed;
+
+const { methods: {
+    addToWatchList, 
+    addToRecentlyList,
+  }
+} = methods;
 
 export default {
   name: 'BaseCard',
-  mixins: [card, rating, imgURL, title, link, recently, watchList, user],
+  mixins: [props],
   data() {
     return {
       watchlist: false
     }
   },
+  computed: {
+    link,
+    imgURL,
+    name,
+    rating,
+    title,
+    titleLg,
+    user,
+    watchList,
+    recentlyList,
+    statusWatchList,
+    statusRecentlyList,
+  },
+  methods: {
+    addToWatchList,
+    addToRecentlyList,
+  }
 }
 </script>
 

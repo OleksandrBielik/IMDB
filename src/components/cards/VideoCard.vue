@@ -15,7 +15,7 @@
         <img
           class="video-media"
           :src="BgVideoURL"
-          :alt="title + ' image'"
+          :alt="name + ' image'"
         >
       </picture>
       <div class="overlay-button">
@@ -45,12 +45,21 @@
 </template>
 
 <script>
-import { card, link, id, title } from '@/components/mixins/card'
+import { props } from '@/components/mixins/card/props';
+import { computed } from '@/components/mixins/card/computed';
+
+const { computed: {
+    link,
+    name,
+  }
+} = computed;
 
 export default {
   name: 'VideoCard',
-  mixins: [card, link, id, title],
+  mixins: [props],
   computed: {
+    link,
+    name,
     BgVideoWebpURL() {
       try {
         return `${process.env.VUE_APP_BACKVIDEOIMG_WEBP_URL}${this.item.key}/maxresdefault.webp`
@@ -75,13 +84,13 @@ export default {
     border-radius: 5px;
     overflow: hidden;
     margin: 10px;
-    height: 129.38px;
-    @media(min-width:1024px) {
-      height: 168.75px;
-    }
   }
   article {
     position: relative;
+        height: 129.38px;
+    @media(min-width:1024px) {
+      height: 168.75px;
+    }
   }
   .video-media {
     object-fit: cover;

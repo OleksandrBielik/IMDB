@@ -1,71 +1,116 @@
 import { TMDBAPI } from '@/api/tmdb-api';
+import { getters } from '@/store/mixins/store/getters';
+import { mutations } from '@/store/mixins/store/mutations';
+import { state } from '@/store/mixins/store/state';
+
+const {
+  getters: {
+    getItem,
+    getSimilar,
+    getCredits,
+    getImages,
+    getVideos,
+  }
+} = getters;
+
+const {
+  mutations: {
+    setItem,
+    setCredits,
+    setImages,
+    setVideos,
+    setSimilar
+  }
+} = mutations;
+
+const {
+  state: {
+    itemData,
+    similarList,
+    creditsList,
+    imagesList,
+    videosList,
+  },
+  namespaced
+} = state;
 
 export const movie = {
-  namespaced: true,
+  namespaced,
   state: () => ({
-    movieData: {},
-    similarList: [],
-    creditsList: [],
-    imagesList: [],
-    videosList: [],
-    loading: true,
+    itemData,
+    similarList,
+    creditsList,
+    imagesList,
+    videosList,
   }),
   mutations: {
-    setMovie(state, data) {
-      state.movieData = { ...data }
-      setTimeout(() => state.loading = false, 2000)
-    },
-    setSimilar(state, items) {
-      state.similarList = [...items]
-    },
-    setCredits(state, items) {
-      state.creditsList = [...items]
-    },
-    setImages(state, items) {
-      state.imagesList = [...items]
-    },
-    setVideos(state, items) {
-      state.videosList = [...items]
-    },
+    setItem,
+    setCredits,
+    setImages,
+    setVideos,
+    setSimilar
   },
   actions: {
     async fetchMovie({ commit }, { id }) {
-      const res = await TMDBAPI.movie.getMovie({ id })
-      res.data.images.backdrops.map(item => {
-        item.media_type = 'image'
-        item.card_type = 'flick'
-      })
-      res.data.videos.results.map(item => {
-        item.media_type = 'video'
-        item.card_type = 'flick'
-      })
-      commit('setMovie', res.data)
-      commit('setVideos', res.data.videos.results)
-      commit('setImages', res.data.images.backdrops)
+      return await TMDBAPI.movie.getMovie({ id })
+        .then(res => {
+          res.data.images.backdrops.map(item => {
+            item.media_type = 'image'
+            item.card_type = 'flick'
+          })
+          res.data.videos.results.map(item => {
+            item.media_type = 'video'
+            item.card_type = 'flick'
+          })
+          commit('setItem', res.data)
+          commit('setVideos', res.data.videos.results)
+          commit('setImages', res.data.images.backdrops)
+        })
     },
-    async fetchSimilar({ commit }, { id, page }) {
-      const res = await TMDBAPI.common.getSimilar({ id, page, type: 'movie' })
-      res.data.results.map(item => {
-        item.media_type = 'movie'
-        item.card_type = 'flick'
-      })
-      commit('setSimilar', res.data.results)
-    },
-    async fetchCredits({ commit }, { id, page }) {
-      const res = await TMDBAPI.common.getCredits({ id, page, type: 'movie' })
-      res.data.cast.map(item => {
-        item.media_type = 'person'
-        item.card_type = false
-      })
-      commit('setCredits', res.data.cast)
+    fetchSimilar({ commit }, { id, page }) {
+      TMDBAPI.common.getSimilar({ id, page, type: 'movie' })
+        .then(res => {
+          res.data.results.map(item => {
+            item.media_type = 'movie'
+            item.card_type = 'flick'
+          })
+          commit('setSimilar', res.data.results)
+        })
+        .catch(error => {
+          if (error.response.status === 404) {
+            console.log('')
+          } else if (error.request.status >= 500) {
+            console.log('server-side error');
+          } else {
+            console.log('Error', error.message);
+          }
+        });
+      },
+    fetchCredits({ commit }, { id, page }) {
+      TMDBAPI.common.getCredits({ id, page, type: 'movie' })
+        .then(res => {
+          res.data.cast.map(item => {
+            item.media_type = 'person'
+            item.card_type = false
+          })
+          commit('setCredits', res.data.cast)
+        })
+        .catch(error => {
+          if (error.response.status === 404) {
+            console.log('')
+          } else if (error.request.status >= 500) {
+            console.log('server-side error');
+          } else {
+            console.log('Error', error.message);
+          }
+        });
     },
   },
   getters: {
-    getData: (state) => state.movieData,
-    getSimilar: (state) => state.similarList,
-    getCredits: (state) => state.creditsList,
-    getImages: (state) => state.imagesList,
-    getVideos: (state) => state.videosList,
-    getLoading: (state) => state.loading,
-  },
+    getItem,
+    getSimilar,
+    getCredits,
+    getImages,
+    getVideos,
+  }
 }

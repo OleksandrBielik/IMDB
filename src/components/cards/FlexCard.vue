@@ -39,7 +39,7 @@
             {{ title }}
           </div>
           <div class="title-lg">
-            {{ title }}
+            {{ titleLg }}
           </div>
         </div>
         <div
@@ -76,17 +76,92 @@
             <span>Watchlist</span>
           </button>
         </div>
+        <router-link
+          v-else
+          to="/login"
+          class="wrapper-button"
+        >
+          <button
+            type="button"
+            class="watch-list"
+          >
+            <svg
+              v-if="statusWatchList"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              role="presentation"
+            ><path
+              fill="none"
+              d="M0 0h24v24H0V0z"
+            /><path d="M9 16.2l-3.5-3.5a.984.984 0 0 0-1.4 0 .984.984 0 0 0 0 1.4l4.19 4.19c.39.39 1.02.39 1.41 0L20.3 7.7a.984.984 0 0 0 0-1.4.984.984 0 0 0-1.4 0L9 16.2z" /></svg>
+            <svg
+              v-else-if="!statusWatchList"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              role="presentation"
+            ><path d="M18 13h-5v5c0 .55-.45 1-1 1s-1-.45-1-1v-5H6c-.55 0-1-.45-1-1s.45-1 1-1h5V6c0-.55.45-1 1-1s1 .45 1 1v5h5c.55 0 1 .45 1 1s-.45 1-1 1z" /></svg>
+            <span>Watchlist</span>
+          </button>
+        </router-link>
       </article>
     </router-link>
   </li>
 </template>
 
 <script>
-import { card, rating, imgURL, title, link, recently, watchList, user } from '@/components/mixins/card';
+import { props } from '@/components/mixins/card/props';
+import { computed } from '@/components/mixins/card/computed';
+import { methods } from '@/components/mixins/card/methods';
+
+const { 
+  computed: {
+    link,
+    imgURL,
+    name,
+    rating,
+    title,
+    titleLg,
+    user,
+    watchList,
+    recentlyList,
+    statusWatchList,
+    statusRecentlyList,
+  }
+} = computed;
+
+const { methods: {
+    addToWatchList, 
+    addToRecentlyList,
+  }
+} = methods;
+
 
 export default {
   name: 'FlexCard',
-  mixins: [card, rating, imgURL, title, link, recently, watchList, user]
+  mixins: [props],
+  computed: {
+    link,
+    imgURL,
+    name,
+    rating,
+    title,
+    titleLg,
+    user,
+    watchList,
+    recentlyList,
+    statusWatchList,
+    statusRecentlyList,
+  },
+  methods: {
+    addToWatchList, 
+    addToRecentlyList,
+  }
 }
 </script>
 
@@ -140,8 +215,8 @@ export default {
   }
   .title-lg {
     margin-top: 10px;
-    font-size: 14px;
-    line-height: 18px;
+    font-size: 18px;
+    line-height: 21px;
     display: none;
     @media(min-width: 1024px) {
       display: block;
@@ -185,6 +260,7 @@ export default {
     bottom: 10px;
     padding: 0 5px;
     width: 100%;
+    height: auto;
   }
   .watch-list {
     display: flex;

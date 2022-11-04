@@ -1,7 +1,11 @@
 <template>
-  <div class="popular">
+  <page-not-found v-if="error" />
+  <div
+    v-else
+    class="popular"
+  >
     <div class="container container-flex">
-      <card-list :path="$route.name" />
+      <card-list />
     </div>
     <pagination-comp
       :path="$route.name"
@@ -13,17 +17,29 @@
 <script>
 import CardList from '@/components/CardList.vue'
 import PaginationComp from '@/components/PaginationComp.vue';
+import { scrollUp } from '@/components/mixins/common/scrollUp';
+import PageNotFound from '@/components/errors/PageNotFound.vue';
 
 export default {
   name: 'PopularView',
   components: { 
     CardList, 
-    PaginationComp 
+    PaginationComp,
+    PageNotFound,
+  },
+  mixins: [scrollUp],
+  computed: {
+    error() {
+      return this.$store.getters['moviePopular/getError']
+    }
   },
   watch: {
     $route(to, from) {
       this.$store.dispatch('moviePopular/getPopular', { page: this.$route.query.page })
     }
+  },
+  mounted() {
+    setTimeout(()=> this.scrollUp(), 1000)
   },
   methods: {
     changePage(page) {

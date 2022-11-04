@@ -9,7 +9,7 @@
         <img
           v-if="imgURL"
           :src="imgURL"
-          :alt="item.title + 'poster image'"
+          :alt="name + 'poster image'"
         >
         <img
           v-else
@@ -18,19 +18,45 @@
           alt="image not found"
         >
       </div>
-      <p class="name">
-        {{ item.name }}
-      </p>
+      <h2 class="name">
+        {{ name }}
+      </h2>
     </article>
   </router-link>
 </template>
 
 <script>
-import { card, imgURL, link, recently } from '@/components/mixins/card';
+import { props } from '@/components/mixins/card/props';
+import { computed } from '@/components/mixins/card/computed';
+import { methods } from '@/components/mixins/card/methods';
+
+const { computed: {
+    link,
+    imgURL,
+    name,
+    recentlyList,
+    statusRecentlyList,
+  }
+} = computed;
+
+const { methods: {
+    addToRecentlyList,
+  }
+} = methods;
 
 export default {
   name: 'PersonCard',
-  mixins: [card, imgURL, link, recently]
+  mixins: [props],
+  computed: {
+    link,
+    imgURL,
+    name,
+    recentlyList,
+    statusRecentlyList,
+  },
+  methods: {
+    addToRecentlyList,
+  }
 }
 </script>
 

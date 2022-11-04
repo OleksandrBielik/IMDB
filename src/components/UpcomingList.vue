@@ -78,9 +78,8 @@ export default {
     justify-content: center;
     position: relative;
     width: 100%;
-    height: 300px;
+    height: 100vh;
     @media (min-width: 1024px) {
-      height: 600px;
       i {
         margin: 20em auto;
       }

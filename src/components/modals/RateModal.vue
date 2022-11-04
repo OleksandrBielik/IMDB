@@ -1,6 +1,7 @@
 <template>
   <form
     class="modal"
+    name="rating-form"
     @submit.prevent="onSubmit"
   >
     <button

@@ -5,6 +5,11 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '*',
+    name: 'not-found',
+    component: () => import('../views/NotFoundView.vue')
+  },
+  {
     path: '/',
     name: 'home',
     component: () => import('../views/HomeView.vue')
@@ -88,6 +93,11 @@ const routes = [
     path: '/movie/:id',
     name: 'movie',
     component: () => import('../views/movie/MovieView.vue'),
+  },
+  {
+    path: '/movie/*',
+    name: 'movie-not-found',
+    component: () => import('../views/NotFoundView.vue')
   },
   {
     path: '/person/popular',

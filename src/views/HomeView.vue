@@ -1,26 +1,11 @@
 <template>
   <main class="home">
-    <upcoming-list
-      :path="$route.name"
-      :component-name="'Upcoming'"
-    />
+    <upcoming-list :component-name="'Upcoming'" />
     <div class="container">
-      <slider-list
-        :path="$route.name"
-        :component-name="'Trending'"
-      />
-      <slider-list
-        :path="$route.name"
-        :component-name="'Popular'"
-      />
-      <slider-list
-        :path="$route.name"
-        :component-name="'OnAir'"
-      />
-      <slider-list
-        :path="$route.name"
-        :component-name="'Recently'"
-      />
+      <slider-list :component-name="'Trending'" />
+      <slider-list :component-name="'Popular'" />
+      <slider-list :component-name="'OnAir'" />
+      <slider-list :component-name="'Recently'" />
     </div>
   </main>
 </template>
@@ -28,6 +13,7 @@
 <script>
 import SliderList from '@/components/SliderList.vue';
 import UpcomingList from '@/components/UpcomingList.vue';
+import { scrollUp } from '@/components/mixins/common/scrollUp';
 
 export default {
   name: 'HomeView',
@@ -35,9 +21,10 @@ export default {
     SliderList,
     UpcomingList,
   },
+  mixins: [scrollUp],
   mounted() {
-    document.querySelector('#app').scrollIntoView({ block: 'start', behavior: 'smooth' })
-  }
+    setTimeout(()=> this.scrollUp(), 50)
+  },
 }
 </script>
 

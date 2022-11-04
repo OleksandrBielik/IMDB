@@ -11,8 +11,9 @@
 </template>
 
 <script>
-import CardList from '@/components/CardList.vue'
+import CardList from '@/components/CardList.vue';
 import PaginationComp from '@/components/PaginationComp.vue';
+import { scrollUp } from '@/components/mixins/common/scrollUp';
 
 export default {
   name: 'TrendingView',
@@ -20,10 +21,14 @@ export default {
     CardList, 
     PaginationComp 
   },
+  mixins: [scrollUp],
   watch: {
     $route(to, from) {
       this.$store.dispatch('trending/getTrending', { page: this.$route.query.page })
     }
+  },
+  mounted() {
+    setTimeout(()=> this.scrollUp(), 1000)
   },
   methods: {
     changePage(page) {

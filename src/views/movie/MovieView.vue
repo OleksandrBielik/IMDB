@@ -1,48 +1,57 @@
 <template>
-  <div class="container">
-    <item-page :path="$route.name" />
-    <slider-list
-      :path="$route.name"
-      :component-name="'Similar'"
-    />
-    <slider-list
-      :path="$route.name"
-      :component-name="'Credits'"
-    />
-    <slider-list
-      :id="'images'"
-      :path="$route.name"
-      :component-name="'Images'"
-    />
-    <slider-list
-      :id="'video'"
-      :path="$route.name"
-      :component-name="'Videos'"
-    />
-    <slider-list
-      :path="$route.name"
-      :component-name="'Recently'"
-    />
-  </div>
+  <main>
+    <div class="container">
+      <item-page @on-error="onError" />
+      <slider-list
+        :path="$route.name"
+        :component-name="'Similar'"
+      />
+      <slider-list
+        :path="$route.name"
+        :component-name="'Credits'"
+      />
+      <slider-list
+        :id="'images'"
+        :path="$route.name"
+        :component-name="'Images'"
+      />
+      <slider-list
+        :id="'videos'"
+        :path="$route.name"
+        :component-name="'Videos'"
+      />
+      <slider-list
+        :path="$route.name"
+        :component-name="'Recently'"
+      />
+    </div>
+  </main>
 </template>
 
 <script>
 import ItemPage from '@/components/ItemPage';
 import SliderList from '@/components/SliderList';
+import { scrollUp } from '@/components/mixins/common/scrollUp';
 
 export default {
   name: 'MovieView',
-  components: { ItemPage, SliderList },
+  components: { 
+    ItemPage, 
+    SliderList,
+  },
+  mixins: [scrollUp],
   watch: {
     $route(to, from) {
       this.$store.dispatch('movie/fetchMovie', { id: this.$route.params.id })
-      this.scrollUp()
-    }
+    },
+  },
+  mounted() {
+    setTimeout(()=> this.scrollUp(), 50)
   },
   methods: {
-    scrollUp() {
-      document.querySelector('#app').scrollIntoView({ block: 'start', behavior: 'smooth' })
-    },
+    onError(val) {
+      this.$emit('on-error', val)
+    }
   }
 }
 </script>

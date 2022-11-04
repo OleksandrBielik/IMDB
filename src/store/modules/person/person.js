@@ -1,49 +1,78 @@
 import { TMDBAPI } from '@/api/tmdb-api';
+import { getters } from '@/store/mixins/store/getters';
+import { mutations } from '@/store/mixins/store/mutations';
+import { state } from '@/store/mixins/store/state';
 
+const {
+  getters: {
+    getItem,
+    getCredits,
+    getImages,
+  }
+} = getters;
+
+const {
+  mutations: {
+    setItem,
+    setImages,
+    setCredits,
+  }
+} = mutations;
+
+const {
+  state: {
+    itemData,
+    creditsList,
+    imagesList,
+  },
+  namespaced
+} = state;
 export const person = {
-  namespaced: true,
+  namespaced,
   state: () => ({
-    personData: {},
-    creditsList: [],
-    imagesList: [],
-    loading: true
+    itemData,
+    creditsList,
+    imagesList,
   }),
   mutations: {
-    setPerson(state, data) {
-      state.personData = { ...data }
-      setTimeout(() => state.loading = false, 1500)
-    },
-    setCredits(state, items) {
-      state.creditsList = [...items]
-    },
-    setImages(state, items) {
-      state.imagesList = [...items]
-    },
+    setItem,
+    setImages,
+    setCredits,
   },
   actions: {
-    async fetchPerson({ commit }, { id }) {
-      const res = await TMDBAPI.person.getPerson({ id })
-      res.data.images.profiles.map(item => {
-        item.media_type = 'image'
-        item.card_type = 'flick'
-      })
-      console.log(res.data)
-      commit('setPerson', res.data)
-      commit('setImages', res.data.images.profiles)
+    fetchPerson({ commit }, { id }) {
+      return TMDBAPI.person.getPerson({ id })
+        .then(res => {
+          res.data.images.profiles.map(item => {
+            item.media_type = 'image'
+            item.card_type = 'flick'
+          })
+          commit('setItem', res.data)
+          commit('setImages', res.data.images.profiles)
+        })
     },
-    async fetchCredits({ commit }, { id, page }) {
-      const res = await TMDBAPI.person.getCombinedCredits({ id, page })
-      res.data.cast.map(item => {
-        item.card_type = 'flick'
-      })
-      console.log(res.data.cast)
-      commit('setCredits', res.data.cast)
+    fetchCredits({ commit }, { id, page }) {
+      TMDBAPI.person.getCombinedCredits({ id, page })
+        .then(res => {
+          res.data.cast.map(item => {
+            item.card_type = 'flick'
+          })
+          commit('setCredits', res.data.cast)
+        })
+        .catch(function (error) {
+          if (error.response.status === 404) {
+            return
+          } else if (error.request.status >= 500) {
+            console.log('server-side error');
+          } else {
+            console.log('Error', error.message);
+          }
+        });
     },
   },
   getters: {
-    getData: (state) => state.personData,
-    getCredits: (state) => state.creditsList,
-    getImages: (state) => state.imagesList,
-    getLoading: (state) => state.loading,
+    getItem,
+    getCredits,
+    getImages,
   },
 }

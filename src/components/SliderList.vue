@@ -35,23 +35,19 @@
         </div>
       </template>
       <template v-else>
-        <p
-          v-if="componentName !== 'Credits' && componentName !== 'Images' && componentName !== 'Videos'"
-          class="description"
-        >
-          {{ description }}
-        </p>
-        <div
-          v-if="componentName !== 'Credits' && componentName !== 'Images'&& componentName !== 'Videos'"
-          class="wrapper"
-        >
-          <router-link
-            :to="routerLink"
-            class="link"
-          >
-            {{ link }}
-          </router-link>
-        </div>
+        <template v-if="!['Credits', 'Images', 'Videos'].includes(componentName)">
+          <p class="description">
+            {{ description }}
+          </p>
+          <div class="wrapper">
+            <router-link
+              :to="routerLink"
+              class="link"
+            >
+              {{ link }}
+            </router-link>
+          </div>
+        </template>
       </template>  
       <div class="slider-wrapper">
         <Flicking
@@ -63,7 +59,6 @@
             :key="index + '' + Math.random()"
             :item="item"
             :index="index"
-            :path="path"
           />
         </Flicking>
         <button
@@ -109,10 +104,6 @@ export default {
     Flicking
   },
   props: {
-    path: {
-      type: String,
-      required: true
-    },
     componentName: {
       type: String,
       required: true
@@ -129,7 +120,7 @@ export default {
       if (this.componentName === 'Recently') {
         return this.$store.getters[`home/get${this.componentName}`]
       } else {
-        return this.$store.getters[`${this.path}/get${this.componentName}`]
+        return this.$store.getters[`${this.$route.name}/get${this.componentName}`]
       }
     },
     description() {
@@ -139,8 +130,8 @@ export default {
         case 'OnAir': return 'List of shows that are currently on the air'
         case 'Popular': return 'Most popular celebrity on TMDb'
         case 'Similar': return 'List of similar movies'
-        case 'Images': return `List of ${this.path} images`
-        case 'Videos': return `List of ${this.path} videos`
+        case 'Images': return `List of ${this.$route.name} images`
+        case 'Videos': return `List of ${this.$route.name} videos`
         default: return null
       }
     },
@@ -175,17 +166,16 @@ export default {
         case 'Similar': return `/movie/${this.$route.params.id}/similar?page=1`
         default: return null
       }
+    },
+    exception() {
+      return ['Recently', 'Images', 'Videos'].includes(this.componentName)
     }
   },
   mounted() {
-    this.loading = true
-    const pathName = this.componentName === 'Recently' || this.componentName === 'Images' || this.componentName === 'Videos'
-    if (pathName) {
-      this.stopLoading()
+    if (this.exception) {
       return
     } else {
-      this.$store.dispatch(`${this.path}/fetch${this.componentName}`, { page: 1, id: this.$route.params.id })
-      this.stopLoading()
+      this.$store.dispatch(`${this.$route.name}/fetch${this.componentName}`, { page: 1, id: this.$route.params.id })
     }
   },
   methods: {
@@ -200,9 +190,6 @@ export default {
     removeRecently() {
       this.$store.dispatch('home/removeRecently')
     },
-    stopLoading() {
-      setTimeout(() => this.loading = false, 1500)
-    }
   },
 }
 </script>

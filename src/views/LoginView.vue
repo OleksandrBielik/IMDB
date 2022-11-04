@@ -15,13 +15,18 @@
 </template>
 
 <script>
-import LoginForm from '@/components/LoginForm.vue'
+import LoginForm from '@/components/LoginForm.vue';
+import { scrollUp } from '@/components/mixins/common/scrollUp';
 
 export default {
   name: 'VideoView',
   components: {
     LoginForm
-  }
+  },
+  mixins: [scrollUp],
+  mounted() {
+    setTimeout(()=> this.scrollUp(), 1000)
+  },
 }
 </script>
 

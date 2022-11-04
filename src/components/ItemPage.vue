@@ -5,22 +5,22 @@
   >
     <i />
   </div>
-  <main
+  <article
     v-else
     class="page"
   >
     <div class="flex">
       <div class="wrapper-title">
         <h1>{{ title }}</h1>
-        <p class="additional">
+        <div class="additional">
           Original title: {{ originalTitle }}
-        </p>
-        <p class="additional">
-          <span>{{ year }}</span> | <span>{{ runtime }}</span> <span v-if="path === 'tv'">(episode)</span>
-        </p>
+        </div>
+        <div class="additional">
+          <span>{{ year }}</span> | <span>{{ runtime }}</span> <span v-if="$route.name === 'tv'">(episode)</span>
+        </div>
       </div>
-      <div class="wrapper-rating desc">
-        <div class="imdb-rating">
+      <ul class="wrapper-rating desc">
+        <li class="imdb-rating">
           <span>IMDb RATING</span>
           <span class="imdb-rate"><img
             class="star-icon"
@@ -28,8 +28,8 @@
             alt="rating icon"
             width="25"
           >{{ Math.round(items.vote_average) }}/10</span>
-        </div>
-        <div class="your-rating">
+        </li>
+        <li class="your-rating">
           <span>YOUR RATING</span>
           <span
             v-if="rate"
@@ -74,8 +74,8 @@
             /><path d="M19.65 9.04l-4.84-.42-1.89-4.45c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5 4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.73 3.67-3.18c.67-.58.32-1.68-.56-1.75zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z" /></svg>
             Rate
           </router-link>
-        </div>
-      </div>
+        </li>
+      </ul>
     </div>
     <div class="p-0">
       <div class="wrapper-video">
@@ -86,11 +86,7 @@
             :alt="items.title || items.name + 'image'"
           >
         </div>
-        <div
-          class="video"
-          tabindex="0"
-          aria-label="video"
-        >
+        <div class="video">
           <picture v-if="!iframe">
             <source
               :srcset="BgVideoWebpURL"
@@ -110,7 +106,6 @@
               v-if="!iframe"
               type="button"
               class="play"
-              aria-label="Play video"
             >
               <svg
                 height="100%"
@@ -142,33 +137,49 @@
           </p>
         </div>
       </div>
-      <div class="wrapper">
-        <div class="videos">
-          <svg
-            id="iconContext-video-library"
-            xmlns="http://www.w3.org/2000/svg"
-            class="ipc-icon ipc-icon--video-library ipc-icon--inline sc-a93004d6-0 gVqJqU"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            role="presentation"
-          ><path d="M3 6c-.55 0-1 .45-1 1v13c0 1.1.9 2 2 2h13c.55 0 1-.45 1-1s-.45-1-1-1H5c-.55 0-1-.45-1-1V7c0-.55-.45-1-1-1zm17-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 12.5v-9l5.47 4.1c.27.2.27.6 0 .8L12 14.5z" /></svg>
-          <span>{{ videos.length + ' videos' }}</span>
-        </div>
-        <div class="images">
-          <svg
-            id="iconContext-collections"
-            xmlns="http://www.w3.org/2000/svg"
-            class="ipc-icon ipc-icon--collections ipc-icon--inline sc-a93004d6-0 gVqJqU"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            role="presentation"
-          ><path
-            fill="none"
-            d="M0 0h24v24H0V0z"
-          /><path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-10.6-3.47l1.63 2.18 2.58-3.22a.5.5 0 0 1 .78 0l2.96 3.7c.26.33.03.81-.39.81H9a.5.5 0 0 1-.4-.8l2-2.67c.2-.26.6-.26.8 0zM2 7v13c0 1.1.9 2 2 2h13c.55 0 1-.45 1-1s-.45-1-1-1H5c-.55 0-1-.45-1-1V7c0-.55-.45-1-1-1s-1 .45-1 1z" /></svg>
-          <span>{{ images.length + ' images' }}</span>
-        </div>
-      </div>
+      <ul class="wrapper">
+        <li class="videos">
+          <a
+            role="button"
+            type="button"
+            tabindex="0"
+            @click="onNavigate('#videos')"
+            @keydown.enter="onNavigate('#videos')"
+          >
+            <svg
+              id="iconContext-video-library"
+              xmlns="http://www.w3.org/2000/svg"
+              class="ipc-icon ipc-icon--video-library ipc-icon--inline sc-a93004d6-0 gVqJqU"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              role="presentation"
+            ><path d="M3 6c-.55 0-1 .45-1 1v13c0 1.1.9 2 2 2h13c.55 0 1-.45 1-1s-.45-1-1-1H5c-.55 0-1-.45-1-1V7c0-.55-.45-1-1-1zm17-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 12.5v-9l5.47 4.1c.27.2.27.6 0 .8L12 14.5z" /></svg>
+            <span>{{ videos.length + ' videos' }}</span>
+          </a>
+        </li>
+        <li class="images">
+          <a
+            role="button"
+            type="button"
+            tabindex="0"
+            @click="onNavigate('#images')"
+            @keydown.enter="onNavigate('#images')"
+          >
+            <svg
+              id="iconContext-collections"
+              xmlns="http://www.w3.org/2000/svg"
+              class="ipc-icon ipc-icon--collections ipc-icon--inline sc-a93004d6-0 gVqJqU"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              role="presentation"
+            ><path
+              fill="none"
+              d="M0 0h24v24H0V0z"
+            /><path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-10.6-3.47l1.63 2.18 2.58-3.22a.5.5 0 0 1 .78 0l2.96 3.7c.26.33.03.81-.39.81H9a.5.5 0 0 1-.4-.8l2-2.67c.2-.26.6-.26.8 0zM2 7v13c0 1.1.9 2 2 2h13c.55 0 1-.45 1-1s-.45-1-1-1H5c-.55 0-1-.45-1-1V7c0-.55-.45-1-1-1s-1 .45-1 1z" /></svg>
+            <span>{{ images.length + ' images' }}</span>
+          </a>
+        </li>
+      </ul>
     </div>
     <div class="flex-wrapper">
       <ul class="genres">
@@ -187,29 +198,41 @@
           <li><span>Status:</span> {{ items.status }}</li>
           <li><span>Production companies:</span> {{ companies }}</li>
           <li><span>Production countries:</span> {{ countries }}</li>
-          <template v-if="path === 'tv'">
+          <template v-if="$route.name === 'tv'">
             <li><span>Seasons:</span> {{ items.number_of_seasons }}</li>
             <li><span>Episodes:</span> {{ items.number_of_episodes }}</li>
           </template>
         </ul>
-        <div class="wrapper-rating mob">
-          <div class="imdb-rating">
+        <ul class="wrapper-rating mob">
+          <li class="imdb-rating">
             <span>IMDb RATING</span>
             <span class="imdb-rate"><img
               class="star-icon"
               src="../assets/star-icon.svg"
               alt="rating icon"
               width="25"
-            >{{ String(items.vote_average).slice(0,3) }}/10</span>
-          </div>
-          <div class="your-rating">
+            >{{ Math.round(items.vote_average) }}/10</span>
+          </li>
+          <li class="your-rating">
             <span>YOUR RATING</span>
-            <span class="rate"><svg
-              id="iconContext-star-border"
+            <span
+              v-if="rate"
+              class="imdb-rate"
+              @click="onClick"
+            ><img
+              class="star-icon"
+              src="../assets/star-icon.svg"
+              alt="rating icon"
+              width="25"
+            >{{ rate }}/10</span>
+            <span
+              v-if="user && !rate"
+              class="rate"
+              @click="onClick"
+            ><svg
               xmlns="http://www.w3.org/2000/svg"
               width="35"
               height="35"
-              class="ipc-icon ipc-icon--star-border sc-ab12c7bd-4 cNHRQT"
               viewBox="0 0 24 24"
               fill="currentColor"
               role="presentation"
@@ -217,8 +240,26 @@
               fill="none"
               d="M0 0h24v24H0V0z"
             /><path d="M19.65 9.04l-4.84-.42-1.89-4.45c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5 4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.73 3.67-3.18c.67-.58.32-1.68-.56-1.75zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z" /></svg> Rate</span>
-          </div>
-        </div>
+            <router-link
+              v-if="!user"
+              to="/login"
+              class="rate"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="35"
+                height="35"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                role="presentation"
+              ><path
+                fill="none"
+                d="M0 0h24v24H0V0z"
+              /><path d="M19.65 9.04l-4.84-.42-1.89-4.45c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5 4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.73 3.67-3.18c.67-.58.32-1.68-.56-1.75zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z" /></svg>
+              Rate
+            </router-link>
+          </li>
+        </ul>
       </div>
     </div>
     <rate-modal
@@ -226,44 +267,42 @@
       :title="title"
       @on-close="onClose"
     />
-  </main>
+  </article>
 </template>
 
 <script>
-import RateModal from './modals/RateModal.vue'
+import RateModal from './modals/RateModal.vue';
+
 export default {
   name: 'ItemPage',
-  components: { RateModal },
-  props: {
-    path: {
-      type: String,
-      required: true
-    }
+  components: { 
+    RateModal,
   },
   data() {
     return {
       modal: false,
       iframe: false,
+      loading: true,
     }
   },
   computed: {
     items() {
-      return this.$store.getters[`${this.path}/getData`]
+      return this.$store.getters[`${this.$route.name}/getItem`]
     },
     videos() {
-      return this.$store.getters[`${this.path}/getVideos`]
-    },
-    loading() {
-      return this.$store.getters[`${this.path}/getLoading`]
+      return this.$store.getters[`${this.$route.name}/getVideos`]
     },
     images() {
-      return this.$store.getters[`${this.path}/getImages`]
+      return this.$store.getters[`${this.$route.name}/getImages`]
     },
-    title() {
-      return this.items.title || this.items.name
+    user() {
+      return this.$store.getters['auth/getUserLogin']
     },
     rated() {
       return this.$store.getters['rated/getItems']
+    },
+    title() {
+      return this.items.title || this.items.name
     },
     originalTitle() {
       return this.items.original_title || this.items.original_name
@@ -318,9 +357,6 @@ export default {
         return ''
       }
     },
-    user() {
-      return this.$store.getters['auth/getUserLogin']
-    },
     rate() {
       const index = this.rated.findIndex(item=> item.id === this.$route.params.id)
       if (index >= 0) {
@@ -331,23 +367,37 @@ export default {
     },
   },
   mounted() {
-    this.scrollUp()
-    switch(this.path) {
-      case 'movie': this.$store.dispatch('movie/fetchMovie', { id: this.$route.params.id })
-      break
-      case 'tv': this.$store.dispatch('tv/fetchTv', { id: this.$route.params.id })
-      break
-      case 'person': this.$store.dispatch('person/fetchPerson', { id: this.$route.params.id })
-      break
+    switch(this.$route.name) {
+      case 'movie': {
+        return this.$store.dispatch('movie/fetchMovie', { id: this.$route.params.id })
+        .then(res => this.loading = false)
+        .catch(error => {
+          if (error.response.status === 404) {
+            this.$emit('on-error', true)
+          } else if (error.request.status >= 500) {
+            console.log('server-side error');
+          } else {
+            console.log('Error', error.message);
+          }
+        });
+      }
+      case 'tv': {
+        return this.$store.dispatch('tv/fetchTv', { id: this.$route.params.id })
+        .then(res => this.loading = false)
+        .catch((error) => {
+          if (error.response.status === 404) {
+            this.loading = false
+            this.$emit('on-error', true)
+          } else if (error.request.status >= 500) {
+            console.log('server-side error');
+          } else {
+            console.log('Error', error.message);
+          }
+        });
+      }
     }
   },
   methods: {
-    scrollUp() {
-      document.querySelector('#app').scrollIntoView({ block: 'start', behavior: 'smooth' })
-    },
-    stopLoading() {
-      setTimeout(() => this.loading = false, 1500)
-    },
     onClose(modal) {
       this.modal = modal
     },
@@ -356,6 +406,9 @@ export default {
     },
     onPlay() {
       this.iframe = !this.iframe
+    },
+    onNavigate(selector) {
+      document.querySelector(selector).scrollIntoView({ block: 'center', behavior: 'smooth' })
     }
   }
 }
@@ -363,8 +416,9 @@ export default {
 
 <style lang="scss" scoped>
   .page {
-    color: #fff;
+    color: $white;
     padding-top: 50px;
+    margin-bottom: 80px;
     @media (min-width:400px) {
       padding-top: 50.69px;
     }
@@ -386,7 +440,7 @@ export default {
     flex-wrap: wrap;
     li {
       display: inline-block;
-      border: 1px solid #fff;
+      border: 1px solid $white;
       border-radius: 30px;
       padding: 5px 10px;
     }
@@ -441,9 +495,11 @@ export default {
     }
   }
   .video-media {
-    object-fit: cover;
-    height: 100%;
-    width: 100%;
+    @media(min-width:600px) {
+      object-fit: cover;
+      height: 100%;
+      width: 100%;
+    }
   }
   .overlay-button {
     position: absolute;
@@ -479,6 +535,10 @@ export default {
     fill: #FF0000;
     fill-opacity: 1;
   }
+  .play:hover .play-fragment, .play:focus .play-fragment{
+    fill: #FF0000;
+    fill-opacity: 1;
+  }
   .wrapper {
     display: flex;
     margin-bottom: 20px;
@@ -498,23 +558,40 @@ export default {
       }
     }
     .videos, .images {
-      display: flex;
-      justify-content: center;
-      align-items: center;
       width: 100%;
-      padding: 15px 20px;
       border-bottom-left-radius: 3px;
       border-bottom-right-radius: 3px;
-      text-align: center;
       background-color: $element-color;
-      font-size: 12px;
-      font-weight: 800;
-      text-transform: uppercase;
+      color: $gray;
       @media(min-width:975px) {
         height: 100%;
-        flex-direction: column;
         border-bottom-left-radius: 0;
         border-top-right-radius: 3px;
+      }
+      a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 15px 20px;
+        width: 100%;
+        height: 100%;
+        background-color: inherit;
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+        text-align: center;
+        color: inherit;
+        cursor: pointer;
+        @media(min-width:975px) {
+          flex-direction: column;
+        }
+      }
+      a:hover, a:focus {
+        background-color: $arrow-bg-color;
+        color: $white;
+      }
+      span {
+        display: flex;
       }
       svg {
         margin-right: 5px;
@@ -554,6 +631,7 @@ export default {
   }
   .p-0 {
     padding: 0;
+    margin: 20px 0 40px 0;
     @media(min-width:975px) {
       display: flex;
       height: 338px;

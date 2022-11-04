@@ -22,21 +22,30 @@
 </template>
 
 <script>
-import { imgURL, title } from '@/components/mixins/card';
+import { props } from '@/components/mixins/card/props';
+import { computed } from '@/components/mixins/card/computed';
+
+const { computed: {
+    imgURL,
+    title,
+  }
+} = computed;
+
+const { item } = props;
 
 export default {
   name: 'WatchlistCard',
-  mixins: [imgURL, title],
   props: {
-    item: {
-      type: Object,
-      required: true
-    }
+    item,
   },
   data() {
     return {
       selected: false
     }
+  },
+  computed: {
+    imgURL,
+    title,
   },
   methods: {
     onSelect() {

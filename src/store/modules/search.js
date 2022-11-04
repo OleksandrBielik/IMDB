@@ -1,40 +1,61 @@
 import { TMDBAPI } from '@/api/tmdb-api';
+import { getters } from '@/store/mixins/store/getters';
+import { mutations } from '@/store/mixins/store/mutations';
+import { state } from '@/store/mixins/store/state';
+
+const {
+  getters: {
+    getItems,
+    getPage,
+    getTotalPages,
+  }
+} = getters;
+
+const {
+  mutations: {
+    setItems,
+    setPage,
+    setTotalPages,
+  }
+} = mutations;
+
+const {
+  state: {
+    itemList,
+    page,
+    totalPages,
+  },
+  namespaced
+} = state;
 
 export const search = {
-  namespaced: true,
+  namespaced,
   state: () => ({
-    itemList: [],
-    page: undefined,
-    totalPages: undefined,
-    loading: true
+    itemList,
+    page,
+    totalPages,
   }),
   mutations: {
-    setItems(state, items) {
-      state.itemList = [...items]
-      setTimeout(() => state.loading = false, 1500)
-    },
-    setPage(state, page) {
-      state.page = page
-    },
-    setTotalPages(state, pages) {
-      state.totalPages = pages
-    },
+    setItems,
+    setPage,
+    setTotalPages,
   },
   actions: {
-    async onSearch({ commit }, { page, query }) {
-      const res = await TMDBAPI.search.search({ page, query })
-      res.data.results.map(item => {
-        item.card_type = 'flex-item'
-      })
-      commit('setItems', res.data.results)
-      commit('setPage', res.data.page)
-      commit('setTotalPages', res.data.total_pages)
+    onSearch({ commit }, { page, query }) {
+      return TMDBAPI.search.search({ page, query })
+        .then(res => {
+          res.data.results.map(item => {
+            item.card_type = 'flex-item'
+          })
+          commit('setItems', res.data.results)
+          commit('setPage', res.data.page)
+          commit('setTotalPages', res.data.total_pages)
+        })
     },
   },
   getters: {
-    getItems: (state) => state.itemList,
-    getPage: (state) => state.page,
-    getTotalPages: (state) => state.totalPages,
-    getLoading: (state) => state.loading,
+    getItems,
+    getPage,
+    getTotalPages,
   },
 }
