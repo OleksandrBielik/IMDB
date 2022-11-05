@@ -2,24 +2,15 @@
   <main>
     <div class="container">
       <person-page @on-error="onError" />
-      <slider-list
-        :path="$route.name"
-        :component-name="'Credits'"
-      />
-      <slider-list
-        :path="$route.name"
-        :component-name="'Images'"
-      />
-      <slider-list
-        :path="$route.name"
-        :component-name="'Recently'"
-      />
+      <slider-list :component-name="'Credits'" />
+      <slider-list :component-name="'Images'" />
+      <slider-list :component-name="'Recently'" />
     </div>
   </main>
 </template>
 
 <script>
-import PersonPage from '@/components/PersonPage';
+import PersonPage from '@/components/pages/PersonPage.vue';
 import SliderList from '@/components/SliderList.vue';
 import { scrollUp } from '@/components/mixins/common/scrollUp';
 

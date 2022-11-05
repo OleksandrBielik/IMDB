@@ -12,7 +12,7 @@
     <div class="thumb">
       <img
         :src="imgURL"
-        :alt="item.name + 'image'"
+        :alt="name + ' poster'"
       >
     </div>
     <div class="description">
@@ -28,6 +28,7 @@ import { computed } from '@/components/mixins/card/computed';
 const { computed: {
     imgURL,
     title,
+    name,
   }
 } = computed;
 
@@ -46,6 +47,7 @@ export default {
   computed: {
     imgURL,
     title,
+    name,
   },
   methods: {
     onSelect() {

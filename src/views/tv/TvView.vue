@@ -26,7 +26,7 @@
 
 <script>
 import SliderList from '@/components/SliderList.vue'
-import ItemPage from '@/components/ItemPage.vue'
+import ItemPage from '@/components/pages/ItemPage.vue'
 import { scrollUp } from '@/components/mixins/common/scrollUp';
 
 export default {

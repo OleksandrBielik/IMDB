@@ -1,6 +1,5 @@
 <template>
   <router-link
-    v-if="item.media_type === 'person' && !item.card_type"
     :to="link"
     class="person-card"
   >
@@ -9,7 +8,7 @@
         <img
           v-if="imgURL"
           :src="imgURL"
-          :alt="name + 'poster image'"
+          :alt="name + ' photo'"
         >
         <img
           v-else

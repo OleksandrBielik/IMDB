@@ -1,38 +1,24 @@
 <template>
-  <page-not-found v-if="error" />
-  <div
-    v-else
-    class="now-playing"
-  >
+  <main class="now-playing">
     <div class="container container-flex">
-      <card-list />
+      <card-list @on-error="onError" />
     </div>
-    <pagination-comp
-      :path="$route.name"
-      @change-page="changePage"
-    />
-  </div>
+    <pagination-comp @change-page="changePage" />
+  </main>
 </template>
 
 <script>
 import CardList from '@/components/CardList.vue'
 import PaginationComp from '@/components/PaginationComp.vue';
 import { scrollUp } from '@/components/mixins/common/scrollUp';
-import PageNotFound from '@/components/errors/PageNotFound.vue';
 
 export default {
   name: 'NowPlayingView',
   components: { 
     CardList, 
-    PaginationComp, 
-    PageNotFound,
+    PaginationComp,
   },
   mixins: [scrollUp],
-  computed: {
-    error() {
-      return this.$store.getters['movieNowPlaying/getError']
-    }
-  },
   watch: {
     $route(to, from) {
       this.$store.dispatch('movieNowPlaying/getNowPlaying', { page: this.$route.query.page })
@@ -44,6 +30,9 @@ export default {
   methods: {
     changePage(page) {
       this.$router.push({ query: { page } })
+    },
+    onError(val) {
+      this.$emit('on-error', val)
     }
   }
 }

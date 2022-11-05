@@ -1,38 +1,24 @@
 <template>
-  <page-not-found v-if="error" />
-  <div
-    v-else
-    class="upcoming"
-  >
+  <main class="upcoming">
     <div class="container container-flex">
-      <card-list :path="$route.name" />
+      <card-list @on-error="onError" />
     </div>
-    <pagination-comp
-      :path="$route.name"
-      @change-page="changePage"
-    />
-  </div>
+    <pagination-comp @change-page="changePage" />
+  </main>
 </template>
 
 <script>
-import CardList from '@/components/CardList.vue'
+import CardList from '@/components/CardList.vue';
 import PaginationComp from '@/components/PaginationComp.vue';
 import { scrollUp } from '@/components/mixins/common/scrollUp';
-import PageNotFound from '@/components/errors/PageNotFound.vue';
 
 export default {
   name: 'TrendingView',
   components: { 
     CardList, 
     PaginationComp,
-    PageNotFound,
   },
   mixins: [scrollUp],
-  computed: {
-    error() {
-      return this.$store.getters['movieUpcoming/getError']
-    }
-  },
   watch: {
     $route(to, from) {
       this.$store.dispatch('movieUpcoming/getUpcoming', { page: this.$route.query.page })
@@ -44,13 +30,16 @@ export default {
   methods: {
     changePage(page) {
       this.$router.push({ query: { page } })
+    },
+    onError(val) {
+      this.$emit('on-error', val)
     }
   }
 }
 </script>
 
 <style scoped>
-  .trending {
+  .upcoming {
     margin-bottom: 20px;
   }
 </style>

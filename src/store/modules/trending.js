@@ -1,40 +1,61 @@
 import { TMDBAPI } from '@/api/tmdb-api';
+import { getters } from '@/store/mixins/store/getters';
+import { mutations } from '@/store/mixins/store/mutations';
+import { state } from '@/store/mixins/store/state';
+
+const {
+  getters: {
+    getItems,
+    getPage,
+    getTotalPages,
+  }
+} = getters;
+
+const {
+  mutations: {
+    setItems,
+    setPage,
+    setTotalPages,
+  }
+} = mutations;
+
+const {
+  state: {
+    itemList,
+    page,
+    totalPages,
+  },
+  namespaced
+} = state;
 
 export const trending = {
-  namespaced: true,
+  namespaced,
   state: () => ({
-    itemList: [],
-    page: undefined,
-    totalPages: undefined,
-    loading: true
+    itemList,
+    page,
+    totalPages,
   }),
   mutations: {
-    setItems(state, items) {
-      state.itemList = [...items]
-      setTimeout(() => state.loading = false, 1500)
-    },
-    setPage(state, page) {
-      state.page = page
-    },
-    setTotalPages(state, pages) {
-      state.totalPages = pages
-    },
+    setItems,
+    setPage,
+    setTotalPages,
   },
   actions: {
     async getTrending({ commit }, { page }) {
-      const res = await TMDBAPI.common.getTrending({ page })
-      res.data.results.map(item => {
-        item.card_type = 'flex-item'
-      })
-      commit('setItems', res.data.results)
-      commit('setPage', res.data.page)
-      commit('setTotalPages', res.data.total_pages)
+      return await TMDBAPI.common.getTrending({ page })
+        .then(res => {
+          res.data.results.map(item => {
+            item.card_type = 'flex-item'
+          })
+          commit('setItems', res.data.results)
+          commit('setPage', res.data.page)
+          commit('setTotalPages', res.data.total_pages)
+        })
     },
   },
   getters: {
-    getItems: (state) => state.itemList,
-    getPage: (state) => state.page,
-    getTotalPages: (state) => state.totalPages,
-    getLoading: (state) => state.loading,
+    setItems,
+    setPage,
+    setTotalPages,
   },
 }

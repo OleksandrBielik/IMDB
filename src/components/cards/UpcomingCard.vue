@@ -15,17 +15,17 @@
           <img
             class="poster-image"
             :src="imgURL"
-            :alt="name + 'image'"
+            :alt="name + ' poster'"
           >
         </div>
         <div class="wrapper">
           <div class="description">
-            <div class="title">
+            <h2 class="title">
               {{ title }}
-            </div>
-            <div class="title-lg">
+            </h2>
+            <h2 class="title-lg">
               {{ titleLg }}
-            </div>
+            </h2>
           </div>
         </div>
       </div>

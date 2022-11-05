@@ -1,17 +1,17 @@
 <template>
   <router-link
-    v-if="item.media_type === 'tv' && !item.card_type"
     :to="link"
     class="poster-card"
   >
-    <article @click="addToRecentlyList(item)">
-      <div class="thumb">
-        <img
-          :src="imgURL"
-          :alt="item.name + 'image'"
-        >
-      </div>
-    </article>
+    <div
+      class="thumb"
+      @click="addToRecentlyList(item)"
+    >
+      <img
+        :src="imgURL"
+        :alt="name + ' poster'"
+      >
+    </div>
   </router-link>
 </template>
 

@@ -67,8 +67,8 @@ export const movie = {
           commit('setImages', res.data.images.backdrops)
         })
     },
-    fetchSimilar({ commit }, { id, page }) {
-      TMDBAPI.common.getSimilar({ id, page, type: 'movie' })
+    async fetchSimilar({ commit }, { id, page }) {
+      return await TMDBAPI.common.getSimilar({ id, page, type: 'movie' })
         .then(res => {
           res.data.results.map(item => {
             item.media_type = 'movie'
@@ -76,18 +76,9 @@ export const movie = {
           })
           commit('setSimilar', res.data.results)
         })
-        .catch(error => {
-          if (error.response.status === 404) {
-            console.log('')
-          } else if (error.request.status >= 500) {
-            console.log('server-side error');
-          } else {
-            console.log('Error', error.message);
-          }
-        });
       },
-    fetchCredits({ commit }, { id, page }) {
-      TMDBAPI.common.getCredits({ id, page, type: 'movie' })
+    async fetchCredits({ commit }, { id, page }) {
+      return await TMDBAPI.common.getCredits({ id, page, type: 'movie' })
         .then(res => {
           res.data.cast.map(item => {
             item.media_type = 'person'
@@ -95,15 +86,6 @@ export const movie = {
           })
           commit('setCredits', res.data.cast)
         })
-        .catch(error => {
-          if (error.response.status === 404) {
-            console.log('')
-          } else if (error.request.status >= 500) {
-            console.log('server-side error');
-          } else {
-            console.log('Error', error.message);
-          }
-        });
     },
   },
   getters: {

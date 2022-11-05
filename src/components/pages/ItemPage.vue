@@ -24,7 +24,7 @@
           <span>IMDb RATING</span>
           <span class="imdb-rate"><img
             class="star-icon"
-            src="../assets/star-icon.svg"
+            src="../../assets/star-icon.svg"
             alt="rating icon"
             width="25"
           >{{ Math.round(items.vote_average) }}/10</span>
@@ -37,7 +37,7 @@
             @click="onClick"
           ><img
             class="star-icon"
-            src="../assets/star-icon.svg"
+            src="../../assets/star-icon.svg"
             alt="rating icon"
             width="25"
           >{{ rate }}/10</span>
@@ -83,7 +83,7 @@
           <img
             class="poster-image"
             :src="imgURL"
-            :alt="items.title || items.name + 'image'"
+            :alt="title + ' poster'"
           >
         </div>
         <div class="video">
@@ -95,7 +95,7 @@
             <img
               class="video-media"
               :src="BgVideoURL"
-              :alt="title + ' image'"
+              :alt="title + ' video image'"
             >
           </picture>
           <div
@@ -139,12 +139,9 @@
       </div>
       <ul class="wrapper">
         <li class="videos">
-          <a
-            role="button"
+          <button
             type="button"
-            tabindex="0"
             @click="onNavigate('#videos')"
-            @keydown.enter="onNavigate('#videos')"
           >
             <svg
               id="iconContext-video-library"
@@ -155,15 +152,12 @@
               role="presentation"
             ><path d="M3 6c-.55 0-1 .45-1 1v13c0 1.1.9 2 2 2h13c.55 0 1-.45 1-1s-.45-1-1-1H5c-.55 0-1-.45-1-1V7c0-.55-.45-1-1-1zm17-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 12.5v-9l5.47 4.1c.27.2.27.6 0 .8L12 14.5z" /></svg>
             <span>{{ videos.length + ' videos' }}</span>
-          </a>
+          </button>
         </li>
         <li class="images">
-          <a
-            role="button"
+          <button
             type="button"
-            tabindex="0"
             @click="onNavigate('#images')"
-            @keydown.enter="onNavigate('#images')"
           >
             <svg
               id="iconContext-collections"
@@ -177,7 +171,7 @@
               d="M0 0h24v24H0V0z"
             /><path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-10.6-3.47l1.63 2.18 2.58-3.22a.5.5 0 0 1 .78 0l2.96 3.7c.26.33.03.81-.39.81H9a.5.5 0 0 1-.4-.8l2-2.67c.2-.26.6-.26.8 0zM2 7v13c0 1.1.9 2 2 2h13c.55 0 1-.45 1-1s-.45-1-1-1H5c-.55 0-1-.45-1-1V7c0-.55-.45-1-1-1s-1 .45-1 1z" /></svg>
             <span>{{ images.length + ' images' }}</span>
-          </a>
+          </button>
         </li>
       </ul>
     </div>
@@ -208,7 +202,7 @@
             <span>IMDb RATING</span>
             <span class="imdb-rate"><img
               class="star-icon"
-              src="../assets/star-icon.svg"
+              src="../../assets/star-icon.svg"
               alt="rating icon"
               width="25"
             >{{ Math.round(items.vote_average) }}/10</span>
@@ -221,7 +215,7 @@
               @click="onClick"
             ><img
               class="star-icon"
-              src="../assets/star-icon.svg"
+              src="../../assets/star-icon.svg"
               alt="rating icon"
               width="25"
             >{{ rate }}/10</span>
@@ -271,7 +265,7 @@
 </template>
 
 <script>
-import RateModal from './modals/RateModal.vue';
+import RateModal from '../modals/RateModal.vue';
 
 export default {
   name: 'ItemPage',
@@ -568,7 +562,7 @@ export default {
         border-bottom-left-radius: 0;
         border-top-right-radius: 3px;
       }
-      a {
+      button {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -586,7 +580,7 @@ export default {
           flex-direction: column;
         }
       }
-      a:hover, a:focus {
+      button:hover, button:focus {
         background-color: $arrow-bg-color;
         color: $white;
       }

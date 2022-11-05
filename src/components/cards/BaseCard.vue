@@ -8,7 +8,7 @@
         <img
           v-if="imgURL"
           :src="imgURL"
-          :alt="name + 'poster image'"
+          :alt="name + ' poster'"
         >
         <img
           v-else
@@ -32,12 +32,12 @@
             {{ item.media_type }}
           </div>
         </div>
-        <div class="title">
+        <h2 class="title">
           {{ title }}
-        </div>
-        <div class="title-lg">
+        </h2>
+        <h2 class="title-lg">
           {{ titleLg }}
-        </div>
+        </h2>
       </div>
       <div
         v-if="user"
@@ -81,6 +81,7 @@
         <button
           type="button"
           class="watch-list"
+          tabindex="-1"
         >
           <svg
             v-if="statusWatchList"
@@ -245,10 +246,10 @@ export default {
   }
   .wrapper-button {
     position: absolute;
-    left: 0;
+    left: 50%;
+    transform: translateX(-50%);
     bottom: 10px;
-    padding: 0 5px;
-    width: 100%;
+    width: 90%;
   }
   .watch-list {
     display: flex;

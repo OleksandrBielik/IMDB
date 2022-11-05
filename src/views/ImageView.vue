@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import MediaPage from '@/components/MediaPage.vue';
+import MediaPage from '@/components/pages/MediaPage.vue';
 import SliderList from '@/components/SliderList.vue';
 import { scrollUp } from '@/components/mixins/common/scrollUp';
 

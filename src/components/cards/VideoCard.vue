@@ -3,10 +3,7 @@
     class="video-card"
     :to="link"
   >
-    <article
-      tabindex="0"
-      aria-label="video"
-    >
+    <div class="card-wrapper">
       <picture>
         <source
           :srcset="BgVideoWebpURL"
@@ -40,7 +37,7 @@
           /></svg>
         </button>
       </div>
-    </article>
+    </div>
   </router-link>
 </template>
 
@@ -85,9 +82,9 @@ export default {
     overflow: hidden;
     margin: 10px;
   }
-  article {
+  .card-wrapper {
     position: relative;
-        height: 129.38px;
+    height: 129.38px;
     @media(min-width:1024px) {
       height: 168.75px;
     }

@@ -1,6 +1,6 @@
 import { AuthAPI } from '@/api/auth-api';
 import { UserRoles } from '@/api/auth-api/roles';
-import { DefaultAPIInstance, LoginAPIInstance } from '@/api';
+import { DefaultAPIInstance } from '@/api';
 
 export const auth = {
   namespaced: true,
@@ -35,9 +35,8 @@ export const auth = {
     }
   },
   actions: {
-    onLogin({ commit }, { login, password }) {
+    onLogin({ commit }, { login }) {
       AuthAPI.login().then(res => {
-        console.log(res)
         commit('setToken', res.data.request_token)
         commit('setUserRole', UserRoles.user)
         commit('setUserLogin', login)

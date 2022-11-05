@@ -1,16 +1,9 @@
 <template>
-  <page-not-found v-if="error" />
-  <div
-    v-else
-    class="popular"
-  >
+  <div class="popular">
     <div class="container container-flex">
-      <card-list :path="$route.name" />
+      <card-list @on-error="onError" />
     </div>
-    <pagination-comp
-      :path="$route.name"
-      @change-page="changePage"
-    />
+    <pagination-comp @change-page="changePage" />
   </div>
 </template>
 
@@ -18,32 +11,28 @@
 import CardList from '@/components/CardList.vue';
 import PaginationComp from '@/components/PaginationComp.vue';
 import { scrollUp } from '@/components/mixins/common/scrollUp';
-import PageNotFound from '@/components/errors/PageNotFound.vue';
 
 export default {
   name: 'PopularView',
   components: { 
     CardList, 
     PaginationComp,
-    PageNotFound,
   },
   mixins: [scrollUp],
-  computed: {
-    error() {
-      return this.$store.getters['personPopular/getError']
-    }
-  },
   watch: {
     $route(to, from) {
       this.$store.dispatch('personPopular/getPopular', { page: this.$route.query.page })
     }
   },
   mounted() {
-    setTimeout(()=> this.scrollUp(), 1000)
+    setTimeout(()=> this.scrollUp(), 50)
   },
   methods: {
     changePage(page) {
       this.$router.push({ query: { page } })
+    },
+    onError(val) {
+      this.$emit('on-error', val)
     }
   }
 }

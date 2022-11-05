@@ -41,8 +41,8 @@ export const moviePopular = {
     setTotalPages
   },
   actions: {
-    getPopular({ commit }, { page }) {
-      return TMDBAPI.movie.getPopular({ page })
+    async getPopular({ commit }, { page }) {
+      return await TMDBAPI.movie.getPopular({ page })
         .then(res => {
           res.data.results.map(item => {
             item.media_type = 'movie'
@@ -52,16 +52,6 @@ export const moviePopular = {
           commit('setPage', res.data.page)
           commit('setTotalPages', res.data.total_pages)
         })
-        .catch(function (error) {
-          if (error.response.status === 404) {
-            commit('setError', true)
-            return
-          } else if (error.request.status >= 500) {
-            console.log('server-side error');
-          } else {
-            console.log('Error', error.message);
-          }
-        });
     },
   },
   getters: {

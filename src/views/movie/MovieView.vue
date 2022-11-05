@@ -2,34 +2,23 @@
   <main>
     <div class="container">
       <item-page @on-error="onError" />
-      <slider-list
-        :path="$route.name"
-        :component-name="'Similar'"
-      />
-      <slider-list
-        :path="$route.name"
-        :component-name="'Credits'"
-      />
+      <slider-list :component-name="'Similar'" />
+      <slider-list :component-name="'Credits'" />
       <slider-list
         :id="'images'"
-        :path="$route.name"
         :component-name="'Images'"
       />
       <slider-list
         :id="'videos'"
-        :path="$route.name"
         :component-name="'Videos'"
       />
-      <slider-list
-        :path="$route.name"
-        :component-name="'Recently'"
-      />
+      <slider-list :component-name="'Recently'" />
     </div>
   </main>
 </template>
 
 <script>
-import ItemPage from '@/components/ItemPage';
+import ItemPage from '@/components/pages/ItemPage.vue';
 import SliderList from '@/components/SliderList';
 import { scrollUp } from '@/components/mixins/common/scrollUp';
 

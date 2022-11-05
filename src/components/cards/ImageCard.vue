@@ -3,14 +3,12 @@
     class="poster-card"
     :to="link"
   >
-    <article>
-      <div class="thumb">
-        <img
-          :src="imgURL"
-          :alt="name + 'image'"
-        >
-      </div>
-    </article>
+    <div class="thumb">
+      <img
+        :src="imgURL"
+        :alt="name + ' image'"
+      >
+    </div>
   </router-link>
 </template>
 
