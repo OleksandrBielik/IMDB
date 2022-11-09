@@ -10,7 +10,7 @@
 <script>
 import CardList from '@/components/CardList.vue'
 import PaginationComp from '@/components/PaginationComp.vue';
-import { scrollUp } from '@/components/mixins/common/scrollUp';
+import { methods } from '@/components/mixins/common/methods';
 
 export default {
   name: 'SimilarMoviesView',
@@ -18,22 +18,19 @@ export default {
     CardList, 
     PaginationComp,
   },
-  mixins: [scrollUp],
+  mixins: [methods],
   watch: {
     $route(to, from) {
       this.$store.dispatch('similar/getSimilarMovies', { query: this.$route.query.query, page: this.$route.query.page, id: this.$route.params.id })
     }
   },
   mounted() {
-    setTimeout(()=> this.scrollUp(), 1000)
+    setTimeout(()=> this.scrollUp(), 50)
   },
   methods: {
-    changePage(page) {
-      this.$router.push({ query: { page } })
+    changePage(page, id) {
+      this.$router.push({ query: { page, id } })
     },
-    onError(val) {
-      this.$emit('on-error', val)
-    }
   }
 }
 </script>

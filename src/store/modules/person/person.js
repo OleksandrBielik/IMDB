@@ -1,13 +1,14 @@
 import { TMDBAPI } from '@/api/tmdb-api';
-import { getters } from '@/store/mixins/store/getters';
-import { mutations } from '@/store/mixins/store/mutations';
-import { state } from '@/store/mixins/store/state';
+import { getters } from '@/store/getters';
+import { mutations } from '@/store/mutations';
+import { state } from '@/store/state';
 
 const {
   getters: {
     getItem,
     getCredits,
     getImages,
+    getLoading,
   }
 } = getters;
 
@@ -16,6 +17,7 @@ const {
     setItem,
     setImages,
     setCredits,
+    setLoading,
   }
 } = mutations;
 
@@ -24,6 +26,7 @@ const {
     itemData,
     creditsList,
     imagesList,
+    loading,
   },
   namespaced
 } = state;
@@ -33,14 +36,17 @@ export const person = {
     itemData,
     creditsList,
     imagesList,
+    loading,
   }),
   mutations: {
     setItem,
     setImages,
     setCredits,
+    setLoading,
   },
   actions: {
     async fetchPerson({ commit }, { id }) {
+      commit('setLoading', true)
       return await TMDBAPI.person.getPerson({ id })
         .then(res => {
           res.data.images.profiles.map(item => {
@@ -49,6 +55,7 @@ export const person = {
           })
           commit('setItem', res.data)
           commit('setImages', res.data.images.profiles)
+          commit('setLoading', false)
         })
     },
     async fetchCredits({ commit }, { id, page }) {
@@ -65,5 +72,6 @@ export const person = {
     getItem,
     getCredits,
     getImages,
+    getLoading,
   },
 }

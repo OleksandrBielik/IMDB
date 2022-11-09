@@ -117,52 +117,13 @@
 
 <script>
 import { props } from '@/components/mixins/card/props';
-import { computed } from '@/components/mixins/card/computed';
-import { methods } from '@/components/mixins/card/methods';
-
-const { 
-  computed: {
-    link,
-    imgURL,
-    name,
-    rating,
-    title,
-    titleLg,
-    user,
-    watchList,
-    recentlyList,
-    statusWatchList,
-    statusRecentlyList,
-  }
-} = computed;
-
-const { methods: {
-    addToWatchList, 
-    addToRecentlyList,
-  }
-} = methods;
-
+import { base } from '@/components/mixins/card/base';
+import { recently } from '@/components/mixins/card/recently';
+import { watchlist } from '@/components/mixins/card/watchlist';
 
 export default {
   name: 'FlexCard',
-  mixins: [props],
-  computed: {
-    link,
-    imgURL,
-    name,
-    rating,
-    title,
-    titleLg,
-    user,
-    watchList,
-    recentlyList,
-    statusWatchList,
-    statusRecentlyList,
-  },
-  methods: {
-    addToWatchList, 
-    addToRecentlyList,
-  }
+  mixins: [props, recently, watchlist, base],
 }
 </script>
 
@@ -210,7 +171,7 @@ export default {
     margin-top: 10px;
     font-size: 14px;
     line-height: 18px;
-    @media(min-width: 1024px) {
+    @media(min-width: 1280px) {
       display: none;
     }
   }
@@ -219,18 +180,18 @@ export default {
     font-size: 18px;
     line-height: 21px;
     display: none;
-    @media(min-width: 1024px) {
-      display: block;
-    }
     @media (min-width:1280px) {
+      display: block;
       font-size: 18px;
     }
   }
   .media-type {
     border: 1px solid $white;
     border-radius: 10px;
-    padding: 1px 5px;
+    padding: 1px 7px;
     margin-left: auto;
+    font-size: 14px;
+    line-height: 18px;
   }
   .star-icon {
     margin-right: 5px;

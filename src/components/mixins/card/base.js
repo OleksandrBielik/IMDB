@@ -1,4 +1,4 @@
-export const computed = {
+export const base = {
   computed: {
     imgURL() {
       const imgPath = this.item.poster_path || this.item.profile_path || this.item.file_path
@@ -36,50 +36,28 @@ export const computed = {
         return this.name
       }
     },
+    user() {
+      return this.$store.getters['auth/getUserLogin']
+    },
     link() {
       switch(this.item.media_type) {
         case 'movie': return `/movie/${this.item.id}`
         case 'tv': return `/tv/${this.item.id}`
         case 'person': return `/person/${this.item.id}`
-        case 'image': return `/${this.$route.name}/images/${this.parrentId + '-' + (this.index + 1)}`
-        case 'video': return `/${this.$route.name}/videos/${this.parrentId + '-' + (this.index + 1)}`
+        case 'image': return `/${this.pathName}/images/${this.parrentId + '-' + (this.index + 1)}`
+        case 'video': return `/${this.pathName}/videos/${this.parrentId + '-' + (this.index + 1)}`
       }
     },
-    parrentId() {
-      return this.$route.params.id.split('-')[0]
-    },
-    childId() {
-      return this.$route.params.id.split('-')[1]
-    },
-    user() {
-      return this.$store.getters['auth/getUserLogin']
-    },
-    statusRecently() {
+    pathName() {
       try {
-        return this.items.find(item => item.id === this.item.id)
+        if (this.$route.name.split('-').length > 1) {
+          return this.$route.name.split('-')[0]
+        } else {
+          return this.$route.name
+        }   
       } catch (error) {
-        return null
+        console.log(error)
       }
     },
-    recentlyList() {
-      return this.$store.getters['home/getRecently']
-    },
-    statusRecentlyList() {
-      try {
-        return this.recentlyList.find(item => item.id === this.item.id)
-      } catch (error) {
-        return null
-      }
-    },
-    watchList() {
-      return this.$store.getters['watchlist/getItems']
-    },
-    statusWatchList() {
-      try {
-        return this.watchList.find(item => item.id === this.item.id)
-      } catch (error) {
-        return null
-      }
-    }
   }
 }

@@ -12,6 +12,12 @@
 </template>
 
 <script>
+import { methods } from '@/components/mixins/common/methods'
+
+const { methods: {
+  scrollUp
+} } = methods;
+
 export default {
   name: 'PaginationItem',
   props: {
@@ -26,17 +32,20 @@ export default {
     },
     pathName() {
       try {
-        const path = this.$route.name.split('-')[0] + (this.$route.name.split('-')[1][0].toUpperCase() + this.$route.name.split('-')[1].slice(1))
-        return path        
+        if (this.$route.name.split('-').length > 1) {
+          return this.$route.name.split('-')[0] + (this.$route.name.split('-')[1][0].toUpperCase() + this.$route.name.split('-')[1].slice(1))
+        } else {
+          return this.$route.name
+        }   
       } catch (error) {
-        return undefined
+        return null
       }
     },
     pages() {
-      return this.$store.getters[`${this.pathName || this.$route.name}/getTotalPages`]
+      return this.$store.getters[`${this.pathName}/getTotalPages`]
     },
     page() {
-      return this.$store.getters[`${this.pathName || this.$route.name}/getPage`]
+      return this.$store.getters[`${this.pathName}/getPage`]
     },
     disabled() {
       return (function() {
@@ -51,6 +60,7 @@ export default {
     }
   },
   methods: {
+    scrollUp,
     changePage() {
       if (Number(this.item)) {
         this.$emit('change-page', this.item)
@@ -64,9 +74,6 @@ export default {
         }
       }
       this.scrollUp()
-    },
-    scrollUp() {
-      document.querySelector('#app').scrollIntoView({ block: 'start', behavior: 'smooth' })
     },
   }
 }

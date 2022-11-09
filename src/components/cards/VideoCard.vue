@@ -3,18 +3,15 @@
     class="video-card"
     :to="link"
   >
-    <div class="card-wrapper">
-      <picture>
-        <source
-          :srcset="BgVideoWebpURL"
-          type="image/webp"
-        >
-        <img
-          class="video-media"
-          :src="BgVideoURL"
-          :alt="name + ' image'"
-        >
-      </picture>
+    <div
+      class="card-wrapper"
+      @click="scrollUp"
+    >
+      <img
+        class="video-media"
+        :src="BgVideoURL"
+        :alt="name + ' image'"
+      >
       <div class="overlay-button">
         <button
           type="button"
@@ -43,27 +40,29 @@
 
 <script>
 import { props } from '@/components/mixins/card/props';
-import { computed } from '@/components/mixins/card/computed';
+import { base } from '@/components/mixins/card/base';
+import { id } from '@/components/mixins/card/id';
+import { methods } from '@/components/mixins/common/methods';
 
-const { computed: {
-    link,
+const { methods: {
+  scrollUp,
+} } = methods;
+
+const { 
+  computed: { 
+    link, 
     name,
-  }
-} = computed;
+    pathName,
+  } 
+} = base;
 
 export default {
   name: 'VideoCard',
-  mixins: [props],
+  mixins: [props, id],
   computed: {
     link,
     name,
-    BgVideoWebpURL() {
-      try {
-        return `${process.env.VUE_APP_BACKVIDEOIMG_WEBP_URL}${this.item.key}/maxresdefault.webp`
-      } catch (error) {
-        return ''
-      }
-    },
+    pathName,
     BgVideoURL() {
       try {
         return `${process.env.VUE_APP_BACKVIDEOIMG_URL}${this.item.key}/maxresdefault.jpg`
@@ -71,6 +70,9 @@ export default {
         return ''
       }
     },
+  },
+  methods: {
+    scrollUp,
   }
 }
 </script>

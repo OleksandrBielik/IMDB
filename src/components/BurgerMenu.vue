@@ -133,7 +133,7 @@
               @keyup.enter="onClick"
             >
               <router-link
-                to="tv/on-air?page=1"
+                to="/tv/on-air?page=1"
                 tabindex="-1"
               >
                 TV On The Air

@@ -36,32 +36,24 @@
 
 <script>
 import { props } from '@/components/mixins/card/props';
-import { computed } from '@/components/mixins/card/computed';
-import { methods } from '@/components/mixins/card/methods';
-
-const { computed: {
-    name,
-    imgURL,
-    recentlyList,
-    statusRecentlyList,
-  }
-} = computed;
-
-const { methods: {
-    addToRecentlyList,
-  }
-} = methods;
+import { base } from '@/components/mixins/card/base';
+import { recently } from '@/components/mixins/card/recently';
 
 const { item } = props;
+const { 
+  computed: { 
+    name, 
+    imgURL 
+  } 
+} = base;
 
 export default {
   name: 'UpcomingCard',
+  mixins: [recently],
   props: { item },
   computed: {
     name,
     imgURL,
-    recentlyList,
-    statusRecentlyList,
     backdropURL() {
       return `${process.env.VUE_APP_IMG_URL}` + this.item.backdrop_path
     },
@@ -77,7 +69,6 @@ export default {
       return this.item.title || this.item.name
     }
   },
-  methods: { addToRecentlyList }
 }
 </script>
 

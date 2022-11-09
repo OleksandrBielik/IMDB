@@ -36,7 +36,7 @@ export const home = {
     }
   },
   actions: {
-    fetchTrending({ commit }, { page }) {
+    async fetchTrending({ commit }, { page }) {
       return TMDBAPI.common.getTrending({ page })
         .then(res => {
           res.data.results.map(item => {
@@ -45,7 +45,7 @@ export const home = {
           commit('setTrending', res.data.results)
         })
     },
-    fetchUpcoming({ commit }, { page }) {
+    async fetchUpcoming({ commit }, { page }) {
       return TMDBAPI.movie.getUpcoming({ page })
         .then(res => {
           res.data.results.map(item => {
@@ -55,7 +55,7 @@ export const home = {
           commit('setUpcoming', res.data.results)
         })
     },
-    fetchPopular({ commit }, { page }) {
+    async fetchPopular({ commit }, { page }) {
       return TMDBAPI.person.getPopular({ page })
         .then(res => {
           res.data.results.map(item => {
@@ -65,7 +65,7 @@ export const home = {
           commit('setPopular', res.data.results)
         })
     },
-    fetchOnAir({ commit }, { page }) {
+    async fetchOnAir({ commit }, { page }) {
       return TMDBAPI.tv.getOnAir({ page })
         .then(res => {
           res.data.results.map(item => {

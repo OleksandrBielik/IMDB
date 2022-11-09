@@ -1,45 +1,45 @@
 <template>
-  <div class="container">
-    <item-page :path="$route.name" />
-    <slider-list
-      :path="$route.name"
-      :component-name="'Similar'"
-    />
-    <slider-list
-      :path="$route.name"
-      :component-name="'Credits'"
-    />
-    <slider-list
-      :path="$route.name"
-      :component-name="'Images'"
-    />
-    <slider-list
-      :path="$route.name"
-      :component-name="'Videos'"
-    />
-    <slider-list
-      :path="$route.name"
-      :component-name="'Recently'"
-    />
-  </div>
+  <main>
+    <transition name="fade">
+      <div
+        v-if="loading"
+        class="status-global"
+      >
+        <app-loader />
+      </div>
+    </transition>
+    <div class="container">
+      <item-page @on-error="onError" />
+      <slider-list :component-name="'Similar'" />
+      <slider-list :component-name="'Credits'" />
+      <slider-list :component-name="'Images'" />
+      <slider-list :component-name="'Videos'" />
+      <slider-list :component-name="'Recently'" />
+    </div>
+  </main>
 </template>
 
 <script>
-import SliderList from '@/components/SliderList.vue'
 import ItemPage from '@/components/pages/ItemPage.vue'
-import { scrollUp } from '@/components/mixins/common/scrollUp';
+import AppLoader from '@/components/errors/AppLoader.vue';
+import { view } from '@/components/mixins/common/view';
+const SliderList = () => import('@/components/SliderList.vue');
 
 export default {
   name: 'TvView',
-  components: { ItemPage, SliderList },
-  mixins: [scrollUp],
+  components: {
+    ItemPage, 
+    SliderList,
+    AppLoader,
+  },
+  mixins: [view],
   watch: {
     $route(to, from) {
       this.$store.dispatch('tv/fetchTv', { id: this.$route.params.id })
+      setTimeout(()=> this.scrollUp(), 50)
+      this.$store.dispatch('tv/fetchSimilar', { id: this.$route.params.id, page: 1 })
+      this.$store.dispatch('tv/fetchCredits', { id: this.$route.params.id, page: 1 })
     }
-  },
-  mounted() {
-    setTimeout(()=> this.scrollUp(), 1000)
   },
 }
 </script>

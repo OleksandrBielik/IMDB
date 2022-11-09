@@ -23,19 +23,21 @@
 
 <script>
 import { props } from '@/components/mixins/card/props';
-import { computed } from '@/components/mixins/card/computed';
-
-const { computed: {
-    imgURL,
-    title,
-    name,
-  }
-} = computed;
+import { base } from '@/components/mixins/card/base';
 
 const { item } = props;
 
+const { 
+  computed: { 
+    name, 
+    imgURL, 
+    title 
+  } 
+} = base;
+
 export default {
   name: 'WatchlistCard',
+  mixins: [base],
   props: {
     item,
   },
@@ -45,9 +47,9 @@ export default {
     }
   },
   computed: {
+    name,
     imgURL,
     title,
-    name,
   },
   methods: {
     onSelect() {

@@ -1,54 +1,33 @@
 <template>
   <main>
-    <media-page :path="path" />
+    <transition name="fade">
+      <div
+        v-if="loading"
+        class="status-global"
+      >
+        <app-loader />
+      </div>
+    </transition>
+    <media-page @on-error="onError" />
     <div class="container">
-      <slider-list
-        :path="path"
-        :component-name="'Images'"
-      />
+      <slider-list :component-name="'Images'" />
     </div>
   </main>
 </template>
 
 <script>
 import MediaPage from '@/components/pages/MediaPage.vue';
-import SliderList from '@/components/SliderList.vue';
-import { scrollUp } from '@/components/mixins/common/scrollUp';
+import AppLoader from '@/components/errors/AppLoader.vue';
+import { view } from '@/components/mixins/common/view';
+const SliderList = () => import('@/components/SliderList.vue');
 
 export default {
   name: 'ImageView',
   components: {
     MediaPage,
-    SliderList
+    SliderList,
+    AppLoader,
   },
-  mixins: [scrollUp],
-  computed: {
-    path() {
-      return this.$route.name.split('-')[0]
-    },
-    id() {
-      return this.$route.params.id.split('-')
-    },
-    media() {
-      return this.$route.name.split('-')[1]
-    },
-  },
-  watch: {
-    $route(to, from) {
-      switch(this.media) {
-        case 'movie': this.$store.dispatch('movie/fetchMovie', { id: this.id })
-        break
-        case 'tv': this.$store.dispatch('tv/fetchTv', { id: this.id })
-        break
-        case 'person': this.$store.dispatch('person/fetchPerson', { id: this.id })
-        break
-        default: return
-      }
-      
-    }
-  },
-  mounted() {
-    setTimeout(()=> this.scrollUp(), 1000)
-  },
+  mixins: [view],
 }
 </script>

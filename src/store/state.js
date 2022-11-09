@@ -9,5 +9,7 @@ export const state = {
     videosList: [],
     page: undefined,
     totalPages: undefined,
+    totalResults: undefined,
+    loading: true
   }
 }

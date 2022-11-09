@@ -1,5 +1,13 @@
 <template>
   <main>
+    <transition name="fade">
+      <div
+        v-if="loading"
+        class="status-global"
+      >
+        <app-loader />
+      </div>
+    </transition>
     <div class="container">
       <item-page @on-error="onError" />
       <slider-list :component-name="'Similar'" />
@@ -19,29 +27,26 @@
 
 <script>
 import ItemPage from '@/components/pages/ItemPage.vue';
-import SliderList from '@/components/SliderList';
-import { scrollUp } from '@/components/mixins/common/scrollUp';
+import AppLoader from '@/components/errors/AppLoader.vue';
+import { view } from '@/components/mixins/common/view';
+const SliderList = () => import('@/components/SliderList.vue');
 
 export default {
   name: 'MovieView',
   components: { 
     ItemPage, 
     SliderList,
+    AppLoader,
   },
-  mixins: [scrollUp],
+  mixins: [view],
   watch: {
     $route(to, from) {
       this.$store.dispatch('movie/fetchMovie', { id: this.$route.params.id })
+      setTimeout(()=> this.scrollUp(), 50)
+      this.$store.dispatch('movie/fetchSimilar', { id: this.$route.params.id, page: 1 })
+      this.$store.dispatch('movie/fetchCredits', { id: this.$route.params.id, page: 1 })
     },
   },
-  mounted() {
-    setTimeout(()=> this.scrollUp(), 50)
-  },
-  methods: {
-    onError(val) {
-      this.$emit('on-error', val)
-    }
-  }
 }
 </script>
 

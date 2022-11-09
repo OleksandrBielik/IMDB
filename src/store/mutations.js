@@ -24,5 +24,11 @@ export const mutations = {
     setTotalPages(state, pages) {
       state.totalPages = pages
     },
+    setTotalResults(state, results) {
+      state.totalResults = results
+    },
+    setLoading(state, loading) {
+      state.loading = loading
+    }
   },
 }

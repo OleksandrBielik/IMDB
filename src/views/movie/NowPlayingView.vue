@@ -1,5 +1,13 @@
 <template>
   <main class="now-playing">
+    <transition name="fade">
+      <div
+        v-if="loading"
+        class="status-global"
+      >
+        <app-loader />
+      </div>
+    </transition>
     <div class="container container-flex">
       <card-list @on-error="onError" />
     </div>
@@ -8,37 +16,32 @@
 </template>
 
 <script>
-import CardList from '@/components/CardList.vue'
+import CardList from '@/components/CardList.vue';
 import PaginationComp from '@/components/PaginationComp.vue';
-import { scrollUp } from '@/components/mixins/common/scrollUp';
+import AppLoader from '@/components/errors/AppLoader.vue';
+import { methods } from '@/components/mixins/common/methods';
 
 export default {
   name: 'NowPlayingView',
   components: { 
     CardList, 
     PaginationComp,
+    AppLoader,
   },
-  mixins: [scrollUp],
+  mixins: [methods],
   watch: {
-    $route(to, from) {
-      this.$store.dispatch('movieNowPlaying/getNowPlaying', { page: this.$route.query.page })
+    async $route() {
+      return this.$store.dispatch('movieNowPlaying/getNowPlaying', { page: this.$route.query.page })
+        .then(this.onCatch)
     }
   },
   mounted() {
-    setTimeout(()=> this.scrollUp(), 1000)
+    setTimeout(()=> this.scrollUp(), 50)
   },
-  methods: {
-    changePage(page) {
-      this.$router.push({ query: { page } })
-    },
-    onError(val) {
-      this.$emit('on-error', val)
-    }
-  }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .now-playing {
     margin-bottom: 20px;
   }

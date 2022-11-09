@@ -1,13 +1,14 @@
 import { TMDBAPI } from '@/api/tmdb-api';
-import { getters } from '@/store/mixins/store/getters';
-import { mutations } from '@/store/mixins/store/mutations';
-import { state } from '@/store/mixins/store/state';
+import { getters } from '@/store/getters';
+import { mutations } from '@/store/mutations';
+import { state } from '@/store/state';
 
 const {
   getters: {
     getItems,
     getPage,
     getTotalPages,
+    getLoading,
   }
 } = getters;
 
@@ -16,6 +17,7 @@ const {
     setItems,
     setPage,
     setTotalPages,
+    setLoading,
   }
 } = mutations;
 
@@ -24,6 +26,7 @@ const {
     itemList,
     page,
     totalPages,
+    loading,
   },
   namespaced
 } = state;
@@ -34,14 +37,17 @@ export const tvPopular = {
     itemList,
     page,
     totalPages,
+    loading,
   }),
   mutations: {
     setItems,
     setPage,
     setTotalPages,
+    setLoading,
   },
   actions: {
     async getPopular({ commit }, { page }) {
+      commit('setLoading', true)
       return await TMDBAPI.tv.getPopular({ page })
         .then(res => {
           res.data.results.map(item => {
@@ -51,6 +57,7 @@ export const tvPopular = {
           commit('setItems', res.data.results)
           commit('setPage', res.data.page)
           commit('setTotalPages', res.data.total_pages)
+          commit('setLoading', false)
         })
     },
   },
@@ -58,5 +65,6 @@ export const tvPopular = {
     getItems,
     getPage,
     getTotalPages,
+    getLoading,
   },
 }

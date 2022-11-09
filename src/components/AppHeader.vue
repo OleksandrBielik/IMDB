@@ -29,6 +29,9 @@
         </router-link>
         <search-form />
       </div>
+      <button type="button" @click="onDarkMode">
+        DARK MODE
+      </button>
       <router-link
         v-if="!userLogin"
         to="/login"
@@ -85,6 +88,9 @@ export default {
     },
     showModal() {
       this.modal = !this.modal
+    },
+    onDarkMode() {
+      this.$emit('on-dark', true)
     }
   }
 }

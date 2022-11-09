@@ -1,7 +1,7 @@
 import { TMDBAPI } from '@/api/tmdb-api';
-import { getters } from '@/store/mixins/store/getters';
-import { mutations } from '@/store/mixins/store/mutations';
-import { state } from '@/store/mixins/store/state';
+import { getters } from '@/store/getters';
+import { mutations } from '@/store/mutations';
+import { state } from '@/store/state';
 
 const {
   getters: {
@@ -10,6 +10,7 @@ const {
     getCredits,
     getImages,
     getVideos,
+    getLoading,
   }
 } = getters;
 
@@ -19,7 +20,8 @@ const {
     setCredits,
     setImages,
     setVideos,
-    setSimilar
+    setSimilar,
+    setLoading,
   }
 } = mutations;
 
@@ -30,6 +32,7 @@ const {
     creditsList,
     imagesList,
     videosList,
+    loading,
   },
   namespaced
 } = state;
@@ -42,16 +45,19 @@ export const movie = {
     creditsList,
     imagesList,
     videosList,
+    loading,
   }),
   mutations: {
     setItem,
     setCredits,
     setImages,
     setVideos,
-    setSimilar
+    setSimilar,
+    setLoading,
   },
   actions: {
     async fetchMovie({ commit }, { id }) {
+      commit('setLoading', true)
       return await TMDBAPI.movie.getMovie({ id })
         .then(res => {
           res.data.images.backdrops.map(item => {
@@ -65,6 +71,7 @@ export const movie = {
           commit('setItem', res.data)
           commit('setVideos', res.data.videos.results)
           commit('setImages', res.data.images.backdrops)
+          commit('setLoading', false)
         })
     },
     async fetchSimilar({ commit }, { id, page }) {
@@ -94,5 +101,6 @@ export const movie = {
     getCredits,
     getImages,
     getVideos,
+    getLoading,
   }
 }

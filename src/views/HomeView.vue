@@ -1,5 +1,13 @@
 <template>
   <main class="home">
+    <transition name="fade">
+      <div
+        v-if="loading"
+        class="status-global"
+      >
+        <app-loader />
+      </div>
+    </transition>
     <upcoming-list :component-name="'Upcoming'" />
     <div class="container">
       <slider-list :component-name="'Trending'" />
@@ -11,24 +19,23 @@
 </template>
 
 <script>
-import SliderList from '@/components/SliderList.vue';
 import UpcomingList from '@/components/UpcomingList.vue';
-import { scrollUp } from '@/components/mixins/common/scrollUp';
+import AppLoader from '@/components/errors/AppLoader.vue';
+import { view } from '@/components/mixins/common/view';
+const SliderList = () => import('@/components/SliderList.vue');
 
 export default {
   name: 'HomeView',
   components: {
     SliderList,
     UpcomingList,
+    AppLoader,
   },
-  mixins: [scrollUp],
-  mounted() {
-    setTimeout(()=> this.scrollUp(), 50)
-  },
+  mixins: [view],
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .home {
     padding-top: 15px;
   }

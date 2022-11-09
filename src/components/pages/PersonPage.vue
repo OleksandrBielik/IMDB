@@ -1,59 +1,79 @@
 <template>
-  <div
-    v-if="loading"
-    class="spinner"
-  >
-    <i />
-  </div>
-  <article
-    v-else
-    class="page"
-  >
-    <h1>{{ title }}</h1>
-    <div class="wrapper">
-      <div class="thumb">
-        <img
-          :src="imgURL"
-          :alt="title + ' photo'"
-        >
+  <div>
+    <template v-if="loading || error.status">
+      <div
+        v-if="loading"
+        class="status"
+      >
+        <app-loader />
       </div>
-      <ul class="info">
-        <li>
-          <p>
-            <span>Birthday:</span> {{ ' ' + items.birthday }}
-          </p>
-        </li>
-        <li>
-          <p>
-            <span>Place of birth:</span> {{ ' ' + items.place_of_birth }}
-          </p>
-        </li>
-        <li>
-          <p>
-            <span>Also known as:</span> {{ ' ' + known }}
-          </p>
-        </li>
-        <li>
-          <p>
-            <span>Rating:</span> {{ ' ' + rating }}
-          </p>
-        </li>
-        <li>
-          <p>
-            <span>Biography:</span> {{ ' ' + items.biography }}
-          </p>
-        </li>
-      </ul>
-    </div>
-  </article>
+      <app-error
+        v-else-if="error.status"
+        class="status"
+      />
+    </template>
+    <article
+      v-else
+      class="page"
+    >
+      <h1>{{ title }}</h1>
+      <div class="wrapper">
+        <div class="thumb">
+          <img
+            :src="imgURL"
+            :alt="title + ' photo'"
+          >
+        </div>
+        <ul class="info">
+          <li>
+            <p>
+              <span>Birthday:</span> {{ ' ' + items.birthday }}
+            </p>
+          </li>
+          <li>
+            <p>
+              <span>Place of birth:</span> {{ ' ' + items.place_of_birth }}
+            </p>
+          </li>
+          <li>
+            <p>
+              <span>Also known as:</span> {{ ' ' + known }}
+            </p>
+          </li>
+          <li>
+            <p>
+              <span>Rating:</span> {{ ' ' + rating }}
+            </p>
+          </li>
+          <li>
+            <p>
+              <span>Biography:</span> {{ ' ' + items.biography }}
+            </p>
+          </li>
+        </ul>
+      </div>
+    </article>
+  </div>
 </template>
 
 <script>
+import AppError from '@/components/errors/AppError.vue';
+import AppLoader from '@/components/errors/AppLoader.vue';
+import { methods } from '@/components/mixins/common/methods';
+
+const { methods: {
+  onCatch,
+} } = methods;
+
 export default {
   name: 'PersonPage',
+  components: {
+    AppError,
+    AppLoader,
+  },
   data() {
     return {
-      loading: true
+      error: { status: false, type: null }
     }
   },
   computed: {
@@ -80,24 +100,16 @@ export default {
     imgURL() {
       return `${process.env.VUE_APP_IMG_URL}${this.items.profile_path}`
     },
+    loading() {
+      return this.$store.getters['person/getLoading']
+    }
   },
-  mounted() {
+  async mounted() {
     return this.$store.dispatch('person/fetchPerson', { id: this.$route.params.id })
-    .then(res => this.loading = false)
-    .catch(error => {
-      if (error.response.status === 404) {
-        this.$emit('on-error', true)
-      } else if (error.request.status >= 500) {
-        console.log('server-side error');
-      } else {
-        console.log('Error', error.message);
-      }
-    });
+      .catch(this.onCatch)
   },
   methods: {
-    stopLoading() {
-      setTimeout(() => this.loading = false, 1500)
-    },
+    onCatch,
   }
 }
 </script>
@@ -150,13 +162,15 @@ export default {
   li:not(:first-child) {
     padding: 10px 0;
   }
-  .spinner {
+  .status {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
     height: 100vh;
-    i {
-      margin: 20em auto;
-      @media (min-width: 1024px) {
-        margin: 30em auto;
-      }
-    }
+  }
+  i {
+    margin: 25em auto;
   }
 </style>

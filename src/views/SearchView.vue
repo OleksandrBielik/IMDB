@@ -3,17 +3,14 @@
     <div class="container container-flex">
       <card-list @on-error="onError" />
     </div>
-    <pagination-comp
-      :path="$route.name"
-      @change-page="changePage"
-    />
+    <pagination-comp @change-page="changePage" />
   </main>
 </template>
 
 <script>
 import CardList from '@/components/CardList.vue';
 import PaginationComp from '@/components/PaginationComp.vue';
-import { scrollUp } from '@/components/mixins/common/scrollUp';
+import { methods } from '@/components/mixins/common/methods';
 
 export default {
   name: 'SearchView',
@@ -21,7 +18,7 @@ export default {
     CardList, 
     PaginationComp 
   },
-  mixins: [scrollUp],
+  mixins: [methods],
   watch: {
     $route(to, from) {
       this.$store.dispatch('search/onSearch', { query: this.$route.query.query, page: this.$route.query.page })
@@ -31,9 +28,6 @@ export default {
     changePage(page) {
       this.$router.push({ query: { query: this.$route.query.query, page } })
     },
-    onError(val) {
-      this.$emit('on-error', val)
-    }
   }
 }
 </script>

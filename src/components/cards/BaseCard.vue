@@ -113,56 +113,13 @@
 
 <script>
 import { props } from '@/components/mixins/card/props';
-import { computed } from '@/components/mixins/card/computed';
-import { methods } from '@/components/mixins/card/methods';
-
-const { 
-  computed: {
-    link,
-    imgURL,
-    name,
-    rating,
-    title,
-    titleLg,
-    user,
-    watchList,
-    recentlyList,
-    statusWatchList,
-    statusRecentlyList,
-  }
-} = computed;
-
-const { methods: {
-    addToWatchList, 
-    addToRecentlyList,
-  }
-} = methods;
+import { base } from '@/components/mixins/card/base';
+import { recently } from '@/components/mixins/card/recently';
+import { watchlist } from '@/components/mixins/card/watchlist';
 
 export default {
   name: 'BaseCard',
-  mixins: [props],
-  data() {
-    return {
-      watchlist: false
-    }
-  },
-  computed: {
-    link,
-    imgURL,
-    name,
-    rating,
-    title,
-    titleLg,
-    user,
-    watchList,
-    recentlyList,
-    statusWatchList,
-    statusRecentlyList,
-  },
-  methods: {
-    addToWatchList,
-    addToRecentlyList,
-  }
+  mixins: [props, recently, watchlist, base],
 }
 </script>
 
@@ -204,8 +161,10 @@ export default {
   .media-type {
     border: 1px solid $white;
     border-radius: 10px;
-    padding: 1px 5px;
+    padding: 1px 7px;
     margin-left: auto;
+    font-size: 14px;
+    line-height: 18px;
   }
   .star-icon {
     margin-right: 5px;

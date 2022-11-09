@@ -1,19 +1,16 @@
 <template>
   <div class="top-rated">
     <div class="container container-flex">
-      <card-list :path="$route.name" />
+      <card-list @on-error="onError" />
     </div>
-    <pagination-comp
-      :path="$route.name"
-      @change-page="changePage"
-    />
+    <pagination-comp @change-page="changePage" />
   </div>
 </template>
 
 <script>
 import CardList from '@/components/CardList.vue'
 import PaginationComp from '@/components/PaginationComp.vue';
-import { scrollUp } from '@/components/mixins/common/scrollUp';
+import { methods } from '@/components/mixins/common/methods';
 
 export default {
   name: 'OnAirView',
@@ -21,20 +18,15 @@ export default {
     CardList, 
     PaginationComp 
   },
-  mixins: [scrollUp],
+  mixins: [methods],
   watch: {
     $route(to, from) {
       this.$store.dispatch('tvTopRated/getTopRated', { page: this.$route.query.page })
     }
   },
   mounted() {
-    setTimeout(()=> this.scrollUp(), 1000)
+    setTimeout(()=> this.scrollUp(), 50)
   },
-  methods: {
-    changePage(page) {
-      this.$router.push({ query: { page } })
-    }
-  }
 }
 </script>
 

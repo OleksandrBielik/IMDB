@@ -4,13 +4,16 @@
       <app-header
         v-if="$route.path !== '/login'"
         @on-click="onClick"
+        @on-dark="onDarkMode"
       />
       <burger-menu
         v-if="$route.path !== '/login'"
         :menu="menu"
         @on-click="onClick"
       />
-      <router-view @on-error="onError" />
+      <keep-alive include="home">
+        <router-view @on-error="onError" />
+      </keep-alive>
       <app-footer v-if="$route.path !== '/login'" />
     </template>
     <page-not-found v-else />
@@ -18,10 +21,10 @@
 </template>
 
 <script>
-import AppHeader from '@/components/AppHeader.vue';
-import AppFooter from '@/components/AppFooter.vue';
-import BurgerMenu from '@/components/BurgerMenu.vue';
-import PageNotFound from './components/errors/PageNotFound.vue';
+const AppFooter = ()=> import('@/components/AppFooter.vue');
+const AppHeader = ()=> import('@/components/AppHeader.vue');
+const BurgerMenu = ()=> import('@/components/BurgerMenu.vue');
+const PageNotFound = ()=> import('./components/errors/PageNotFound.vue');
 
 export default {
     name: 'App',
@@ -35,6 +38,7 @@ export default {
       return {
         menu: false,
         error: false,
+        darkMode: false,
       }
     },
     methods: {
@@ -43,6 +47,9 @@ export default {
       },
       onError(val) {
         this.error = val
+      },
+      onDarkMode() {
+        this.darkMode = true
       }
     }
 }

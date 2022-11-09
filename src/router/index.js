@@ -35,11 +35,6 @@ const routes = [
     component: () => import('../views/VideoView.vue')
   },
   {
-    path: '/tv/on-air',
-    name: 'tv-onAir',
-    component: () => import('../views/tv/OnAirView.vue')
-  },
-  {
     path: '/tv/popular',
     name: 'tv-popular',
     component: () => import('../views/tv/PopularView.vue')
@@ -48,6 +43,11 @@ const routes = [
     path: '/tv/top-rated',
     name: 'tv-topRated',
     component: () => import('../views/tv/TopRatedView.vue')
+  },
+  {
+    path: '/tv/on-air',
+    name: 'tv-onAir',
+    component: () => import('../views/tv/OnAirView.vue')
   },
   {
     path: '/tv/:id',

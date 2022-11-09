@@ -1,9 +1,20 @@
-$font-size:1.5;
+<template>
+  <i />
+</template>
+
+<script>
+export default {
+  name: 'AppLoader',
+}
+</script>
+
+<style lang="scss" scoped>
+  $font-size:1.5;
 i{
   height:$font-size+em;
   width:$font-size+em;
   border-radius:100%;
-  background:#fff;
+  background: $white;
   display:block;
   margin:10em auto;
   position:absolute;
@@ -41,3 +52,4 @@ i{
     transform:rotate(-360deg);
   }
 }
+</style>

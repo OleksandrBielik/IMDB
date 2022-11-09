@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import CardList from '@/components/CardList.vue'
+import CardList from '@/components/CardList.vue';
 import PaginationComp from '@/components/PaginationComp.vue';
-import { scrollUp } from '@/components/mixins/common/scrollUp';
+import { methods } from '@/components/mixins/common/methods';
 
 export default {
   name: 'PopularView',
@@ -18,23 +18,16 @@ export default {
     CardList, 
     PaginationComp,
   },
-  mixins: [scrollUp],
+  mixins: [methods],
   watch: {
-    $route(to, from) {
-      this.$store.dispatch('moviePopular/getPopular', { page: this.$route.query.page })
+    async $route(to, from) {
+      return this.$store.dispatch('moviePopular/getPopular', { page: this.$route.query.page })
+        .catch(this.onCatch)
     }
   },
   mounted() {
-    setTimeout(()=> this.scrollUp(), 1000)
+    setTimeout(()=> this.scrollUp(), 50)
   },
-  methods: {
-    changePage(page) {
-      this.$router.push({ query: { page } })
-    },
-    onError(val) {
-      this.$emit('on-error', val)
-    }
-  }
 }
 </script>
 

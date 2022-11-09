@@ -16,17 +16,23 @@
 
 <script>
 import LoginForm from '@/components/LoginForm.vue';
-import { scrollUp } from '@/components/mixins/common/scrollUp';
+import { methods } from '@/components/mixins/common/methods';
+
+const { methods: {
+  scrollUp
+} } = methods;
 
 export default {
   name: 'VideoView',
   components: {
     LoginForm
   },
-  mixins: [scrollUp],
   mounted() {
     setTimeout(()=> this.scrollUp(), 1000)
   },
+  methods: {
+    scrollUp,
+  }
 }
 </script>
 

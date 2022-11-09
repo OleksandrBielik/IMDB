@@ -1,6 +1,21 @@
 <template>
   <main>
-    <div class="container">
+    <template v-if="loading || error.status">
+      <div
+        v-if="loading"
+        class="status"
+      >
+        <app-loader />
+      </div>
+      <app-error
+        v-else-if="error.status"
+        class="status"
+      />
+    </template>
+    <div
+      v-else
+      class="container"
+    >
       <img
         v-if="media === 'images'"
         :src="imgURL"
@@ -20,12 +35,23 @@
 </template>
 
 <script>
+import { methods } from '@/components/mixins/common/methods';
+import AppError from '@/components/errors/AppError.vue';
+import AppLoader from '@/components/errors/AppLoader.vue';
+
+const { methods: {
+  onCatch,
+} } = methods;
+
 export default {
   name: 'MediaPage',
-  props: {
-    path: {
-      type: String,
-      required: true
+  components: {
+    AppError,
+    AppLoader,
+  },
+  data() {
+    return {
+      error: { status: false, type: null }
     }
   },
   computed: {
@@ -41,7 +67,7 @@ export default {
     pathName() {
       return this.$route.name.split('-')[0]
     },
-    items() {
+    item() {
       switch(this.media) {
         case 'images': return this.$store.getters[`${this.pathName}/getImages`][this.childId-1]
         case 'videos': return this.$store.getters[`${this.pathName}/getVideos`][this.childId-1]
@@ -50,34 +76,62 @@ export default {
     },
     imgURL() {
       try {
-        return `${process.env.VUE_APP_IMG_URL}${this.items.poster_path || this.items.profile_path || this.items.file_path}`
+        return `${process.env.VUE_APP_IMG_URL}${this.item.poster_path || this.item.profile_path || this.item.file_path}`
       } catch (error) {
         return ''
       }
     },
     videoURL() {
       try {
-        return `https://www.youtube.com/embed/${this.items.key}`
+        return `https://www.youtube.com/embed/${this.item.key}`
       } catch (error) {
         return ''
       }
-    }
+    },
+    loading() {
+      return this.$store.getters[`${this.pathName}/getLoading`]
+    },
+    items() {
+      switch(this.media) {
+        case 'images': return this.$store.getters[`${this.pathName}/getImages`]
+        case 'videos': return this.$store.getters[`${this.pathName}/getVideos`]
+        default: return null
+      }
+    },
   },
-  mounted() {
-    this.scrollUp()
+  async mounted() {
     switch(this.pathName) {
-      case 'tv': this.$store.dispatch('tv/fetchTv', { id: this.parrentId })
-      break
-      case 'movie': this.$store.dispatch('movie/fetchMovie', { id: this.parrentId })
-      break
-      case 'person': this.$store.dispatch('person/fetchPerson', { id: this.parrentId })
-      break
+      case 'tv': {
+        return this.$store.dispatch('tv/fetchTv', { id: this.parrentId })
+          .then(res => {
+            if (this.items.length < Number(this.childId)) {
+              this.$emit('on-error', true)
+            }
+          })
+          .catch(this.onCatch)
+        }
+      case 'movie': {
+        return this.$store.dispatch('movie/fetchMovie', { id: this.parrentId })
+          .then(res => {
+            if (this.items.length < Number(this.childId)) {
+              this.$emit('on-error', true)
+            }
+          })
+          .catch(this.onCatch)
+        }
+      case 'person': {
+        return this.$store.dispatch('person/fetchPerson', { id: this.parrentId })
+          .then(res => {
+            if (this.items.length < Number(this.childId)) {
+              this.$emit('on-error', true)
+            }
+          })
+          .catch(this.onCatch)
+        }
     }
   },
   methods: {
-    scrollUp() {
-      document.querySelector('#app').scrollIntoView({ block: 'start', behavior: 'smooth' })
-    },
+    onCatch,
   }
 }
 </script>
@@ -108,7 +162,7 @@ export default {
     @media (min-width:1024px) {
       position: relative;
       height: 55vh;
-      width: 1024px;
+      width: 920px;
     }
   }
   img {
@@ -121,5 +175,16 @@ export default {
     @media (min-width:400px) {
       padding-top: 50.69px;
     }
+  }
+  .status {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 55vh;
+  }
+  i {
+    margin: 25em auto;
   }
 </style>

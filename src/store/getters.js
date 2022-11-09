@@ -8,5 +8,7 @@ export const getters = {
     getVideos: (state) => state.videosList,
     getPage: (state) => state.page,
     getTotalPages: (state) => state.totalPages,
+    getTotalResults: (state) => state.totalPages,
+    getLoading: (state) => state.loading
   },
 }

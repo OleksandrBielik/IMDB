@@ -17,35 +17,24 @@
 
 <script>
 import { props } from '@/components/mixins/card/props';
-import { computed } from '@/components/mixins/card/computed';
-import { methods } from '@/components/mixins/card/methods';
+import { base } from '@/components/mixins/card/base';
+import { recently } from '@/components/mixins/card/recently';
 
-const { computed: {
-    link,
+const { 
+  computed: { 
+    name, 
     imgURL,
-    name,
-    recentlyList,
-    statusRecentlyList,
-  }
-} = computed;
-
-const { methods: {
-    addToRecentlyList,
-  }
-} = methods;
+    link,
+  } 
+} = base;
 
 export default {
   name: 'TvCard',
-  mixins: [props],
-  computed: {
-    link,
+  mixins: [props, recently],
+  computed: { 
+    name, 
     imgURL,
-    name,
-    recentlyList,
-    statusRecentlyList,
-  },
-  methods: {
-    addToRecentlyList,
+    link,
   }
 }
 </script>
