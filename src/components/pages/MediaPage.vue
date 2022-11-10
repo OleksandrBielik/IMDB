@@ -130,6 +130,12 @@ export default {
         }
     }
   },
+  beforeMount() {
+    document.title = `IMDb - ${this.media}`
+  },
+  beforeUpdate() {
+    document.title = `IMDb - ${this.media}`
+  },
   methods: {
     onCatch,
   }

@@ -12,6 +12,7 @@ html {
 }
 
 body {
+	transition: all 250ms ease-in-out;
 	margin: 0; /* 1 */
 	font-family:
 		system-ui,
@@ -23,6 +24,9 @@ body {
 		sans-serif,
 		'Apple Color Emoji',
 		'Segoe UI Emoji'; /* 2 */
+	background-color: $black;
+	color: $white;
+	font-family: 'Inter', sans-serif;
 }
 
 hr {

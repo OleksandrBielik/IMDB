@@ -29,9 +29,7 @@
         </router-link>
         <search-form />
       </div>
-      <button type="button" @click="onDarkMode">
-        DARK MODE
-      </button>
+      <theme-switcher />
       <router-link
         v-if="!userLogin"
         to="/login"
@@ -60,10 +58,15 @@
 <script>
 import UserModal from './modals/UserModal.vue'
 import SearchForm from './SearchForm.vue'
+import ThemeSwitcher from './ThemeSwitcher.vue'
 
 export default {
   name: 'AppHeader',
-  components: { SearchForm, UserModal },
+  components: { 
+    SearchForm, 
+    UserModal, 
+    ThemeSwitcher 
+  },
   data() {
     return {
       modal: false
@@ -89,9 +92,6 @@ export default {
     showModal() {
       this.modal = !this.modal
     },
-    onDarkMode() {
-      this.$emit('on-dark', true)
-    }
   }
 }
 </script>
@@ -138,7 +138,7 @@ header {
     justify-content: center;
     align-items: center;
     font-weight: 800;
-    width: 28px;
+    min-width: 28px;
     height: 28px;
     border-radius: 50%;
     background-color: $gold-color;

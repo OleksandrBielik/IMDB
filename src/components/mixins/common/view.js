@@ -5,7 +5,7 @@ export const view = {
     }
   },
   mounted() {
-    setTimeout(()=> this.loading = false, 500)
+    setTimeout(()=> this.loading = false, 1000)
     setTimeout(()=> this.scrollUp(), 50)
   },
   methods: {

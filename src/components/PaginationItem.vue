@@ -28,7 +28,7 @@ export default {
   },
   computed: {
     active() {
-      return this.page === this.item ? 'background-color: gray;' : ''
+      return this.page === this.item ? 'background-color: gray; color: white;' : ''
     },
     pathName() {
       try {
@@ -101,7 +101,7 @@ export default {
     }
   }
   li {
-    border: 1px solid $white;
+    border: 1px solid currentColor;
     border-radius: 3px;
     overflow: hidden;
   }
@@ -113,9 +113,6 @@ export default {
     @media(min-width: 1024px) {
       margin-right: 10px;
     }
-  }
-  .active {
-    background-color: $gray;
   }
 }
 </style>

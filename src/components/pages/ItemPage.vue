@@ -387,6 +387,12 @@ export default {
       }
     }
   },
+  beforeMount() {
+    document.title = this.title
+  },
+  beforeUpdate() {
+    document.title = this.title
+  },
   methods: {
     onClose(modal) {
       this.modal = modal
@@ -431,7 +437,7 @@ export default {
     flex-wrap: wrap;
     li {
       display: inline-block;
-      border: 1px solid $white;
+      border: 1px solid currentColor;
       border-radius: 30px;
       padding: 5px 10px;
     }
@@ -645,7 +651,7 @@ export default {
     flex-direction: column;
     align-items: center;
     font-size: 12px;
-    color: $secondary-gray;
+    color: inherit;
   }
   .imdb-rating {
     margin-right: 20px;
@@ -661,9 +667,6 @@ export default {
   .rate {
     color: $light-blue-color;
     cursor: pointer;
-  }
-  .imdb-rate {
-    color: $white;
   }
   .wrapper-rating {
     display: flex;
@@ -689,7 +692,7 @@ export default {
     margin-bottom: 20px;
     li {
       padding-bottom: 10px;
-      border-bottom: 1px solid $white;
+      border-bottom: 1px solid currentColor;
       line-height: 24px;
     }
     li:not(:first-child) {

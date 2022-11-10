@@ -1,13 +1,5 @@
 <template>
   <main class="now-playing">
-    <transition name="fade">
-      <div
-        v-if="loading"
-        class="status-global"
-      >
-        <app-loader />
-      </div>
-    </transition>
     <div class="container container-flex">
       <card-list @on-error="onError" />
     </div>
@@ -18,7 +10,6 @@
 <script>
 import CardList from '@/components/CardList.vue';
 import PaginationComp from '@/components/PaginationComp.vue';
-import AppLoader from '@/components/errors/AppLoader.vue';
 import { methods } from '@/components/mixins/common/methods';
 
 export default {
@@ -26,13 +17,12 @@ export default {
   components: { 
     CardList, 
     PaginationComp,
-    AppLoader,
   },
   mixins: [methods],
   watch: {
-    async $route() {
+    async $route(to, from) {
       return this.$store.dispatch('movieNowPlaying/getNowPlaying', { page: this.$route.query.page })
-        .then(this.onCatch)
+        .catch(this.onCatch)
     }
   },
   mounted() {

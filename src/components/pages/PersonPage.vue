@@ -108,6 +108,12 @@ export default {
     return this.$store.dispatch('person/fetchPerson', { id: this.$route.params.id })
       .catch(this.onCatch)
   },
+  beforeMount() {
+    document.title = this.title
+  },
+  beforeUpdate() {
+    document.title = this.title
+  },
   methods: {
     onCatch,
   }
@@ -116,7 +122,7 @@ export default {
 
 <style lang="scss" scoped>
   .page {
-    color: #fff;
+    color: $white;
     padding-top: 50px;
     line-height: 24px;
     @media (min-width:400px) {
@@ -157,7 +163,7 @@ export default {
     font-weight: 800;
   }
   li {
-    border-bottom: 1px solid $white;
+    border-bottom: 1px solid currentColor;
   }
   li:not(:first-child) {
     padding: 10px 0;

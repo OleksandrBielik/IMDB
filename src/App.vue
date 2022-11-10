@@ -4,7 +4,6 @@
       <app-header
         v-if="$route.path !== '/login'"
         @on-click="onClick"
-        @on-dark="onDarkMode"
       />
       <burger-menu
         v-if="$route.path !== '/login'"
@@ -38,7 +37,6 @@ export default {
       return {
         menu: false,
         error: false,
-        darkMode: false,
       }
     },
     methods: {
@@ -48,17 +46,14 @@ export default {
       onError(val) {
         this.error = val
       },
-      onDarkMode() {
-        this.darkMode = true
-      }
     }
 }
 </script>
 
 <style lang="scss">
   #app {
-    font-family: 'Inter', sans-serif;
-    color: $white;
-    background-color: $black;
+    background-color: inherit;
+    color: inherit;
+    font-family: inherit;
   }
 </style>

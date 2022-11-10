@@ -59,7 +59,6 @@ export const movieNowPlaying = {
           commit('setTotalPages', res.data.total_pages)
           commit('setLoading', false)
         })
-      .finally(commit('setLoading', false))
     },
   },
   getters: {

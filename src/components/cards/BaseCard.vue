@@ -208,13 +208,13 @@ export default {
     left: 50%;
     transform: translateX(-50%);
     bottom: 10px;
-    width: 90%;
+    width: 95%;
   }
   .watch-list {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    min-width: 100%;
     padding: 5px 0;
     border-radius: 5px;
     color: $light-blue-color;

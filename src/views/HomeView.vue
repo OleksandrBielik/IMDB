@@ -32,6 +32,12 @@ export default {
     AppLoader,
   },
   mixins: [view],
+  beforeMount() {
+    document.title = 'IMDb'
+  },
+  beforeUpdate() {
+    document.title = 'IMDb'
+  },
 }
 </script>
 

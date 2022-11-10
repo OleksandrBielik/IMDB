@@ -127,6 +127,12 @@ export default {
       }
     }
   },
+  beforeMount() {
+    document.title = `IMDb ${this.$route.name}`
+  },
+  beforeUpdate() {
+    document.title = `IMDb ${this.$route.name}`
+  },
   methods: {
     onCatch,
   }

@@ -222,7 +222,7 @@ export default {
     transform: translateX(-50%);
     bottom: 10px;
     padding: 0 5px;
-    width: 90%;
+    width: 95%;
     height: auto;
   }
   .watch-list {

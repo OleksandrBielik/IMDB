@@ -104,7 +104,6 @@ export default {
   justify-content: flex-end;
   .search-button {
     display: inline-block;
-    margin-right: 20px;
     @media (min-width:400px) {
       display:none;
     }
@@ -112,13 +111,14 @@ export default {
   .form-main {
     color: $black;
     width: 100%;
+    max-width: 600px;
     height: 100%;
     display: none;
     justify-content: space-between;
     align-items: center;
     border-radius: 5px;
     overflow: hidden;
-    margin-right: 12px;
+    margin: 0 auto;
     @media (min-width:400px) {
       display:flex;
     }
@@ -151,6 +151,7 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: 3;
     color: $white;
     background-color: $black;
     input {
