@@ -1,6 +1,7 @@
 const path = require('path')
 
 module.exports = {
+  publicPath: '/IMDB/',
   pages: {
     index: {
       entry: 'src/main.js',
