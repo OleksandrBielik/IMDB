@@ -162,9 +162,12 @@ export default {
       top: 60px;
     }
     .backdrop {
-      height: 80px;
+      height: 30px;
       background-color: $black;
       position: relative;
+      @media (min-height: 550px) {
+        height: 80px;
+      }
     }
     .profile-image {
       display: flex;
@@ -183,13 +186,24 @@ export default {
       left: 50%;
       transform: translateX(-50%);
       cursor: default;
+      display: none;
+      @media (min-height: 550px) {
+        display: flex;
+      }
     }
     .user-info {
-      padding: 50px 15px 15px 15px;
+      padding: 15px;
       text-align: center;
+      @media (min-height: 550px) {
+        padding: 50px 15px 15px 15px;
+      }
     }
     .name {
+      display: none;
       margin-bottom: 30px;
+      @media (min-height: 550px) {
+        display: block;
+      }
     }
     button {
       display: inline-flex;

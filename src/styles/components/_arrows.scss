@@ -31,4 +31,8 @@
 }
 .arrow-prev {
   left: 5px;
+  svg {
+    transform: rotate(180deg);
+  }
+  
 }

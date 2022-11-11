@@ -59,7 +59,7 @@
       <div class="slider-wrapper">
         <Flicking
           ref="flicking"
-          :options="{ moveType: 'freeScroll', bound: true, align: 'prev', bounce: '4%', duration: 1000, renderOnlyVisible: true }"
+          :options="{ moveType: 'freeScroll', bound: true, align: 'prev', bounce: '4%', duration: 500 }"
         >
           <card-item
             v-for="(item, index) in items"
