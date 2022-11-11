@@ -11,12 +11,12 @@
           :src="imgURL"
           :alt="name + ' photo'"
         >
-        <img
+        <div
           v-else
           class="image-not-found"
-          src="../../assets/sprite.svg#icon-image-not-found.svg"
-          alt="image not found"
         >
+          Image not found
+        </div>
       </div>
       <h2 class="name">
         {{ name }}
@@ -78,10 +78,21 @@ export default {
         height: 185px;
       }
     }
-    img.image-not-found {
-      object-fit: contain;
-      transform: scale(0.6);
+  .image-not-found {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 124px;
+    height: 124px;
+    @media (min-width:768px) {
+      width: 159px;
+      height: 159px;
     }
+    @media (min-width:1440px) {
+      width: 185px;
+      height: 185px;
+    }
+  }
   }
   .name {
     max-width: 124px;

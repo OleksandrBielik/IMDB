@@ -14,12 +14,12 @@
             :src="imgURL"
             :alt="name + ' poster'"
           >
-          <img
+          <div
             v-else
             class="image-not-found"
-            src="../../assets/sprite.svg#icon-image-not-found.svg"
-            alt="image not found"
           >
+            Image not found
+          </div>
         </div>
         <div class="wrapper-info">
           <div class="wrapper">
@@ -186,6 +186,22 @@ export default {
       @media (min-width:1280px) {
         height: 340px;
       }
+    }
+  }
+    .image-not-found {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 210px;
+    @media (min-width:768px) {
+      height: 255px;
+    }
+    @media (min-width:1024px) {
+      height: 274px;
+    }
+    @media (min-width:1280px) {
+      height: 340px;
     }
   }
 }
