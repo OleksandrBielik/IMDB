@@ -157,12 +157,12 @@ export default {
     overflow: hidden;
     background-color: $white;
     margin-left: auto;
-    @media(min-width: 400px) {
+    @media(min-width: 400px) and (min-height: 550px) {
       right: 25px;
       top: 60px;
     }
     .backdrop {
-      height: 30px;
+      height: 14px;
       background-color: $black;
       position: relative;
       @media (min-height: 550px) {
