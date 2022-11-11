@@ -7,4 +7,12 @@ const defaultConfig = {
   }
 }
 
+const LoginConfig = {
+  baseURL: process.env.VUE_APP_BASE_URL,
+  headers: {
+    'Content-type': 'application/json'
+  }
+}
+
 export const DefaultAPIInstance = axios.create(defaultConfig)
+export const LoginAPIInstance = axios.create(LoginConfig)

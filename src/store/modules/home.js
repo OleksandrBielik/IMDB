@@ -7,50 +7,79 @@ export const home = {
     upcomingList: [],
     popularList: [],
     onAirList: [],
-    recentlyList: [],
+    recentlyList: JSON.parse(localStorage.getItem('recently')) || [],
   }),
   mutations: {
     setTrending(state, items) {
       state.trendingList = [...items]
-      console.log(state.trendingList)
     },
     setUpcoming(state, items) {
       state.upcomingList = [...items]
-      console.log(state.upcomingList)
     },
     setPopular(state, items) {
       state.popularList = [...items]
-      console.log(state.popularList)
     },
     setOnAir(state, items) {
       state.onAirList = [...items]
-      console.log(state.onAirList)
     },
     addRecently(state, item) {
       state.recentlyList.push(item)
-      console.log(state.recentlyList)
+      if (!localStorage.getItem('recently')) {
+        localStorage.setItem('recently', JSON.stringify([item]))
+      } else {
+        localStorage.setItem('recently', JSON.stringify([...JSON.parse(localStorage.getItem('recently')), item]))
+      }
     },
+    removeRecently(state) {
+      state.recentlyList = []
+      localStorage.removeItem('recently')
+    }
   },
   actions: {
-    async fetchTrending({ commit }) {
-      const res = await TMDBAPI.getTrending()
-      const filteredRes = res.data.results.filter(item => item.media_type !== 'person')
-      commit('setTrending', filteredRes)
+    async fetchTrending({ commit }, { page }) {
+      return TMDBAPI.common.getTrending({ page })
+        .then(res => {
+          res.data.results.map(item => {
+            item.card_type = 'flick'
+          })
+          commit('setTrending', res.data.results)
+        })
     },
-    async fetchUpcoming({ commit }) {
-      const res = await TMDBAPI.getUpcoming()
-      commit('setUpcoming', res.data.results)
+    async fetchUpcoming({ commit }, { page }) {
+      return TMDBAPI.movie.getUpcoming({ page })
+        .then(res => {
+          res.data.results.map(item => {
+            item.media_type = 'movie'
+            item.card_type = false
+          })
+          commit('setUpcoming', res.data.results)
+        })
     },
-    async fetchPopular({ commit }) {
-      const res = await TMDBAPI.getPopular()
-      commit('setPopular', res.data.results)
+    async fetchPopular({ commit }, { page }) {
+      return TMDBAPI.person.getPopular({ page })
+        .then(res => {
+          res.data.results.map(item => {
+            item.media_type = 'person'
+            item.card_type = false
+          })
+          commit('setPopular', res.data.results)
+        })
     },
-    async fetchOnAir({ commit }) {
-      const res = await TMDBAPI.getOnAir()
-      commit('setOnAir', res.data.results)
+    async fetchOnAir({ commit }, { page }) {
+      return TMDBAPI.tv.getOnAir({ page })
+        .then(res => {
+          res.data.results.map(item => {
+            item.media_type = 'tv'
+            item.card_type = false
+          })
+          commit('setOnAir', res.data.results)
+        })
     },
     addRecently({ commit }, { item }) {
       commit('addRecently', item)
+    },
+    removeRecently({ commit }) {
+      commit('removeRecently')
     },
   },
   getters: {

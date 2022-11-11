@@ -1,23 +1,124 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '*',
+    name: 'not-found',
+    component: () => import('../views/NotFoundView.vue')
+  },
+  {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: () => import('../views/HomeView.vue')
   },
   {
     path: '/search',
     name: 'search',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/SearchView.vue')
-  }
+    component: () => import('../views/SearchView.vue')
+  },
+  {
+    path: '/trending',
+    name: 'trending',
+    component: () => import('../views/TrendingView.vue')
+  },
+  {
+    path: '/tv/images/:id',
+    name: 'tv-images',
+    component: () => import('../views/ImageView.vue')
+  },
+  {
+    path: '/tv/videos/:id',
+    name: 'tv-videos',
+    component: () => import('../views/VideoView.vue')
+  },
+  {
+    path: '/tv/popular',
+    name: 'tv-popular',
+    component: () => import('../views/tv/PopularView.vue')
+  },
+  {
+    path: '/tv/top-rated',
+    name: 'tv-topRated',
+    component: () => import('../views/tv/TopRatedView.vue')
+  },
+  {
+    path: '/tv/on-air',
+    name: 'tv-onAir',
+    component: () => import('../views/tv/OnAirView.vue')
+  },
+  {
+    path: '/tv/:id',
+    name: 'tv',
+    component: () => import('../views/tv/TvView.vue')
+  },
+  {
+    path: '/movie/images/:id',
+    name: 'movie-images',
+    component: () => import('../views/ImageView.vue')
+  },
+  {
+    path: '/movie/videos/:id',
+    name: 'movie-videos',
+    component: () => import('../views/VideoView.vue')
+  },
+  {
+    path: '/movie/:id/similar',
+    name: 'similar',
+    component: () => import('../views/movie/SimilarView.vue')
+  },
+  {
+    path: '/movie/upcoming',
+    name: 'movie-upcoming',
+    component: () => import('../views/movie/UpcomingView.vue')
+  },
+  {
+    path: '/movie/top-rated',
+    name: 'movie-topRated',
+    component: () => import('../views/movie/TopRatedView.vue')
+  },
+  {
+    path: '/movie/popular',
+    name: 'movie-popular',
+    component: () => import('../views/movie/PopularView.vue')
+  },
+  {
+    path: '/movie/now-playing',
+    name: 'movie-nowPlaying',
+    component: () => import('../views/movie/NowPlayingView.vue')
+  },
+  {
+    path: '/movie/:id',
+    name: 'movie',
+    component: () => import('../views/movie/MovieView.vue'),
+  },
+  {
+    path: '/movie/*',
+    name: 'movie-not-found',
+    component: () => import('../views/NotFoundView.vue')
+  },
+  {
+    path: '/person/popular',
+    name: 'person-popular',
+    component: () => import('../views/person/PopularView.vue')
+  },
+  {
+    path: '/person/images/:id',
+    name: 'person-images',
+    component: () => import('../views/ImageView.vue')
+  },
+  {
+    path: '/person/:id',
+    name: 'person',
+    component: () => import('../views/person/PersonView.vue')
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('../views/LoginView.vue')
+  },
 ]
 
 const router = new VueRouter({

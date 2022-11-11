@@ -1,31 +1,48 @@
 <template>
-  <div class="home">
-    <upcoming-list />
-    <trending-list />
-    <popular-list />
-    <on-air-list />
-    <recently-list />
-    <app-footer />
-  </div>
+  <main class="home">
+    <transition name="fade">
+      <div
+        v-if="loading"
+        class="status-global"
+      >
+        <app-loader />
+      </div>
+    </transition>
+    <upcoming-list :component-name="'Upcoming'" />
+    <div class="container">
+      <slider-list :component-name="'Trending'" />
+      <slider-list :component-name="'Popular'" />
+      <slider-list :component-name="'OnAir'" />
+      <slider-list :component-name="'Recently'" />
+    </div>
+  </main>
 </template>
 
 <script>
-import TrendingList from '@/components/TrendingList.vue';
 import UpcomingList from '@/components/UpcomingList.vue';
-import PopularList from '@/components/PopularList.vue';
-import OnAirList from '@/components/OnAirList.vue';
-import RecentlyList from '@/components/RecentlyList.vue';
-import AppFooter from '@/components/AppFooter.vue';
+import AppLoader from '@/components/errors/AppLoader.vue';
+import { view } from '@/components/mixins/common/view';
+const SliderList = () => import('@/components/SliderList.vue');
 
 export default {
   name: 'HomeView',
   components: {
-    TrendingList,
+    SliderList,
     UpcomingList,
-    PopularList,
-    OnAirList,
-    RecentlyList,
-    AppFooter,
-  }
+    AppLoader,
+  },
+  mixins: [view],
+  beforeMount() {
+    document.title = 'IMDb'
+  },
+  beforeUpdate() {
+    document.title = 'IMDb'
+  },
 }
 </script>
+
+<style lang="scss" scoped>
+  .home {
+    padding-top: 15px;
+  }
+</style>

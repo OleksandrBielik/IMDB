@@ -1,9 +1,25 @@
 <template>
-  <div class="upcoming">
+  <section class="upcoming">
+    <h2 class="visually-hidden">
+      Upcoming
+    </h2>
     <div class="container">
+      <template v-if="loading || error.status">
+        <div
+          v-if="loading"
+          class="status"
+        >
+          <app-loader />
+        </div>
+        <error-comp
+          v-else-if="error.status"
+          class="status"
+        />
+      </template>
       <Flicking
+        v-else
         ref="flicking"
-        :options="{ moveType: ['strict', { count: 1 }], circular: true, bounce: '4%' }"
+        :options="{ moveType: ['strict', { count: 1 }], circular: true, bounce: '4%', renderOnlyVisible: true }"
         :plugins="plugins"
       >
         <upcoming-card
@@ -12,120 +28,115 @@
           :item="item"
         />
       </Flicking>
-      <button
-        class="arrow-next"
-        :style="styleObject"
-        @click.prevent="next"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-        ><path
-          d="m14.707 12.707-4 4a1 1 0 0 1-1.414-1.414L12.586 12 9.293 8.707a1 1 0 1 1 1.414-1.414l4 4a1 1 0 0 1 0 1.414z"
-          style="fill:currentColor"
-        /></svg>
-      </button>
-      <button
-        class="arrow-prev"
-        :style="styleObject"
-        @click.prevent="prev"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-        ><path
-          d="M14 17a1 1 0 0 1-.707-.293l-4-4a1 1 0 0 1 0-1.414l4-4a1 1 0 1 1 1.414 1.414L11.414 12l3.293 3.293A1 1 0 0 1 14 17z"
-          style="fill:currentColor"
-        /></svg>
-      </button>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
+import UpcomingCard from '@/components/cards/UpcomingCard.vue';
+import ErrorComp from '@/components/errors/AppError.vue';
+import AppLoader from '@/components/errors/AppLoader.vue';
 import { Flicking } from '@egjs/vue-flicking';
 import { AutoPlay } from '@egjs/flicking-plugins';
-import UpcomingCard from '@/components/UpcomingCard.vue';
+import { methods } from '@/components/mixins/common/methods';
+
+const { methods: {
+  onCatchComp,
+} } = methods;
 
 export default {
   name: 'UpcomingList',
   components: {
     Flicking,
-    UpcomingCard
+    UpcomingCard,
+    ErrorComp,
+    AppLoader,
   },
   data() {
     return {
       plugins: [new AutoPlay({ duration: 3000, direction: 'NEXT', stopOnHover: false })],
-      opacity: '0'
+      loading: true,
+      error: { status: false, type: null },
     }
   },
   computed: {
     items() {
       return this.$store.getters['home/getUpcoming']
     },
-    styleObject() {
-      return {
-        'opacity': this.opacity
-      }
-    }
   },
-  mounted() {
-    this.$store.dispatch('home/fetchUpcoming')
-    this.initArrows()
+  async mounted() {
+    return this.$store.dispatch('home/fetchUpcoming', { page:1 })
+      .then(this.onThen)
+      .catch(this.onCatchComp)
   },
   methods: {
-    next() {
-      this.$refs.flicking.next();
-    },
-    prev() {
-      this.$refs.flicking.prev();
-    },
-    initArrows() {
-      setTimeout(()=> this.opacity = 1, 1000)
+    onCatchComp,
+    onThen(res) {
+      this.loading = false
     }
-  }
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-  .container {
-    max-width: 1280px;
-    padding: 0 15px;
-    margin: 0 auto;
-    position: relative;
-  }
   .upcoming {
-    margin: 10px 0 20px 0;
-  }
-  .arrow-next, .arrow-prev {
-    position: absolute;
-    top: 40%;
-    transform: translateY(-50%);
-    width: 30px;
-    height: 40px;
-    color: #fff;
-    background-color: rgba(90, 90, 90, 0.5);
-    z-index: 2;
-    border: 1px solid #fff;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: all 250ms ease-in-out;
-    &:hover, &:focus {
-      color: #F5C518;
+    margin: 48px 0 50px 0;
+    @media (min-width:1024px) {
+      margin-bottom: 100px;
     }
-    @media(min-width:768px) {
-      width: 50px;
-      height: 70px;
-    }
-    @media(min-width:1440px) {
-      width: 70px;
-      height: 100px;
+    @media (min-width:400px) {
+      margin-top: 50.69px;
     }
   }
-  .arrow-next {
-    right: 20px;
+  .container {
+    position: relative;
+    padding: 0;
   }
-  .arrow-prev {
-    left: 20px;
+  .status {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 280px;
+    @media (min-width: 375px) {
+      height: 311px;
+    }
+    @media (min-width: 425px) {
+      height: 339px;
+    }
+    @media (min-width: 768px) {
+      height: 432px;
+    }
+    @media (min-width: 1024px) {
+      height: 572px;
+    }
+    @media (min-width: 1280px) {
+      height: 720px;
+    }
   }
+  i {
+    margin: 10em auto;
+    @media (min-width: 375px) {
+      margin: 11em auto;
+    }
+    @media (min-width: 425px) {
+      margin: 12em auto;
+    }
+    @media (min-width: 768px) {
+      margin: 15em auto;
+    }
+    @media (min-width: 1024px) {
+      margin: 20em auto;
+    }
+    @media (min-width: 1280px) {
+      margin: 25em auto;
+    }
+  }
+  .fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+  opacity: 0;
+}
 </style>
