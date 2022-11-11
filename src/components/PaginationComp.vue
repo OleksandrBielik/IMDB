@@ -2,6 +2,8 @@
   <ul
     v-if="pages > 1"
     class="pagination"
+    aria-label="Page navigation"
+    tabindex="0"
   >
     <pagination-item
       :item="'FIRST'"

@@ -2,7 +2,7 @@
   <div class="modal-user">
     <div class="backdrop">
       <div class="profile-image">
-        {{ userLetter }}
+        {{ userLetter.toUpperCase() }}
       </div>
     </div>
     <div class="user-info">
@@ -12,37 +12,17 @@
       <div class="panel">
         <button
           type="button"
-          class="watchlist-button"
+          class="watchlist"
+          aria-label="Watchlist"
         >
           <svg
-            id="iconContext-watchlist"
             width="24"
             height="24"
-            xmlns="http://www.w3.org/2000/svg"
-            class="ipc-icon ipc-icon--watchlist ipc-button__icon ipc-button__icon--pre"
-            viewBox="5 0 22 22"
-            fill="currentColor"
-            role="presentation"
-          ><path
-            d="M17 3c1.05 0 1.918.82 1.994 1.851L19 5v16l-7-3-7 3V5c0-1.05.82-1.918 1.851-1.994L7 3h10zm-4 4h-2v3H8v2h3v3h2v-3h3v-2h-3V7z"
-            fill="currentColor"
-          /></svg>
+          >
+            <use href="../../assets/sprite.svg#icon-watchlist" />
+          </svg>
           <span>My watchlist</span>
         </button>
-        <div
-          v-if="items.length"
-          class="control-panel"
-        >
-          <button
-            type="button"
-            class="remove-button"
-            :class="{disabled: selectedList.length === 0}"
-            :disabled="disabled"
-            @click="onRemove"
-          >
-            Remove{{ '(' + selectedList.length + ')' }}
-          </button>
-        </div>
         <div
           v-if="items.length"
           class="watchlist"
@@ -65,17 +45,34 @@
         >
           Empty
         </div>
+        <div
+          v-if="items.length"
+          class="control-panel"
+        >
+          <button
+            type="button"
+            class="remove-button"
+            aria-label="Delete from watchlist"
+            :class="{disabled: selectedList.length === 0}"
+            :disabled="disabled"
+            @click="onRemove"
+          >
+            Remove{{ '(' + selectedList.length + ')' }}
+          </button>
+        </div>
         <button
           type="button"
           class="logout"
+          aria-label="Logout button"
           @click="onLogout"
         >
-          <img
+          <svg
+            class="icon-logout"
             width="16"
             height="20"
-            src="../../assets/logout.svg"
-            alt="logout-icon"
           >
+            <use href="../../assets/sprite.svg#icon-logout" />
+          </svg>
           <span>Logout</span>
         </button>
       </div>
@@ -207,10 +204,8 @@ export default {
     .watchlist-button {
       margin-bottom: 10px;
     }
-    .logout {
-      img {
-        margin-right: 8px;
-      }
+    .icon-logout {
+      margin-right: 8px;
     }
     .control-panel {
       display: flex;

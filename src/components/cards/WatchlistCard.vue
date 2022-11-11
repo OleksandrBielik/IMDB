@@ -1,7 +1,10 @@
 <template>
   <article
     class="watchlist-card"
+    :aria-label="`${name} card`"
+    tabindex="0"
     @click="onSelect"
+    @keydown.enter="onSelect"
   >
     <div
       class="select-backdrop"

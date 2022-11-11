@@ -11,20 +11,16 @@
         name="search"
         placeholder="Search IMDb"
       >
-      <button type="submit">
+      <button
+        type="submit"
+        aria-label="Search button"
+      >
         <svg
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
+          class="search-icon"
           width="17"
           height="17"
-          viewBox="0 0 512 512"
         >
-          <title />
-          <g id="icomoon-ignore" />
-          <path
-            fill="currentColor"
-            d="M496.131 435.698l-121.276-103.147c-12.537-11.283-25.945-16.463-36.776-15.963 28.628-33.534 45.921-77.039 45.921-124.588 0-106.039-85.961-192-192-192s-192 85.961-192 192 85.961 192 192 192c47.549 0 91.054-17.293 124.588-45.922-0.5 10.831 4.68 24.239 15.963 36.776l103.147 121.276c17.661 19.623 46.511 21.277 64.11 3.678s15.946-46.449-3.677-64.11zM192 320c-70.692 0-128-57.308-128-128s57.308-128 128-128 128 57.308 128 128-57.307 128-128 128z"
-          />
+          <use href="../assets/sprite.svg#icon-search" />
         </svg>
       </button>
     </form>
@@ -33,18 +29,11 @@
       @click.prevent="mobileSearch = true"
     >
       <svg
-        version="1.1"
-        xmlns="http://www.w3.org/2000/svg"
+        class="search-icon-mob"
         width="17"
         height="17"
-        viewBox="0 0 512 512"
       >
-        <title />
-        <g id="icomoon-ignore" />
-        <path
-          fill="currentColor"
-          d="M496.131 435.698l-121.276-103.147c-12.537-11.283-25.945-16.463-36.776-15.963 28.628-33.534 45.921-77.039 45.921-124.588 0-106.039-85.961-192-192-192s-192 85.961-192 192 85.961 192 192 192c47.549 0 91.054-17.293 124.588-45.922-0.5 10.831 4.68 24.239 15.963 36.776l103.147 121.276c17.661 19.623 46.511 21.277 64.11 3.678s15.946-46.449-3.677-64.11zM192 320c-70.692 0-128-57.308-128-128s57.308-128 128-128 128 57.308 128 128-57.307 128-128 128z"
-        />
+        <use href="../assets/sprite.svg#icon-search" />
       </svg>
     </div>
     <form
@@ -104,9 +93,12 @@ export default {
   justify-content: flex-end;
   .search-button {
     display: inline-block;
-    @media (min-width:400px) {
+    @media (min-width:470px) {
       display:none;
     }
+  }
+  .search-icon-mob {
+    fill: $white;
   }
   .form-main {
     color: $black;
@@ -119,7 +111,7 @@ export default {
     border-radius: 5px;
     overflow: hidden;
     margin: 0 auto;
-    @media (min-width:400px) {
+    @media (min-width:470px) {
       display:flex;
     }
     input {
@@ -139,6 +131,9 @@ export default {
       align-items: center;
       color: inherit;
       cursor: pointer;
+    }
+    .search-icon {
+      fill: $black;
     }
   }
   .form-mobile {

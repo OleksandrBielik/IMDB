@@ -16,11 +16,11 @@ body.light-mode {
     }
   .panel-list li {
     color: #545B5A;
-    li:hover, li:focus {
+    .wrapper:hover, .wrapper:focus {
       color: $black;
     }
   }
-  li.active .wrapper{
+  .wrapper.active{
     color: $black;
   }
   }

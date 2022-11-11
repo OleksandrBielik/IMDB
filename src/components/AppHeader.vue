@@ -5,21 +5,16 @@
         <button
           type="button"
           class="burger-menu"
+          aria-label="Side menu open button"
           @click="onClick"
         >
           <svg
-            id="iconContext-menu"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            class="ipc-icon ipc-icon--menu"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            role="presentation"
-          ><path
-            fill="none"
-            d="M0 0h24v24H0V0z"
-          /><path d="M4 18h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zm0-5h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zM3 7c0 .55.45 1 1 1h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1z" /></svg>
+            class="burger-icon"
+            width="25"
+            height="25"
+          >
+            <use href="../assets/sprite.svg#icon-burger" />
+          </svg>
         </button>
         <router-link
           to="/"
@@ -41,9 +36,10 @@
         v-else
         type="button"
         class="user"
+        aria-label="User profile open button"
         @click="showModal"
       >
-        {{ userLetter }}
+        {{ userLetter.toUpperCase() }}
       </button>
     </div>
     <div
@@ -120,6 +116,9 @@ header {
     background-color: inherit;
     color: $white;
     cursor: pointer;
+  }
+  .burger-icon {
+    fill: currentColor;
   }
   .w-100 {
     width: 100%;

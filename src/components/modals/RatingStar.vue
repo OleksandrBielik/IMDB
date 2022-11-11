@@ -1,15 +1,32 @@
 <template>
-  <label :class="active">
+  <label
+    :class="active"
+    @click="onChange"
+    @keydown.enter="onChange"
+  >
     <input
       type="radio"
       name="rating"
       :value="value"
       :aria-label="`Rate ${value}`"
+      class="visually-hidden"
       tabindex="-1"
-      @click="onChange"
-      @keydown.enter="onChange"
     >
-    <span class="checkbox-icon" />
+    <span class="checkbox-icon">
+      <svg
+        class="icon-star-border"
+        width="26"
+        height="26"
+      >
+        <use href="../../assets/sprite.svg#icon-star-border" />
+      </svg>
+      <svg
+        class="icon-big-star"
+        width="26"
+        height="26"
+      >
+        <svg><use href="../../assets/sprite.svg#icon-big-star" /></svg>
+      </svg></span>
   </label>
 </template>
 
@@ -60,15 +77,27 @@ export default {
   }
   span.checkbox-icon {
     display: inline-block;
-    background: url('../../assets/star-border.svg')no-repeat;
-    width: 24px;
-    height: 24px;
-    background-position: center;
+    color: $light-blue-color;
+    svg {
+      fill: currentColor;
+    }
+    .icon-big-star {
+      display: none;
+    }
+    .icon-star-border {
+      display: inline-block;
+    }
   }
   label:not(:last-child) {
     margin-right: 5px;
   }
-  label.active > .checkbox-icon{
-    background: url('../../assets/star-icon.svg')no-repeat;
+  label.active > .checkbox-icon {
+    color: $gold-color;
+    .icon-big-star {
+      display: inline-block;
+    }
+    .icon-star-border {
+      display: none
+    }
   }
 </style>

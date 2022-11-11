@@ -34,6 +34,7 @@
           <button
             type="button"
             class="link"
+            aria-label="Remove recently list button"
             @click="removeRecently"
           >
             {{ link }}
@@ -71,29 +72,25 @@
           v-if="!last && items.length"
           type="button"
           class="arrow-next"
+          aria-label="Swipe to last"
           @click.prevent="moveEnd"
         >
           <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-          ><path
-            d="m14.707 12.707-4 4a1 1 0 0 1-1.414-1.414L12.586 12 9.293 8.707a1 1 0 1 1 1.414-1.414l4 4a1 1 0 0 1 0 1.414z"
-            style="fill:currentColor"
-          /></svg>
+            width="24"
+            height="24"
+          ><use href="../assets/sprite.svg#icon-arrow" /></svg>
         </button>
         <button
           v-if="last && items.length"
           class="arrow-prev"
           type="button"
+          aria-label="Swipe to first"
           @click.prevent="moveStart"
         >
           <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-          ><path
-            d="M14 17a1 1 0 0 1-.707-.293l-4-4a1 1 0 0 1 0-1.414l4-4a1 1 0 1 1 1.414 1.414L11.414 12l3.293 3.293A1 1 0 0 1 14 17z"
-            style="fill:currentColor"
-          /></svg>
+            width="24"
+            height="24"
+          ><use href="../assets/sprite.svg#icon-arrow" /></svg>
         </button>
       </div>
     </div>

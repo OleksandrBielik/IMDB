@@ -2,6 +2,7 @@
   <router-link
     :to="link"
     class="person-card"
+    :aria-label="`${name} card`"
   >
     <article @click="addToRecentlyList(item)">
       <div class="thumb">
@@ -13,7 +14,7 @@
         <img
           v-else
           class="image-not-found"
-          src="../../assets/image-not-found-icon.svg"
+          src="../../assets/sprite.svg#icon-image-not-found.svg"
           alt="image not found"
         >
       </div>

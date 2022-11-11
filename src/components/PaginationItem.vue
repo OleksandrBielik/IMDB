@@ -4,6 +4,7 @@
       type="button"
       :style="active"
       :disabled="disabled"
+      :aria-label="`Page ${item}`"
       @click.prevent="changePage"
     >
       {{ item }}
@@ -103,7 +104,6 @@ export default {
   li {
     border: 1px solid currentColor;
     border-radius: 3px;
-    overflow: hidden;
   }
   li:not(:last-child) {
   margin-right: 5px;

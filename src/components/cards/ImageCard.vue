@@ -2,6 +2,7 @@
   <router-link
     class="poster-card"
     :to="link"
+    :aria-label="`${name} image-card`"
   >
     <div
       class="thumb"
